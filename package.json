@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "gitlog": "git log `git describe --tags --abbrev=0`..HEAD --no-merges --pretty=format:' * %Cblue%s%Creset %h (%an)'",
+    "gitlog": "git log `git describe --tags --abbrev=0`..HEAD --no-merges --graph --decorate --pretty=format:'%h %Cblue%s%Creset %cr (%an)'",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "format": "prettier-eslint --list-different src/**/*.js",
     "format-danger": "prettier-eslint --write src/**/*.js",
