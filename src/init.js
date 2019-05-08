@@ -56,6 +56,11 @@ const questions = [
     },
 ];
 
+/**
+ * 通过命令行初始化 metadata 信息。
+ *
+ * 也就是在给定目录下初始化 $$t2e.data 目录，以及下面的相应 yaml。
+ */
 inquirer.prompt(questions).then(answers => {
     console.log();
     console.log(answers);
