@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const yaml = require('js-yaml');
 
-const {METADATA_YAML, UUID_YAML, METADATA_FOLDER} = require('./context');
+const {METADATA_YAML, UUID_YAML, METADATA_FOLDER} = require('../context');
 
 exports.loadMetadataYaml = function loadMetadataYaml(folder) {
     const file = fs.readFileSync(path.resolve(folder, METADATA_FOLDER, METADATA_YAML));

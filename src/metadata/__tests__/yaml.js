@@ -3,7 +3,7 @@ const fse = require('fs-extra');
 const yaml = require('../yaml');
 
 const metadata = require('../metadata');
-const fileUtils = require('../utils/fileUtils');
+const fileUtils = require('../../utils/fileUtils');
 
 let folder;
 

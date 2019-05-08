@@ -4,9 +4,9 @@ const fse = require('fs-extra');
 const yaml = require('js-yaml');
 
 const metadata = require('../metadata');
-const fileUtils = require('../utils/fileUtils');
+const fileUtils = require('../../utils/fileUtils');
 
-const {METADATA_YAML, UUID_YAML, METADATA_FOLDER} = require('../context');
+const {METADATA_YAML, UUID_YAML, METADATA_FOLDER} = require('../../context');
 
 test('init', () => {
     // 临时文件夹
