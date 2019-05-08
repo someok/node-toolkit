@@ -9,9 +9,7 @@ const PKG_NAME = pkg.name;
 program
     .version(pkg.version)
     .name(PKG_NAME)
-    .option('-d, --debug', 'output extra debugging')
-    .option('-s, --small', 'small pizza size')
-    .option('-p, --pizza-type <type>', 'flavour of pizza');
+    .description('转换指定文件夹下的 txt 为 epub 格式');
 
 program
     .command('init [dir]')
@@ -25,8 +23,7 @@ program
 program.on('--help', function() {
     console.log('');
     console.log('Examples:');
-    console.log(`  $ ${PKG_NAME} --help`);
-    console.log(`  $ ${PKG_NAME} -h`);
+    console.log(`  $ ${PKG_NAME} init`);
     console.log(`  $ ${PKG_NAME} init /path/to/txt/dir`);
 });
 
@@ -44,7 +41,3 @@ program.parse(process.argv);
 if (!process.argv.slice(2).length) {
     program.outputHelp();
 }
-
-if (program.debug) console.log(program.opts());
-if (program.small) console.log('- small pizza size');
-if (program.pizzaType) console.log(`- ${program.pizzaType}`);
