@@ -4,27 +4,35 @@ const program = require('commander');
 const path = require('path');
 
 const pkg = require('../package');
-const {SPLIT_OUTPUT_FOLDER, CLI_NAME} = require('./context');
+const {SPLIT_OUTPUT_FOLDER} = require('./context');
 const metadataInit = require('./metadata/init');
 const {logError} = require('./utils/logUtils');
 const {existFolder, FolderMode, fileName} = require('./utils/fileUtils');
 const {splitTxtFile2Dest, splitAllTxt2Dest} = require('./split/splitFile');
 
+// 命令名称
+const CLI_NAME = 'txt2epub';
+
+function logCustomHelp(help) {
+    console.log(`  $ ${CLI_NAME} ${help}`);
+}
 /**
  * init 命令的自定义帮助信息
  */
 function customInitHelp() {
-    console.log(`  $ ${CLI_NAME} init`);
-    console.log(`  $ ${CLI_NAME} init /path/to/txt/dir`);
+    logCustomHelp('init');
+    logCustomHelp('init /path/to/txt/dir');
+    // console.log(`  $ ${CLI_NAME} init`);
+    // console.log(`  $ ${CLI_NAME} init /path/to/txt/dir`);
 }
 
 /**
  * split 命令的自定义帮助信息
  */
 function customSplitHelp() {
-    console.log(`  $ ${CLI_NAME} split -t /path/to/txt/dir`);
-    console.log(`  $ ${CLI_NAME} split -t /path/to/txt/file.txt`);
-    console.log(`  $ ${CLI_NAME} split -t /path/to/txt/file.txt -d /path/to/dest/dir -o n`);
+    logCustomHelp('split -t /path/to/txt/dir');
+    logCustomHelp('split -t /path/to/txt/file.txt');
+    logCustomHelp('split -t /path/to/txt/file.txt -d /path/to/dest/dir -o n');
 }
 
 /**

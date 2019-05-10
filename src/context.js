@@ -1,11 +1,4 @@
 /**
- * 命令名称。
- *
- * @type {string}
- */
-exports.CLI_NAME = 'txt2epub';
-
-/**
  * metadata 文件夹名称
  *
  * @type {string}
