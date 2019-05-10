@@ -10,15 +10,31 @@ const {logError} = require('./utils/logUtils');
 const {existFolder, FolderMode, fileName} = require('./utils/fileUtils');
 const {splitTxtFile2Dest, splitAllTxt2Dest} = require('./split/splitFile');
 
+/**
+ * init 命令的自定义帮助信息
+ */
 function customInitHelp() {
     console.log(`  $ ${CLI_NAME} init`);
     console.log(`  $ ${CLI_NAME} init /path/to/txt/dir`);
 }
 
+/**
+ * split 命令的自定义帮助信息
+ */
 function customSplitHelp() {
     console.log(`  $ ${CLI_NAME} split -t /path/to/txt/dir`);
     console.log(`  $ ${CLI_NAME} split -t /path/to/txt/file.txt`);
     console.log(`  $ ${CLI_NAME} split -t /path/to/txt/file.txt -d /path/to/dest/dir -o n`);
+}
+
+/**
+ * bool 型参数规则，需要为「yes」或「y」，忽略大小写。
+ *
+ * @param arg 参数内容
+ * @return {boolean} 是或否
+ */
+function boolArg(arg) {
+    return 'yes' === arg.toLowerCase() || 'y' === arg.toLowerCase();
 }
 
 program
@@ -26,23 +42,22 @@ program
     .name(CLI_NAME)
     .description('转换指定文件夹下的 txt 为 epub 格式');
 
+// init 命令定义
 program
     .command('init [dir]')
     .description('交互式命令，初始化 yaml 格式的 metadata 文件, [dir] 未提供时采用当前目录')
-    .action(function(dir) {
-        metadataInit(dir || process.cwd());
-    })
     .on('--help', function() {
+        // txt2epub init -h 时显示此信息
         console.log('');
         console.log('Examples:');
         console.log('');
         customInitHelp();
+    })
+    .action(function(dir) {
+        metadataInit(dir || process.cwd());
     });
 
-function boolArg(arg) {
-    return 'yes' === arg.toLowerCase() || 'y' === arg.toLowerCase();
-}
-
+// split 命令定义
 program
     .command('split')
     .description('按章节分隔单个 txt 文件到目标路径下')
@@ -50,6 +65,7 @@ program
     .option('-d, --dest [dir]', '分割后文件输出的目标路径，默认为 txt 所在目录')
     .option('-o, --overwrite [Y/n]', '目标路径存在时是否覆盖', boolArg, true)
     .on('--help', function() {
+        // txt2epub split -h 时显示此信息
         console.log('');
         console.log('Examples:');
         console.log('');
@@ -101,8 +117,9 @@ program
         }
     });
 
-// program.command('help [cmd]').description('display help for [cmd]');
-
+// txt2epub -h 时候输出扩展帮助信息
+// 在明确的命令下的帮助有所不同
+// 例如 txt2epub split -h 时候不触发此事件，而是触发对应命令自己的事件
 program.on('--help', function() {
     console.log('');
     console.log('Examples:');
@@ -112,7 +129,7 @@ program.on('--help', function() {
     customSplitHelp();
 });
 
-// error on unknown commands
+// 命令错误时输出此提示
 program.on('command:*', function() {
     console.error(
         'Invalid command: %s\nSee --help for a list of available commands.',
@@ -123,6 +140,7 @@ program.on('command:*', function() {
 
 program.parse(process.argv);
 
+// 未提供任何命令时输出帮助信息
 if (!process.argv.slice(2).length) {
     program.outputHelp();
 }
