@@ -5,14 +5,12 @@ const Mode = require('stat-mode');
 const klawSync = require('klaw-sync');
 const _ = require('lodash');
 const pingyin = require('pinyinlite');
-// const detectCharacterEncoding = require('detect-character-encoding');
-// const jschardet = require('jschardet');
-// const fsi = require('fs-iconv');
-// const iconv = require('iconv-jschardet');
-// const chardet = require('chardet');
 const Iconv = require('iconv').Iconv;
 
-const iconv = new Iconv('GBK', 'UTF-8');
+const {logError} = require('./logUtils');
+
+const gbk2utf8 = new Iconv('gbk', 'utf-8');
+const big52utf8 = new Iconv('big5', 'utf-8');
 
 const FolderMode = {
     // 文件夹存在且可写
@@ -127,7 +125,10 @@ exports.loadAllTxtFileNames = function(folder) {
 /**
  * 读取 gbk 或 utf8 格式文件，由于 node 默认不支持 gbk，所以使用 Iconv 来做转换。
  *
- * 规则是默认先用 gbk 编码转换成 utf8，如果抛出异常，则默认为是 utf8 编码。
+ * gbk 或 big5 格式检测是使用 Iconv 的转换异常来处理，判断顺序如下：
+ *    1、先用 gbk 编码转换成 utf8，如果抛出异常
+ *    2、接着用 big5 编码转换成 utf8，如果抛出异常
+ *    3、最后则表示为 utf8
  *
  * 这种搞法其实很不科学，可惜 node 里面判断编码的方式很讨厌，用了多个检测包都不好使。
  *
@@ -140,12 +141,23 @@ exports.readUtf8OrGbkReadFile = function(file, debug = false) {
 
     let covertedBuffer;
     try {
-        covertedBuffer = iconv.convert(orignBuffer);
+        covertedBuffer = gbk2utf8.convert(orignBuffer);
     } catch (e) {
         if (debug) {
+            logError('gbk2utf8:');
             console.log(e);
         }
-        covertedBuffer = orignBuffer;
+
+        try {
+            covertedBuffer = big52utf8.convert(orignBuffer);
+        } catch (e) {
+            if (debug) {
+                logError('big52utf8:');
+                console.log(e);
+            }
+
+            covertedBuffer = orignBuffer;
+        }
     }
 
     return covertedBuffer.toString();
