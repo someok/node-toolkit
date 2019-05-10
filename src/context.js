@@ -1,9 +1,23 @@
 /**
+ * 命令名称。
+ *
+ * @type {string}
+ */
+exports.CLI_NAME = 'txt2epub';
+
+/**
  * metadata 文件夹名称
  *
  * @type {string}
  */
-exports.METADATA_FOLDER = '$$t2e.data';
+exports.METADATA_FOLDER = '__t2e.data';
+
+/**
+ * 分隔的文本输出目录名。
+ *
+ * @type {string}
+ */
+exports.SPLIT_OUTPUT_FOLDER = '__t2e.split';
 
 /**
  * METADATA_FOLDER 下的 metadata 文件

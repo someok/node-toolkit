@@ -5,6 +5,14 @@ const Mode = require('stat-mode');
 const klawSync = require('klaw-sync');
 const _ = require('lodash');
 const pingyin = require('pinyinlite');
+// const detectCharacterEncoding = require('detect-character-encoding');
+// const jschardet = require('jschardet');
+// const fsi = require('fs-iconv');
+// const iconv = require('iconv-jschardet');
+// const chardet = require('chardet');
+const Iconv = require('iconv').Iconv;
+
+const iconv = new Iconv('GBK', 'UTF-8');
 
 const FolderMode = {
     // 文件夹存在且可写
@@ -43,6 +51,23 @@ exports.existFolder = function existFolder(folder) {
     } catch (e) {
         return FolderMode.NOT_EXIST;
     }
+};
+
+/**
+ * 返回给定文件名，不包含扩展名。
+ *
+ * @param file 文件
+ * @param includeExt 是否包含扩展名，默认不包含
+ * @return {string} 文件名
+ */
+exports.fileName = function(file, includeExt = false) {
+    let name = path.basename(file);
+
+    if (!includeExt) {
+        const ext = path.extname(file);
+        name = name.replace(ext, '');
+    }
+    return name;
 };
 
 /**
@@ -97,4 +122,31 @@ exports.loadAllTxtFileNames = function(folder) {
         }
         return title;
     });
+};
+
+/**
+ * 读取 gbk 或 utf8 格式文件，由于 node 默认不支持 gbk，所以使用 Iconv 来做转换。
+ *
+ * 规则是默认先用 gbk 编码转换成 utf8，如果抛出异常，则默认为是 utf8 编码。
+ *
+ * 这种搞法其实很不科学，可惜 node 里面判断编码的方式很讨厌，用了多个检测包都不好使。
+ *
+ * @param file 文件路径
+ * @param debug true 的时候会输出异常信息
+ * @return {string} 文件内容，utf8 格式
+ */
+exports.readUtf8OrGbkReadFile = function(file, debug = false) {
+    const orignBuffer = fs.readFileSync(file);
+
+    let covertedBuffer;
+    try {
+        covertedBuffer = iconv.convert(orignBuffer);
+    } catch (e) {
+        if (debug) {
+            console.log(e);
+        }
+        covertedBuffer = orignBuffer;
+    }
+
+    return covertedBuffer.toString();
 };

@@ -2,8 +2,32 @@ const _ = require('lodash');
 const regexRules = require('./regexRules');
 const Chapter = require('./Chapter');
 
-const MAX_TITLE_LENGTH = 20;
+const MAX_TITLE_LENGTH = 30;
 
+/**
+ * 有时候标题内容会有一些不规范的字符或括号，这个方法去掉它们。
+ *
+ * @param title 标题
+ * @return {string} 规范化后的标题
+ */
+function checkTitle(title) {
+    let t = title.trim();
+
+    if (t.endsWith('.') || t.endsWith('。')) t = t.substring(0, t.length - 1);
+    if (t.startsWith('(') && t.endsWith(')')) t = t.substring(1, t.length - 1);
+    if (t.startsWith('（') && t.endsWith('）')) t = t.substring(1, t.length - 1);
+
+    return t;
+}
+
+/**
+ * 按照预定义的正则规则分隔文本内容到 {@link Chapter} 数组中。
+ *
+ * @param txt 文本内容
+ * @param ruleKey 分隔规则，参见 {@link regexRules}
+ * @param maxTitleLength 标题最大长度，超过则忽略，默认是 20
+ * @return {Array} 分隔后的 {@link Chapter} 数组
+ */
 function splitByRegexRule(txt, ruleKey = 'zhChapter', maxTitleLength = MAX_TITLE_LENGTH) {
     if (!txt || typeof txt !== 'string') throw new Error('txt 参数必须为字符串, 且内容不能为空');
 
@@ -33,10 +57,12 @@ function splitByRegexRule(txt, ruleKey = 'zhChapter', maxTitleLength = MAX_TITLE
 
         if (m) {
             const pos = m.index;
-            const title = m[1];
+            const title = checkTitle(m[0]);
             if (title.length > maxTitleLength) continue;
 
-            const fromPos = pos + title.length + 1;
+            // m[1] 是去除前后不可见元素之后的纯文本
+            // m[0] 则是包含了这些不可见元素，用于计数才更准确
+            const fromPos = pos + m[0].length + 1;
 
             // 如果存在上一章节，则将其目标位置置为当前章节之前
             if (!_.isEmpty(chapters)) {
@@ -62,4 +88,22 @@ function splitByRegexRule(txt, ruleKey = 'zhChapter', maxTitleLength = MAX_TITLE
     return chapters;
 }
 
-module.exports = splitByRegexRule;
+function splitAuto(txt, maxTitleLength = MAX_TITLE_LENGTH) {
+    const ruleKeys = Object.keys(regexRules);
+
+    for (let i = 0; i < ruleKeys.length; i++) {
+        const ruleKey = ruleKeys[i];
+        const re = regexRules[ruleKey].re;
+        const match = txt.match(re);
+        if (!match) continue;
+
+        return splitByRegexRule(txt, ruleKey, maxTitleLength);
+    }
+
+    throw new Error('txt 中内容不适合当前预定义的分隔规则');
+}
+
+module.exports = {
+    splitByRegexRule,
+    splitAuto,
+};

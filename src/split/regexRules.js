@@ -2,7 +2,7 @@ module.exports = {
     zhChapter: {
         title: '中文章节',
         description: '第 x 章、第 x 节 xxx',
-        re: /^\s*(第.+[章节].*)\s*$/gm,
+        re: /^\s*（?\(?([第笫].+[章节].*)\)?）?\s*$/gm,
     },
     num: {
         title: '数字',

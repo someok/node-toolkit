@@ -1,0 +1,4 @@
+# http://editorconfig.org
+
+[tab-space-mix.md]
+indent_style = tab

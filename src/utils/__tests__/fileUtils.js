@@ -43,3 +43,17 @@ test('loadAllTxtFileNames', () => {
     console.log(names);
     expect(names).toEqual(['中文标题', '李四', 'ab_cd_中文', 'abcd', '123']);
 });
+
+function encFile(name) {
+    return path.join(__dirname, 'txt-files/encoding', name);
+}
+test('readUtf8OrGbkReadFile', () => {
+    let txt = fileUtils.readUtf8OrGbkReadFile(encFile('utf8.txt'), true);
+    expect(txt.trim()).toBe('中文');
+
+    txt = fileUtils.readUtf8OrGbkReadFile(encFile('gbk.txt'), true);
+    expect(txt.trim()).toBe('中文');
+
+    txt = fileUtils.readUtf8OrGbkReadFile(encFile('gb18030.txt'));
+    expect(txt.trim()).toBe('中文');
+});

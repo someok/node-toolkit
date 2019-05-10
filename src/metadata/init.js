@@ -10,7 +10,6 @@ const metadata = require('./metadata');
 const pkgVersion = pkg.version;
 
 function getQuestions(txtFolder) {
-    console.log(txtFolder);
     const folderQuestion = {
         type: 'input',
         name: 'folder',
@@ -65,7 +64,7 @@ function getQuestions(txtFolder) {
 /**
  * 通过命令行初始化 metadata 信息。
  *
- * 也就是在给定目录下初始化 $$t2e.data 目录，以及下面的相应 yaml。
+ * 也就是在给定目录下初始化 __t2e.data 目录，以及下面的相应 yaml。
  *
  * @param txtFolder txt 所在根目录
  */
