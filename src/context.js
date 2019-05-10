@@ -18,3 +18,10 @@ exports.METADATA_YAML = 'metadata.yml';
  * @type {string}
  */
 exports.UUID_YAML = 'uuid.yml';
+
+/**
+ * 目录定义，如果此文件不存在则直接使用文件名作为目录。
+ *
+ * @type {string}
+ */
+exports.TOC_FILE = 'toc.md';
