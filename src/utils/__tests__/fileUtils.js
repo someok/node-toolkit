@@ -29,3 +29,17 @@ test('createTempFolder', () => {
         fs.rmdirSync(tmp);
     }).not.toThrow();
 });
+
+test('loadAllTxtFileNames', () => {
+    let names = fileUtils.loadAllTxtFileNames(path.join(__dirname, './txt-files/demo1'));
+    console.log(names);
+    expect(names).toEqual(['1', '2', '3']);
+
+    names = fileUtils.loadAllTxtFileNames(path.join(__dirname, './txt-files/demo2'));
+    console.log(names);
+    expect(names).toEqual(['123', 'abcd', '李四', '中文标题']);
+
+    names = fileUtils.loadAllTxtFileNames(path.join(__dirname, './txt-files/demo3'));
+    console.log(names);
+    expect(names).toEqual(['中文标题', '李四', 'ab_cd_中文', 'abcd', '123']);
+});
