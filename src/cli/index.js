@@ -4,23 +4,21 @@ const program = require('commander');
 
 const pkg = require('../../package');
 const {CLI_NAME} = require('./ctx');
-const initCommand = require('./command-init');
-const splitCommand = require('./command-split');
-const convertCommand = require('./command-convert');
 
 program
     .version(pkg.version, '-v, --version')
     .name(CLI_NAME)
     .description('转换指定文件夹下的 txt 为 epub 格式');
 
-// init 命令定义
-initCommand.customCommand(program);
+const commands = [
+    require('./command-init'),
+    require('./command-split'),
+    require('./command-convert'),
+];
 
-// split 命令定义
-splitCommand.customCommand(program);
-
-// convert 命令定义
-convertCommand.customCommand(program);
+commands.forEach(cmd => {
+    cmd.customCommand && cmd.customCommand(program);
+});
 
 // txt2epub -h 时候输出扩展帮助信息
 // 在明确的命令下的帮助有所不同
@@ -29,11 +27,13 @@ program.on('--help', function() {
     console.log('');
     console.log('Examples:');
 
-    initCommand.customHelp();
-    console.log();
-    splitCommand.customHelp();
-    console.log();
-    convertCommand.customHelp();
+    commands.forEach((cmd, index) => {
+        if (cmd.customHelp) {
+            cmd.customHelp();
+
+            if (index < commands.length - 1) console.log();
+        }
+    });
 });
 
 // 命令错误时输出此提示
