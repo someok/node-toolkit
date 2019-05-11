@@ -5,5 +5,5 @@ module.exports = {
         '*.{css,scss,less}': ['prettier-eslint --write', 'git add'],
     },
 
-    ignore: ['**/resources/templates/mail/*.html'],
+    ignore: ['**/*/tab-space-mix.md'],
 };
