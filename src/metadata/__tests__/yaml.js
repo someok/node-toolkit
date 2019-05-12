@@ -3,6 +3,7 @@ const fse = require('fs-extra');
 const yaml = require('../yaml');
 
 const metadata = require('../metadata');
+const Meta = require('../Meta');
 const fileUtils = require('../../utils/fileUtils');
 
 let folder;
@@ -18,7 +19,8 @@ beforeEach(() => {
     folder = fileUtils.createTempFolder();
     console.log(`tmp folder: ${folder}`);
 
-    metadata.init(folder, META);
+    const meta = new Meta(META.title, META.author, META.description);
+    metadata.init(folder, meta);
 });
 
 afterEach(() => {
@@ -27,15 +29,7 @@ afterEach(() => {
 });
 
 test('loadMetadataYaml', () => {
-    const json = yaml.loadMetadataYaml(folder);
-    console.log(json);
-    expect(json).toEqual({...META, version: '1.0.0'});
-});
-
-test('loadUuidYaml', () => {
-    const uuidJson = yaml.loadUuidYaml(folder);
-    console.log(uuidJson);
-    expect(uuidJson).not.toBeUndefined();
-    expect(typeof uuidJson).toBe('object');
-    expect(uuidJson.uuid).not.toBeUndefined();
+    const meta = yaml.loadMetadataYaml(folder);
+    console.log(meta);
+    expect(meta.toJson()).toEqual({...META, version: '1.0.0', uuid: meta.uuid});
 });

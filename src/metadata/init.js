@@ -5,7 +5,9 @@ const chalk = require('chalk');
 const pkg = require('../../package');
 const fileUtils = require('../utils/fileUtils');
 const {log, logWarn} = require('../utils/logUtils');
+const {getAuthor, getTitle} = require('../utils/titleUtils');
 const metadata = require('./metadata');
+const Meta = require('./Meta');
 
 const pkgVersion = pkg.version;
 
@@ -30,7 +32,8 @@ function getQuestions(txtFolder) {
         name: 'title',
         message: '请输入 epub 书名：',
         default: function def(answers) {
-            return path.basename(answers.folder);
+            const name = path.basename(answers.folder);
+            return getTitle(name);
         },
     };
 
@@ -41,8 +44,11 @@ function getQuestions(txtFolder) {
             type: 'input',
             name: 'author',
             message: '请输入作者：',
-            default: function def() {
-                return os.userInfo().username;
+            default: function def(answers) {
+                const username = os.userInfo().username;
+                const name = path.basename(answers.folder);
+                const author = getAuthor(name);
+                return author || username;
             },
         },
         {
@@ -79,7 +85,8 @@ module.exports = function(txtFolder) {
         if (!answers.confirm) {
             logWarn('放弃初始化!');
         } else {
-            const {folder, ...meta} = answers;
+            const {folder, title, author, description} = answers;
+            const meta = new Meta(title, author, description);
             metadata.init(folder, meta);
         }
 
