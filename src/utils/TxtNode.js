@@ -1,9 +1,9 @@
 class TxtNode {
-    constructor(title, desc, parent) {
-        this._title = TxtNode.validTitle(title);
-        this._rawTitle = title;
-        this._ext = null;
-        this._path = null;
+    constructor(title, desc, parent, rawTitle, ext, path) {
+        this._title = title; // TxtNode.validTitle(title);
+        this._rawTitle = rawTitle;
+        this._ext = ext;
+        this._path = path;
         this._desc = desc;
         this._parent = parent;
         this._children = [];
@@ -28,7 +28,7 @@ class TxtNode {
     }
 
     set title(value) {
-        this._title = TxtNode.validTitle(value);
+        this._title = value; // TxtNode.validTitle(value);
     }
 
     get rawTitle() {

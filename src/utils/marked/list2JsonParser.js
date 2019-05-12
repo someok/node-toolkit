@@ -1,3 +1,4 @@
+const path = require('path');
 const marked = require('marked');
 const _ = require('lodash');
 const Node = require('../TxtNode');
@@ -33,7 +34,10 @@ function lexer2Json(tokens) {
             pNode.children.push(cNode);
         }
         if (type === 'text') {
-            cNode.title = token.text;
+            const txt = token.text.trim();
+            cNode.title = Node.validTitle(path.basename(txt));
+            cNode.rawTitle = txt;
+            cNode.ext = path.extname(txt);
         }
         if (type === 'list_item_end') {
         }

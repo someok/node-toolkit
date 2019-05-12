@@ -79,3 +79,20 @@ test('parse complex list to json', () => {
     expect(nodeTree[1].title).toBe('01');
     expect(nodeTree[2].title).toBe('02');
 });
+
+test('level md file', () => {
+    const dir = path.resolve(__dirname, 'md-files', 'level.md');
+    console.log(dir);
+    const md = loadMd(dir);
+    console.log('===' + md + '===');
+
+    const nodeTree = parser(md);
+    console.log(nodeTree[0].children);
+
+    expect(nodeTree[0].title).toBe('level1');
+    expect(nodeTree[0].rawTitle).toBe('level1');
+    expect(nodeTree[0].children[0].title).toBe('l11');
+    expect(nodeTree[0].children[0].rawTitle).toBe('l11.txt');
+    expect(nodeTree[0].children[1].title).toBe('l12');
+    expect(nodeTree[0].children[1].rawTitle).toBe('level1/l12.md');
+});
