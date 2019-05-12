@@ -1,6 +1,9 @@
-class Node {
+class TxtNode {
     constructor(title, desc, parent) {
-        this._title = Node.validTitle(title);
+        this._title = TxtNode.validTitle(title);
+        this._rawTitle = title;
+        this._ext = null;
+        this._path = null;
         this._desc = desc;
         this._parent = parent;
         this._children = [];
@@ -25,7 +28,31 @@ class Node {
     }
 
     set title(value) {
-        this._title = Node.validTitle(value);
+        this._title = TxtNode.validTitle(value);
+    }
+
+    get rawTitle() {
+        return this._rawTitle;
+    }
+
+    set rawTitle(value) {
+        this._rawTitle = value;
+    }
+
+    get ext() {
+        return this._ext;
+    }
+
+    set ext(value) {
+        this._ext = value;
+    }
+
+    get path() {
+        return this._path;
+    }
+
+    set path(value) {
+        this._path = value;
     }
 
     get desc() {
@@ -61,4 +88,4 @@ class Node {
     }
 }
 
-module.exports = Node;
+module.exports = TxtNode;

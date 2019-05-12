@@ -1,6 +1,6 @@
 const marked = require('marked');
 const _ = require('lodash');
-const Node = require('./Node');
+const Node = require('../TxtNode');
 
 function lexer2Json(tokens) {
     const rootNode = new Node('__ROOT__');

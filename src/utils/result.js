@@ -1,7 +1,8 @@
 class Result {
-    constructor(success, message) {
+    constructor(success, message, data) {
         this._success = success;
         this._message = message;
+        this._data = data;
     }
 
     get success() {
@@ -11,10 +12,18 @@ class Result {
     get message() {
         return this._message;
     }
+
+    get data() {
+        return this._data;
+    }
+
+    set data(value) {
+        this._data = value;
+    }
 }
 
-exports.success = function() {
-    return new Result(true);
+exports.success = function(data) {
+    return new Result(true, null, data);
 };
 
 exports.failure = function(message) {

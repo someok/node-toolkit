@@ -1,8 +1,8 @@
-const Node = require('../Node');
+const TxtNode = require('../TxtNode');
 
 test('should title without txt or md ext', () => {
     let title = '中文 abc123';
-    const node = new Node(title + '.tXt');
+    const node = new TxtNode(title + '.tXt');
     console.log(node);
     expect(node.title).toBe(title);
 
