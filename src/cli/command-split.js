@@ -1,4 +1,5 @@
 const path = require('path');
+const _ = require('lodash');
 
 const {SPLIT_OUTPUT_FOLDER} = require('../context');
 const {logError} = require('../utils/logUtils');
@@ -31,11 +32,20 @@ function customCommand(program) {
             console.log('');
             customHelp();
         })
-        .action(function(options) {
-            const {txt, dest, overwrite} = options;
+        .action(function() {
+            // 将参数转换为数组，并提取最后一个作为 options（其实就是 Command 对象）
+            const args = arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments);
+
+            let argsErr = true;
+            let options;
+            if (_.isArray(args) && !_.isEmpty(args)) {
+                options = args[args.length - 1];
+                argsErr = !options.txt;
+            }
+            const {txt, dest, overwrite} = options || {};
 
             // 未提供 txt 参数时输出错误信息和当前命令的帮助信息
-            if (!txt) {
+            if (argsErr) {
                 console.log();
                 logError('[-t, --txt] 参数不能为空');
                 console.log();
