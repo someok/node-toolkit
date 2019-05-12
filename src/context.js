@@ -20,13 +20,6 @@ exports.SPLIT_OUTPUT_FOLDER = '__t2e.split';
 exports.METADATA_YAML = 'metadata.yml';
 
 /**
- * METADATA_FOLDER 下的 uuid 文件
- *
- * @type {string}
- */
-exports.UUID_YAML = 'uuid.yml';
-
-/**
  * 目录定义，如果此文件不存在则直接使用文件名作为目录。
  *
  * @type {string}
