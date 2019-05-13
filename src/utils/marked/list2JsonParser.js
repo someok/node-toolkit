@@ -59,7 +59,7 @@ function parser(mdContent) {
     const tokens = marked.lexer(content);
     if (_.isEmpty(tokens)) return null;
 
-    console.log(tokens);
+    // console.log(tokens);
 
     return lexer2Json(tokens);
 }

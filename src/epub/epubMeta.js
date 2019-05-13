@@ -13,9 +13,9 @@ const Meta = require('../metadata/Meta');
  * @return {Result} 返回 {@link Result}
  */
 exports.readMetadata = function(folder) {
-    const tocNodes = loadToc(folder);
-    if (_.isEmpty(tocNodes)) {
-        return failure('此文件内不存在任何 txt 文本文件');
+    const tocResult = loadToc(folder);
+    if (!tocResult.success) {
+        return tocResult;
     }
 
     let metaJson = {
@@ -33,6 +33,6 @@ exports.readMetadata = function(folder) {
 
     return success({
         meta,
-        tocNodes,
+        tocNodes: tocResult.data,
     });
 };

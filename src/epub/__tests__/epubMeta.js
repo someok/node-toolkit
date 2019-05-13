@@ -3,11 +3,12 @@ const {readMetadata} = require('../epubMeta');
 const Meta = require('../../metadata/Meta');
 
 function demoFolder(name) {
-    return path.resolve(__dirname, 'epub-files', name);
+    return path.resolve(__dirname, 'epub', name);
 }
 
 test('readMetadata', () => {
     const result = readMetadata(demoFolder('demo1'));
+    console.log(result);
     const {meta, tocNodes} = result.data;
     expect(result.success).toBeTruthy();
     expect(tocNodes.length).toBe(3);
