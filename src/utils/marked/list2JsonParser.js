@@ -35,6 +35,7 @@ function lexer2Json(tokens) {
         }
         if (type === 'text') {
             const txt = token.text.trim();
+            // todo: 增加 html escape 处理
             cNode.title = Node.validTitle(path.basename(txt));
             cNode.rawTitle = txt;
             cNode.ext = path.extname(txt);

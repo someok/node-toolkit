@@ -3,7 +3,7 @@ const os = require('os');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const pkg = require('../../package');
-const fileUtils = require('../utils/fileUtils');
+const {existDir} = require('../utils/fileUtils');
 const {log, logWarn} = require('../utils/logUtils');
 const {getAuthor, getTitle} = require('../utils/titleUtils');
 const metadata = require('./metadata');
@@ -18,7 +18,7 @@ function getQuestions(txtFolder) {
         message: '请输入 txt 所在目录（此目录必须已经存在）：',
         default: txtFolder,
         validate: function validate(input) {
-            const isFolder = fileUtils.existFolder(input) === fileUtils.FolderMode.NORMAL;
+            const isFolder = existDir(input);
             if (isFolder) {
                 return isFolder;
             }

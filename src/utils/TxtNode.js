@@ -23,6 +23,27 @@ class TxtNode {
         return t;
     }
 
+    /**
+     * 在 md 的树形列表中递归。
+     *
+     * @param {Array} nodes {@link TxtNode} 节点
+     * @param {function} fn 遍历节点的时候执行的 callback 方法
+     * @param level 树形层级，默认从 0 开始
+     */
+    static travelTxtNodeTree(nodes, fn, level = 0) {
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            const {children} = node;
+
+            const hasChildren = Array.isArray(children) && children.length > 0;
+            fn && fn(node, hasChildren, level);
+
+            if (hasChildren) {
+                TxtNode.travelTxtNodeTree(children, fn, level + 1);
+            }
+        }
+    }
+
     get title() {
         return this._title;
     }

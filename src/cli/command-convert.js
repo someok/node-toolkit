@@ -2,7 +2,7 @@ const path = require('path');
 const _ = require('lodash');
 const {logCustomHelp} = require('./utils');
 const {logError} = require('../utils/logUtils');
-const {existFolder, FolderMode, fileName} = require('../utils/fileUtils');
+const {existPath, PathMode, fileName} = require('../utils/fileUtils');
 const {SPLIT_OUTPUT_FOLDER} = require('../context');
 
 function customHelp() {
@@ -48,12 +48,12 @@ function customCommand(program) {
                 return;
             }
 
-            const mode = existFolder(txt);
-            if (mode === FolderMode.NOT_EXIST) {
+            const mode = existPath(txt);
+            if (mode === PathMode.NOT_EXIST) {
                 logError(`[${txt}] 不存在`);
                 return;
             }
-            if (mode === FolderMode.NOT_FOLDER) {
+            if (mode !== PathMode.IS_DIRECTORY) {
                 logError(`[${txt}] 不是文件夹`);
                 return;
             }

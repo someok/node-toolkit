@@ -26,7 +26,7 @@ test('init', () => {
     const metadataFolder = path.resolve(folder, METADATA_FOLDER);
     const metadataYaml = path.resolve(metadataFolder, METADATA_YAML);
     // console.log(metadataFolder);
-    expect(fileUtils.existFolder(metadataFolder)).toBe(fileUtils.FolderMode.NORMAL);
+    expect(fileUtils.existPath(metadataFolder)).toBe(fileUtils.PathMode.IS_DIRECTORY);
     expect(fs.existsSync(metadataYaml)).toBeTruthy();
 
     // 读取 yaml 文件

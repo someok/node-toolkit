@@ -3,7 +3,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 
 const ctx = require('../context');
-const fileUtils = require('../utils/fileUtils');
+const {existPath, PathMode} = require('../utils/fileUtils');
 const {success, failure} = require('../utils/result');
 const {log, logError, logWarn} = require('../utils/logUtils');
 const Meta = require('./Meta');
@@ -24,7 +24,7 @@ exports.init = function(folder, meta, logMsg = true) {
     }
 
     const metadataFolder = path.resolve(folder, METADATA_FOLDER);
-    if (fileUtils.existFolder(metadataFolder) === fileUtils.FolderMode.NOT_EXIST) {
+    if (existPath(metadataFolder) === PathMode.NOT_EXIST) {
         log(`创建目录 [${metadataFolder}]`);
         try {
             fs.mkdirSync(metadataFolder);

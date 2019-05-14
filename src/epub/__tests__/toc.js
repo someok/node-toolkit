@@ -60,9 +60,10 @@ test('load one level txt toc', () => {
 test('load two level md toc', () => {
     const folder = path.resolve(__dirname, 'epub', 'demo3');
     const result = loadToc(folder);
-    // console.log(result);
 
     const {data, success} = result;
+    console.log(data);
+
     expect(success).toBeTruthy();
     expect(data.length).toBe(2);
     expect(data[0]).toEqual(
@@ -70,7 +71,7 @@ test('load two level md toc', () => {
             title: 'f1',
             rawTitle: 'f1',
             ext: '',
-            path: path.resolve(folder, 'f1'),
+            path: undefined,
         })
     );
     expect(data[1].children[1]).toEqual(

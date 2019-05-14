@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const {loadToc} = require('./toc');
 const {getTitle, getAuthor} = require('../utils/titleUtils');
-const {success, failure} = require('../utils/result');
+const {success} = require('../utils/result');
 const {loadMetadataYaml} = require('../metadata/yaml');
 const {init} = require('../metadata/metadata');
 const Meta = require('../metadata/Meta');

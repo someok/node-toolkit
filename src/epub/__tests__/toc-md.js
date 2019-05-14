@@ -60,5 +60,7 @@ test('load level not exist md toc', () => {
     let result = loadMdContentAsToc(folder, toc);
     // console.log(result);
     expect(result.success).toBeFalsy();
-    expect(result.message).toContain('not-exist');
+    expect(result.message).toContain('f2/not-exist.txt');
+    expect(result.message).toContain('f3/not-exist.txt');
+    expect(result.message).toEqual(expect.not.stringMatching(/f3[^\/]/));
 });

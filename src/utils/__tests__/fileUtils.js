@@ -2,24 +2,27 @@ const path = require('path');
 const fs = require('fs');
 const fileUtils = require('../fileUtils');
 
-const FileMode = fileUtils.FolderMode;
+const FileMode = fileUtils.PathMode;
 
-test('existFolder', () => {
-    let stat = fileUtils.existFolder('~/abcdefg');
+test('existPath', () => {
+    let stat = fileUtils.existPath('~/abcdefg');
     expect(stat).toEqual(FileMode.NOT_EXIST);
 
-    stat = fileUtils.existFolder(__dirname);
-    expect(stat).toEqual(FileMode.NORMAL);
+    stat = fileUtils.existPath(__dirname);
+    expect(stat).toEqual(FileMode.IS_DIRECTORY);
+
+    stat = fileUtils.existPath(path.join(__dirname, 'txt-files/encoding/gb18030.txt'));
+    expect(stat).toEqual(FileMode.IS_FILE);
 });
 
 test('file mode can not change', () => {
-    FileMode.NORMAL = 123;
-    expect(FileMode.NORMAL).toBe(200);
+    FileMode.IS_DIRECTORY = 123;
+    expect(FileMode.IS_DIRECTORY).toBe(201);
 });
 
 test('createTempFolder', () => {
     const tmp = fileUtils.createTempFolder();
-    expect(fileUtils.existFolder(tmp)).toBe(fileUtils.FolderMode.NORMAL);
+    expect(fileUtils.existPath(tmp)).toBe(fileUtils.PathMode.IS_DIRECTORY);
 
     const name = path.basename(tmp);
     expect(name.startsWith('t2e-')).toBeTruthy();

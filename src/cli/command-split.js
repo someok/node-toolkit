@@ -3,7 +3,7 @@ const _ = require('lodash');
 
 const {SPLIT_OUTPUT_FOLDER} = require('../context');
 const {logError} = require('../utils/logUtils');
-const {existFolder, FolderMode, fileName} = require('../utils/fileUtils');
+const {existPath, PathMode, fileName} = require('../utils/fileUtils');
 const {splitTxtFile2Dest, splitAllTxt2Dest} = require('../split/splitFile');
 const {logCustomHelp, boolArg} = require('./utils');
 
@@ -54,12 +54,12 @@ function customCommand(program) {
             }
 
             let isFile = false;
-            const txtMode = existFolder(txt);
-            if (txtMode === FolderMode.NOT_EXIST) {
+            const txtMode = existPath(txt);
+            if (txtMode === PathMode.NOT_EXIST) {
                 logError(`[${txt}] 不存在`);
                 return;
             }
-            if (txtMode === FolderMode.NOT_FOLDER) {
+            if (txtMode === PathMode.IS_FILE) {
                 isFile = true;
             }
 
@@ -73,8 +73,8 @@ function customCommand(program) {
                 }
             } else {
                 // 检查是否为已存在文件而非文件夹
-                const mode = existFolder(dest);
-                if (mode === FolderMode.NOT_FOLDER) {
+                const mode = existPath(dest);
+                if (mode !== PathMode.IS_DIRECTORY) {
                     logError(`[${dest}] 是已存在文件，而非文件夹`);
                     return;
                 }

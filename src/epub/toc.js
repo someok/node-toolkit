@@ -6,6 +6,7 @@ const pingyin = require('pinyinlite');
 
 const mdListParser = require('../utils/marked/list2JsonParser');
 const {success, failure} = require('../utils/result');
+const {existPath, PathMode} = require('../utils/fileUtils');
 const TxtNode = require('../utils/TxtNode');
 const {TOC_FILE, METADATA_FOLDER} = require('../context');
 
@@ -29,6 +30,27 @@ function loadToc(folder) {
 }
 
 /**
+ * 在 md 的树形列表中递归。
+ *
+ * @param {Array} nodes {@link TxtNode} 节点
+ * @param {function} fn 遍历节点的时候执行的 callback 方法
+ * @param level 树形层级，默认从 0 开始
+ */
+function travelTxtNodeTree(nodes, fn, level = 0) {
+    for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        const {children} = node;
+
+        const hasChildren = Array.isArray(children) && children.length > 0;
+        fn && fn(node, hasChildren, level);
+
+        if (hasChildren) {
+            travelTxtNodeTree(children, fn, level + 1);
+        }
+    }
+}
+
+/**
  * 在 md 的树形列表中递归，并设置每个节点的 path 属性，并判断此路径是否实际存在。
  *
  * @param folder 文件夹
@@ -36,20 +58,25 @@ function loadToc(folder) {
  * @param {Array} notExistPath 不存在的节点路径
  */
 function travelTree(folder, nodes, notExistPath) {
-    for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        const {rawTitle, children} = node;
-        const hasChildren = Array.isArray(children) && children.length > 0;
+    TxtNode.travelTxtNodeTree(nodes, (node, hasChildren) => {
+        const {rawTitle} = node;
+        const nodePath = path.join(folder, rawTitle);
+        const mode = existPath(nodePath);
 
-        node.path = path.join(folder, rawTitle);
-        if (!fs.existsSync(node.path)) {
-            notExistPath.push(rawTitle);
-        }
-
+        // 非分支节点允许非物理路径存在，也就是说父节点可以只作为标题存在
+        // 此时 node.path 为空
         if (hasChildren) {
-            travelTree(folder, children, notExistPath);
+            if (mode === PathMode.IS_FILE) {
+                node.path = nodePath;
+            }
+        } else {
+            if (mode === PathMode.IS_FILE) {
+                node.path = nodePath;
+            } else {
+                notExistPath.push(rawTitle);
+            }
         }
-    }
+    });
 }
 
 /**
@@ -130,6 +157,7 @@ function loadTxtNamesAsToc(folder, pinyinSort = false) {
         let title = path.basename(filePath, ext).trim();
         const match = re.exec(title);
         if (match) {
+            // todo: 增加 html escape 处理
             title = match[2];
         }
 
@@ -148,6 +176,7 @@ function loadTxtNamesAsToc(folder, pinyinSort = false) {
 }
 
 module.exports = {
+    travelTxtNodeTree,
     loadTxtNamesAsToc,
     loadMdContentAsToc,
     loadToc,

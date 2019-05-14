@@ -9,43 +9,68 @@ const {logError} = require('./logUtils');
 const gbk2utf8 = new Iconv('gbk', 'utf-8');
 const big52utf8 = new Iconv('big5', 'utf-8');
 
-const FolderMode = {
-    // 文件夹存在且可写
-    NORMAL: 200,
-    // 文件夹不存在
-    NOT_EXIST: 404,
-    // 文件夹存在但不可写
-    NOT_WRITE: 405,
-    // 不是有效文件夹
-    NOT_FOLDER: 406,
-};
-Object.freeze(FolderMode);
+const PathMode = {
+    // 文件夹且可写
+    IS_DIRECTORY: 201,
 
-exports.FolderMode = FolderMode;
+    // 文件且可写
+    IS_FILE: 202,
+
+    // 不存在
+    NOT_EXIST: 404,
+    // 存在但不可写
+    NOT_WRITE: 405,
+};
+Object.freeze(PathMode);
+
+exports.PathMode = PathMode;
 
 /**
- * 判断给定文件夹是否存在。
+ * 判断给定路径属性，属性定义参见 {@link PathMode}。
  *
- * @param folder 文件夹路径
- * @return {number} FileMode 中定义的数字
+ * @param forPath 路径
+ * @return {PathMode} 给定路径属性
  */
-exports.existFolder = function existFolder(folder) {
+function existPath(forPath) {
     try {
-        const stat = fs.statSync(folder);
+        const stat = fs.statSync(forPath);
         const mode = new Mode(stat);
 
-        if (!stat.isDirectory()) {
-            return FolderMode.NOT_FOLDER;
-        }
-
         if (!mode.owner.write) {
-            return FolderMode.NOT_WRITE;
+            return PathMode.NOT_WRITE;
         }
 
-        return FolderMode.NORMAL;
-    } catch (e) {
-        return FolderMode.NOT_EXIST;
-    }
+        if (stat.isDirectory()) {
+            return PathMode.IS_DIRECTORY;
+        }
+
+        if (stat.isFile()) {
+            return PathMode.IS_FILE;
+        }
+    } catch (e) {}
+    return PathMode.NOT_EXIST;
+}
+
+exports.existPath = existPath;
+
+/**
+ * 判断给定路径是否为可写文件夹。
+ *
+ * @param forPath 路径
+ * @return {boolean} 是否文件夹
+ */
+exports.existDir = function(forPath) {
+    return PathMode.IS_DIRECTORY === existPath(forPath);
+};
+
+/**
+ * 判断给定路径是否可写文件。
+ *
+ * @param forPath 路径
+ * @return {boolean} 是否文件
+ */
+exports.existFile = function(forPath) {
+    return PathMode.IS_FILE === existPath(forPath);
 };
 
 /**
