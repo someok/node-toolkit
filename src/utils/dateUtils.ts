@@ -4,7 +4,7 @@ export function now(): number {
     return Date.now ? Date.now() : +new Date();
 }
 
-export function toISOString(timestamp: number | undefined): string {
+export function toISOString(timestamp?: number): string {
     if (timestamp) {
         return new Date(timestamp).toISOString();
     }
@@ -12,7 +12,7 @@ export function toISOString(timestamp: number | undefined): string {
     return new Date().toISOString();
 }
 
-export function formatDate(timestamp: number | undefined): string {
+export function formatDate(timestamp?: number): string {
     let d: Date;
     if (timestamp) {
         d = new Date(timestamp);
