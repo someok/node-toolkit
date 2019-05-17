@@ -3,7 +3,6 @@ const fs = require('fs');
 const fse = require('fs-extra');
 const ejs = require('ejs');
 const _ = require('lodash');
-const AdmZip = require('adm-zip');
 
 const {toISOString, formatDate} = require('../utils/dateUtils');
 const {existFile} = require('../utils/fileUtils');
@@ -66,10 +65,6 @@ function genCover(meta) {
     });
 }
 
-function genNodes(nodes) {
-    TxtNode.travelTxtNodeTree(nodes, node => {});
-}
-
 function readTxt(txtPath) {
     console.log(txtPath);
     // todo: 增加行转换为 p
@@ -86,12 +81,6 @@ function genChapter(title, content) {
 
 function write2File(toFile, data) {
     fs.writeFileSync(toFile, data);
-}
-
-function zipDir(dir, epubFile) {
-    const zip = new AdmZip();
-    zip.addLocalFolder(dir);
-    zip.writeZip(epubFile);
 }
 
 function generate(toDir, meta, txtNodes) {
@@ -123,5 +112,4 @@ function generate(toDir, meta, txtNodes) {
 module.exports = {
     copyBoilerplate,
     generate,
-    zipDir,
 };

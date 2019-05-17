@@ -10,25 +10,25 @@
     <dc:format>application/epub+zip</dc:format>
 
     <!-- UUID -->
-    <dc:identifier id='pub-id'>urn:uuid:<%- meta.uuid %></dc:identifier>
+    <dc:identifier id='pub-id'>urn:uuid:a1ad3ecf-26be-498e-90f7-46782d7dd36b</dc:identifier>
     <meta refines='#pub-id' property='identifier-type' scheme='xsd:string'>uuid</meta>
 
-    <meta property='dcterms:modified'><%- date.modified %></meta>
+    <meta property='dcterms:modified'>2019-05-14T23:47:28.289Z</meta>
 
 
     <!-- Book Info -->
-    <dc:title id='title'><%= meta.title %></dc:title>
+    <dc:title id='title'>toc1</dc:title>
     <meta refines='#title' property='title-type'>main</meta>
 
-    <dc:description><%= meta.description %></dc:description>
+    <dc:description></dc:description>
     <dc:subject>小说</dc:subject>
 
     <dc:language>zh</dc:language>
-    <dc:date><%- date.date%></dc:date>
+    <dc:date>2019-05-15</dc:date>
 
 
     <!-- Author Info -->
-    <dc:creator id='author'><%= meta.author %></dc:creator>
+    <dc:creator id='author'>wjx</dc:creator>
     <meta refines='#author' property='role' scheme='marc:relators'>aut</meta>
 
     <meta name="generator" content="txt2epub" />
@@ -39,7 +39,7 @@
 
 <!--    <meta name='cover' content='coverimage'/>-->
 
-    <meta property='ibooks:version'><%- meta.version %></meta>               <!--                          | Set book version. [major].[minor].[bugfix]  -->
+    <meta property='ibooks:version'>1.0.0</meta>               <!--                          | Set book version. [major].[minor].[bugfix]  -->
     <meta property='ibooks:specified-fonts'>true</meta>        <!-- true/false               | Enable custom fonts (via @font-face).       -->
     <meta property='rendition:layout'>reflowable</meta>        <!-- reflowable/pre-paginated | Set wether or not to use a fixed layout.    -->
     <meta property='rendition:spread'>none</meta>              <!-- (auto|both)/none         | Set spread behaviour when opening.          -->
@@ -72,13 +72,67 @@
     <item media-type='image/png'                id='coverimage'           href='images/cover.png' properties='cover-image'/>
 -->
 
-        <% itemIds.forEach(function(id) { %>
+        
             <item media-type='application/xhtml+xml'
-                  id='item-<%- id %>'
-                  href='book/chapter-<%- id %>.xhtml'
+                  id='item-0000'
+                  href='book/chapter-0000.xhtml'
             />
 
-        <% })%>
+        
+            <item media-type='application/xhtml+xml'
+                  id='item-0001'
+                  href='book/chapter-0001.xhtml'
+            />
+
+        
+            <item media-type='application/xhtml+xml'
+                  id='item-0002'
+                  href='book/chapter-0002.xhtml'
+            />
+
+        
+            <item media-type='application/xhtml+xml'
+                  id='item-0003'
+                  href='book/chapter-0003.xhtml'
+            />
+
+        
+            <item media-type='application/xhtml+xml'
+                  id='item-0004'
+                  href='book/chapter-0004.xhtml'
+            />
+
+        
+            <item media-type='application/xhtml+xml'
+                  id='item-0005'
+                  href='book/chapter-0005.xhtml'
+            />
+
+        
+            <item media-type='application/xhtml+xml'
+                  id='item-0006'
+                  href='book/chapter-0006.xhtml'
+            />
+
+        
+            <item media-type='application/xhtml+xml'
+                  id='item-0007'
+                  href='book/chapter-0007.xhtml'
+            />
+
+        
+            <item media-type='application/xhtml+xml'
+                  id='item-0008'
+                  href='book/chapter-0008.xhtml'
+            />
+
+        
+            <item media-type='application/xhtml+xml'
+                  id='item-0009'
+                  href='book/chapter-0009.xhtml'
+            />
+
+        
 
   </manifest>
   <spine toc='book-toc-ncx'>
@@ -90,9 +144,27 @@
     <itemref idref='book-toc'/>
 -->
 
-      <% itemIds.forEach(function(id) { %>
-          <itemref idref='item-<%- id %>'/>
-      <% })%>
+      
+          <itemref idref='item-0000'/>
+      
+          <itemref idref='item-0001'/>
+      
+          <itemref idref='item-0002'/>
+      
+          <itemref idref='item-0003'/>
+      
+          <itemref idref='item-0004'/>
+      
+          <itemref idref='item-0005'/>
+      
+          <itemref idref='item-0006'/>
+      
+          <itemref idref='item-0007'/>
+      
+          <itemref idref='item-0008'/>
+      
+          <itemref idref='item-0009'/>
+      
   </spine>
 
     <guide>

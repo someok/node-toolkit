@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/someok/txt2epub#readme",
   "dependencies": {
-    "adm-zip": "^0.4.13",
+    "archiver": "^3.0.0",
     "chalk": "^2.4.2",
     "dayjs": "^1.8.14",
     "ejs": "^2.6.1",

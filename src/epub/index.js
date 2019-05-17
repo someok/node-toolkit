@@ -1,6 +1,7 @@
 const {logError} = require('../utils/logUtils');
 const {createTempFolder} = require('../utils/fileUtils');
-const {generate, zipDir} = require('./generate');
+const {genEpubFile} = require('../utils/zipUtils');
+const {generate} = require('./generate');
 const {readMetadata} = require('./epubMeta');
 
 function genEpub(txtDir, epubFile) {
@@ -16,7 +17,7 @@ function genEpub(txtDir, epubFile) {
     console.log(tmpDir);
     generate(tmpDir, meta, tocNodes);
 
-    zipDir(tmpDir, epubFile);
+    genEpubFile(tmpDir, epubFile);
 }
 
 module.exports = genEpub;
