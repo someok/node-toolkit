@@ -7,20 +7,20 @@ const presets = [
     [
         '@babel/preset-env',
         {
-            // targets 配置参见 .browserslistrc
-            useBuiltIns: 'usage',
-            modules: false,
+            targets: {
+                node: 'current',
+            },
         },
     ],
-
-    '@babel/preset-react',
+    '@babel/preset-typescript',
 ];
 
 const plugins = [
+    // todo: 删除此依赖
     '@babel/plugin-proposal-class-properties',
     // '@babel/plugin-syntax-dynamic-import',
     // '@babel/plugin-transform-runtime',
     // 'lodash',
 ];
 
-module.exports = {plugins};
+module.exports = {presets};

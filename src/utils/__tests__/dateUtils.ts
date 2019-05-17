@@ -1,4 +1,4 @@
-const dateUtils = require('../dateUtils');
+import * as dateUtils from '../dateUtils';
 
 test('now', () => {
     const now = dateUtils.now();
