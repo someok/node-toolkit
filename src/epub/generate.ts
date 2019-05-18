@@ -9,13 +9,15 @@ import TxtNode from '../utils/TxtNode';
 import {toChapters, toHtmlOrderList, toNavMap} from '../utils/TxtNodeListConvert';
 import Meta from '../metadata/Meta';
 
+const EPUB_BOILERPLATE_ROOT = '../../epub-boilerplate';
+
 /**
  * 拷贝 epub boilerplate 目录到给定目录下。
  *
  * @param {string} toDir 目标目录
  */
 export function copyBoilerplate(toDir: string) {
-    const fromDir = path.resolve(__dirname, 'resources/boilerplate');
+    const fromDir = path.resolve(__dirname, EPUB_BOILERPLATE_ROOT, 'boilerplate');
     fse.copySync(fromDir, toDir, {
         filter: function(a) {
             // 过滤掉以「.」开头的文件或文件夹
@@ -25,7 +27,7 @@ export function copyBoilerplate(toDir: string) {
 }
 
 function genPackage(meta: Meta, itemIds: string[]) {
-    const ejsFile = path.resolve(__dirname, 'resources/template/package.opf.ejs');
+    const ejsFile = path.resolve(__dirname, EPUB_BOILERPLATE_ROOT, 'template/package.opf.ejs');
 
     return ejs.render(fs.readFileSync(ejsFile).toString(), {
         meta,
@@ -38,7 +40,11 @@ function genPackage(meta: Meta, itemIds: string[]) {
 }
 
 function genNcxToc(meta: Meta, nodes: TxtNode[]) {
-    const ejsFile = path.resolve(__dirname, 'resources/template/book/table-of-contents.ncx.ejs');
+    const ejsFile = path.resolve(
+        __dirname,
+        EPUB_BOILERPLATE_ROOT,
+        'template/book/table-of-contents.ncx.ejs'
+    );
     const toc = toNavMap(nodes);
     return ejs.render(fs.readFileSync(ejsFile).toString(), {
         meta,
@@ -48,7 +54,11 @@ function genNcxToc(meta: Meta, nodes: TxtNode[]) {
 }
 
 function genXhtmlToc(meta: Meta, nodes: TxtNode[]) {
-    const ejsFile = path.resolve(__dirname, 'resources/template/book/table-of-contents.xhtml.ejs');
+    const ejsFile = path.resolve(
+        __dirname,
+        EPUB_BOILERPLATE_ROOT,
+        'template/book/table-of-contents.xhtml.ejs'
+    );
     const toc = toHtmlOrderList(nodes);
     return ejs.render(fs.readFileSync(ejsFile).toString(), {
         meta,
@@ -58,7 +68,7 @@ function genXhtmlToc(meta: Meta, nodes: TxtNode[]) {
 }
 
 function genCover(meta: Meta) {
-    const ejsFile = path.resolve(__dirname, 'resources/template/book/cover.xhtml.ejs');
+    const ejsFile = path.resolve(__dirname, EPUB_BOILERPLATE_ROOT, 'template/book/cover.xhtml.ejs');
     return ejs.render(fs.readFileSync(ejsFile).toString(), {
         meta,
     });
@@ -84,7 +94,11 @@ function readTxt(txtPath: string) {
 }
 
 function genChapter(title: string, content: string) {
-    const ejsFile = path.resolve(__dirname, 'resources/template/book/content.xhtml.ejs');
+    const ejsFile = path.resolve(
+        __dirname,
+        EPUB_BOILERPLATE_ROOT,
+        'template/book/content.xhtml.ejs'
+    );
     return ejs.render(fs.readFileSync(ejsFile).toString(), {
         title,
         content,
