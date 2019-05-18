@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import fse from 'fs-extra';
 import ejs from 'ejs';
+import _ from 'lodash';
 
 import {formatDate, toISOString} from '../utils/dateUtils';
 import TxtNode from '../utils/TxtNode';
@@ -65,8 +66,21 @@ function genCover(meta: Meta) {
 
 function readTxt(txtPath: string) {
     // console.log(txtPath);
-    // todo: 增加行转换为 p
-    return fs.readFileSync(txtPath).toString();
+    // 增加行转换为 p
+    let txt = fs.readFileSync(txtPath).toString();
+    txt = _.trim(txt);
+    if (!txt) return '';
+
+    const lines = txt.split('\n');
+    const results: string[] = [];
+    lines.forEach(line => {
+        const l = _.trim(line);
+        if (l) {
+            results.push(`<p>${l}</p>`);
+        }
+    });
+
+    return results.join('\n');
 }
 
 function genChapter(title: string, content: string) {
@@ -97,7 +111,7 @@ export function generate(toDir: string, meta: Meta, txtNodes: TxtNode[]) {
         genXhtmlToc(meta, txtNodes)
     );
 
-    // todo: 生成 txt 对应 html
+    // 生成 txt 对应 html
     chapters.forEach(chapter => {
         const content = readTxt(chapter.path);
         if (!chapter.title) return;

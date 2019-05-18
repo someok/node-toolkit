@@ -15,12 +15,6 @@ const presets = [
     '@babel/preset-typescript',
 ];
 
-const plugins = [
-    // todo: 删除此依赖
-    '@babel/plugin-proposal-class-properties',
-    // '@babel/plugin-syntax-dynamic-import',
-    // '@babel/plugin-transform-runtime',
-    // 'lodash',
-];
+// const plugins = [];
 
 module.exports = {presets};

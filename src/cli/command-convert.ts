@@ -79,6 +79,7 @@ export function customCommand(program: CommanderStatic) {
             if (batch) {
                 genAllTxtDir2Epub(txt, destDir)
                     .then(() => {
+                        console.log();
                         log('Done!');
                     })
                     .catch(err => {
@@ -87,6 +88,7 @@ export function customCommand(program: CommanderStatic) {
             } else {
                 genTxtDir2Epub(txt, destDir)
                     .then(() => {
+                        console.log();
                         log('Done!');
                     })
                     .catch(err => {
