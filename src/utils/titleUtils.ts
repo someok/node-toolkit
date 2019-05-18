@@ -18,14 +18,11 @@ export function getTitle(name: string): string {
  * @return 作者信息
  */
 export function getAuthor(name: string): string | undefined {
-    const re = /.+作者[&续写]{0,3}[:：]*(.*)[\]]?/s;
+    const re = /.+作者[&续写]{0,3}[:：]*(.*)/s;
     const match = re.exec(name.trim());
     if (match) {
         let author = match[1].trim();
         if (author) {
-            if (author.endsWith(']') || author.endsWith('】')) {
-                author = author.substr(0, author.length - 1);
-            }
             return author;
         }
         return undefined;
