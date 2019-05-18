@@ -5,7 +5,7 @@ import _ from 'lodash';
 import pingyin from 'pinyinlite';
 
 import mdListParser from '../utils/marked/list2JsonParser';
-import Result, {failure, success} from '../utils/result';
+import Result, {failure, success} from '../utils/Result';
 import {existPath, PathMode} from '../utils/fileUtils';
 import TxtNode from '../utils/TxtNode';
 import {METADATA_FOLDER, TOC_FILE} from '../context';
@@ -18,7 +18,7 @@ import {METADATA_FOLDER, TOC_FILE} from '../context';
  * @param folder 文件夹
  * @return {Result} 目录列表或错误信息
  */
-export function loadToc(folder: string): Result {
+export function loadToc(folder: string): Result<TxtNode[]> {
     const tocPath = path.resolve(folder, METADATA_FOLDER, TOC_FILE);
 
     if (fs.existsSync(tocPath)) {
@@ -86,7 +86,7 @@ function travelTree(folder: string, nodes: TxtNode[], notExistPath: string[]) {
  * @param mdFile toc.md 文件，markdown 列表格式
  * @return {Result} {@link TxtNode} 数组
  */
-export function loadMdContentAsToc(folder: string, mdFile: string): Result {
+export function loadMdContentAsToc(folder: string, mdFile: string): Result<TxtNode[]> {
     const mdName = path.basename(mdFile);
     let mdContent;
     try {
@@ -137,7 +137,7 @@ function txtFilter(item: klawSync.Item) {
  * @param pinyinSort 是否按照拼音排序
  * @return {Result} txt 文件名构成的数组，条目为 {@link TxtNode}
  */
-export function loadTxtNamesAsToc(folder: string, pinyinSort: boolean = false): Result {
+export function loadTxtNamesAsToc(folder: string, pinyinSort: boolean = false): Result<TxtNode[]> {
     const files = klawSync(folder, {
         nodir: true,
         filter: txtFilter,

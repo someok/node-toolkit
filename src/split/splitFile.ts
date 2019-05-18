@@ -5,8 +5,9 @@ import _ from 'lodash';
 import {fileName, readUtf8OrGbkReadFile} from '../utils/fileUtils';
 import {log, logError, logWarn} from '../utils/logUtils';
 
-import {splitAuto} from './splitTxt';
+import {splitAuto} from './splitTxtData';
 import {outputChapters} from './outputTxt';
+import {initMetadataByFoldderName} from '../metadata/metadata';
 
 /**
  * 分割单个 txt 文件到目标文件夹。
@@ -26,7 +27,11 @@ export function splitTxtFile2Dest(txtFile: string, destFolder: string, overwrite
         } else {
             message && logError(message);
         }
+
+        // 生成 meta
+        initMetadataByFoldderName(destFolder);
     } catch (e) {
+        // console.log(e);
         logError(`文本分隔过程中出现错误：[${txtFile}]，Err: ${e.message}`);
     }
 }

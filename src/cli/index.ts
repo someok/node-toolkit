@@ -2,11 +2,12 @@
 
 import program from 'commander';
 
+import {VERSION} from '../context';
+
 import {CLI_NAME} from './ctx';
-import pkg from '../../package.json';
 
 program
-    .version(pkg.version, '-v, --version')
+    .version(VERSION, '-v, --version')
     .name(CLI_NAME)
     .description('转换指定文件夹下的 txt 为 epub 格式');
 

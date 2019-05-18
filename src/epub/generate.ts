@@ -64,7 +64,7 @@ function genCover(meta: Meta) {
 }
 
 function readTxt(txtPath: string) {
-    console.log(txtPath);
+    // console.log(txtPath);
     // todo: 增加行转换为 p
     return fs.readFileSync(txtPath).toString();
 }
@@ -85,7 +85,7 @@ export function generate(toDir: string, meta: Meta, txtNodes: TxtNode[]) {
     copyBoilerplate(toDir);
 
     const chapters = toChapters(txtNodes);
-    console.log(chapters);
+    // console.log(chapters);
 
     const itemIds = chapters.map(item => item.id);
 

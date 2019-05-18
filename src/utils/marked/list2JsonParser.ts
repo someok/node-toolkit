@@ -14,7 +14,7 @@ type Tokens =
 function lexer2Json(tokens: Tokens[] | marked.TokensList): TxtNode[] {
     const rootNode = new TxtNode('__ROOT__');
 
-    let pNode: TxtNode | null;
+    let pNode: TxtNode | undefined;
     let cNode: TxtNode;
     let ignore = false;
     tokens.forEach(token => {
@@ -51,7 +51,7 @@ function lexer2Json(tokens: Tokens[] | marked.TokensList): TxtNode[] {
         if (type === 'list_item_end') {
         }
         if (type === 'list_end') {
-            if (pNode != null) pNode = pNode.parent;
+            if (pNode) pNode = pNode.parent;
         }
     });
 

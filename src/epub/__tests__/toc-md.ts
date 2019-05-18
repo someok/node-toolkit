@@ -36,13 +36,13 @@ test('load level md toc', () => {
 
     const {data} = result;
     expect(data.length).toBe(2);
-    console.log(data[0]);
+    // console.log(data[0]);
     expect(data[0]).toEqual(
         expect.objectContaining({
             title: 'f1',
             rawTitle: 'f1',
             ext: '',
-            path: path.resolve(folder, 'f1'),
+            path: undefined,
         })
     );
     expect(data[1].children[1]).toEqual(

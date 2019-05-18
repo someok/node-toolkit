@@ -10,12 +10,12 @@ function loadMd(path: string): string {
 
 test('parse simple md', () => {
     const dir = path.resolve(__dirname, 'md-files', 'simple.md');
-    console.log(dir);
+    // console.log(dir);
     const md = loadMd(dir);
-    console.log('===' + md + '===');
+    // console.log('===' + md + '===');
 
     const nodeTree: TxtNode[] | null = parser(md);
-    console.log(nodeTree);
+    // console.log(nodeTree);
     expect(nodeTree).not.toBeNull();
 
     if (nodeTree) {
@@ -44,12 +44,12 @@ test('parse simple md', () => {
 
 test('parse tab and space mix md', () => {
     const dir = path.resolve(__dirname, 'md-files', 'tab-space-mix.md');
-    console.log(dir);
+    // console.log(dir);
     const md = loadMd(dir);
-    console.log('===' + md + '===');
+    // console.log('===' + md + '===');
 
     const nodeTree: TxtNode[] | null = parser(md);
-    console.log(nodeTree);
+    // console.log(nodeTree);
     expect(nodeTree).not.toBeNull();
 
     if (nodeTree) {
@@ -57,7 +57,7 @@ test('parse tab and space mix md', () => {
         expect(nodeTree[0].title).toBe('aa');
         expect(nodeTree[0].children.length).toBe(0);
 
-        console.log(nodeTree[1].children);
+        // console.log(nodeTree[1].children);
         expect(nodeTree[1].children[0].children[0].title).toBe('tab01');
         // tab02 行是前置 3 个空格 + 1 个 tab
         expect(nodeTree[1].children[1].children[0].title).toBe('tab02');
@@ -67,12 +67,12 @@ test('parse tab and space mix md', () => {
 
 test('parse complex list to json', () => {
     const dir = path.resolve(__dirname, 'md-files', 'complex.md');
-    console.log(dir);
+    // console.log(dir);
     const md = loadMd(dir);
-    console.log('===' + md + '===');
+    // console.log('===' + md + '===');
 
     const nodeTree: TxtNode[] | null = parser(md);
-    console.log(nodeTree);
+    // console.log(nodeTree);
     expect(nodeTree).not.toBeNull();
 
     if (nodeTree) {
@@ -93,16 +93,16 @@ test('parse complex list to json', () => {
 
 test('level md file', () => {
     const dir = path.resolve(__dirname, 'md-files', 'level.md');
-    console.log(dir);
+    // console.log(dir);
     const md = loadMd(dir);
-    console.log('===' + md + '===');
+    // console.log('===' + md + '===');
 
     const nodeTree: TxtNode[] | null = parser(md);
-    console.log(nodeTree);
+    // console.log(nodeTree);
     expect(nodeTree).not.toBeNull();
 
     if (nodeTree) {
-        console.log(nodeTree[0].children);
+        // console.log(nodeTree[0].children);
 
         expect(nodeTree[0].title).toBe('level1');
         expect(nodeTree[0].rawTitle).toBe('level1');

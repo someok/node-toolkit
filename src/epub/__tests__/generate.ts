@@ -6,7 +6,7 @@ import {copyBoilerplate} from '../generate';
 
 test('copyBoilerplate', () => {
     const tmpDir = createTempFolder();
-    console.log(tmpDir);
+    // console.log(tmpDir);
     copyBoilerplate(tmpDir);
 
     expect(existDir(path.join(tmpDir, 'META-INF'))).toBeTruthy();

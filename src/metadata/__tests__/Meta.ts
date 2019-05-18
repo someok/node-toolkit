@@ -16,7 +16,7 @@ test('toJson', () => {
 
 test('fromJson', () => {
     const meta = Meta.fromJson(null);
-    console.log(meta);
+    // console.log(meta);
     expect(meta.title).toBeUndefined();
     expect(meta.author).toBeUndefined();
     expect(meta.description).toBeUndefined();

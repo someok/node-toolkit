@@ -1,23 +1,30 @@
-const path = require('path');
-const _ = require('lodash');
+import path from 'path';
+import _ from 'lodash';
+import {CommanderStatic} from 'commander';
 
-const {SPLIT_OUTPUT_FOLDER} = require('../context');
-const {logError} = require('../utils/logUtils');
-const {existPath, PathMode, fileName} = require('../utils/fileUtils');
-const {splitTxtFile2Dest, splitAllTxt2Dest} = require('../split/splitFile');
-const {logCustomHelp, boolArg} = require('./utils');
+import {SPLIT_OUTPUT_FOLDER} from '../context';
+import {logError} from '../utils/logUtils';
+import {existPath, fileName, PathMode} from '../utils/fileUtils';
+import {splitAllTxt2Dest, splitTxtFile2Dest} from '../split/splitFile';
+import {boolArg, logCustomHelp} from './utils';
 
 /**
  * split 命令的自定义帮助信息
  */
-function customHelp() {
+export function customHelp() {
     logCustomHelp('s -t /path/to/txt/dir');
     logCustomHelp('split -t /path/to/txt/dir');
     logCustomHelp('split -t /path/to/txt/file.txt');
     logCustomHelp('split -t /path/to/txt/file.txt -d /path/to/dest/dir -o n');
 }
 
-function customCommand(program) {
+interface Option {
+    txt: string;
+    dest?: string;
+    overwrite?: boolean;
+}
+
+export function customCommand(program: CommanderStatic) {
     program
         .command('split')
         .alias('s')
@@ -32,26 +39,29 @@ function customCommand(program) {
             console.log('');
             customHelp();
         })
-        .action(function() {
+        .action(function(...actionArgs: string[]) {
             // 将参数转换为数组，并提取最后一个作为 options（其实就是 Command 对象）
-            const args = arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments);
+            const args = actionArgs.length === 1 ? [actionArgs[0]] : Array.apply(null, actionArgs);
 
-            let argsErr = true;
-            let options;
+            let options: Option | undefined;
             if (_.isArray(args) && !_.isEmpty(args)) {
-                options = args[args.length - 1];
-                argsErr = !options.txt;
+                const opt = args[args.length - 1] as Option;
+
+                if (opt.txt) {
+                    options = {txt: opt.txt, dest: opt.dest, overwrite: opt.overwrite};
+                }
             }
-            const {txt, dest, overwrite} = options || {};
 
             // 未提供 txt 参数时输出错误信息和当前命令的帮助信息
-            if (argsErr) {
+            if (!options) {
                 console.log();
                 logError('[-t, --txt] 参数不能为空');
                 console.log();
-                this.outputHelp();
+                program.outputHelp();
                 return;
             }
+
+            const {txt, dest, overwrite} = options;
 
             let isFile = false;
             const txtMode = existPath(txt);
@@ -63,7 +73,7 @@ function customCommand(program) {
                 isFile = true;
             }
 
-            let destFolder = dest;
+            let destFolder: string;
             if (!dest) {
                 if (isFile) {
                     const name = fileName(txt);
@@ -78,6 +88,8 @@ function customCommand(program) {
                     logError(`[${dest}] 是已存在文件，而非文件夹`);
                     return;
                 }
+
+                destFolder = dest;
             }
 
             if (isFile) {
@@ -87,8 +99,3 @@ function customCommand(program) {
             }
         });
 }
-
-module.exports = {
-    customCommand,
-    customHelp,
-};

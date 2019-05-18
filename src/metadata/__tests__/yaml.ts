@@ -2,7 +2,7 @@ import fse from 'fs-extra';
 
 import {createTempFolder} from '../../utils/fileUtils';
 import {loadMetadataYaml} from '../yaml';
-import metadataInit from '../metadata';
+import {initMetadata} from '../metadata';
 import Meta from '../Meta';
 
 let folder: string;
@@ -16,10 +16,10 @@ const META = {
 beforeEach(() => {
     // 临时文件夹
     folder = createTempFolder();
-    console.log(`tmp folder: ${folder}`);
+    // console.log(`tmp folder: ${folder}`);
 
     const meta = new Meta(META.title, META.author, META.description);
-    metadataInit(folder, meta);
+    initMetadata(folder, meta);
 });
 
 afterEach(() => {
@@ -29,6 +29,6 @@ afterEach(() => {
 
 test('loadMetadataYaml', () => {
     const meta = loadMetadataYaml(folder);
-    console.log(meta);
+    // console.log(meta);
     expect(meta.toJson()).toEqual({...META, version: '1.0.0', uuid: meta.uuid});
 });

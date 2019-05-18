@@ -3,14 +3,14 @@ import _ from 'lodash';
 import fse from 'fs-extra';
 
 import {logWarn} from '../utils/logUtils';
-import Result, {failure, success} from '../utils/result';
+import Result, {failure, success} from '../utils/Result';
 import Chapter from './Chapter';
 
 export function outputChapters(
     chapters: Chapter[],
     destFolder: string,
     overwrite: boolean = true
-): Result {
+): Result<undefined> {
     if (_.isEmpty(chapters)) return failure('章节内容为空');
 
     if (fse.pathExistsSync(destFolder)) {

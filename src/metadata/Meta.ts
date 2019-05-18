@@ -24,11 +24,15 @@ export default class Meta {
     toJson() {
         return {
             title: this.title,
-            author: this.author,
-            description: this.description,
+            author: this.author || '',
+            description: this.description || '',
             uuid: this.uuid,
             version: this.version,
         };
+    }
+
+    epubTitle() {
+        return `${this.title}-${this.version}.epub`;
     }
 
     static fromJson(json: {} | null) {

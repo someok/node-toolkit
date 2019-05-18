@@ -1,4 +1,6 @@
 import path from 'path';
+import fs from 'fs';
+import fse from 'fs-extra';
 
 import {createTempFolder} from '../../utils/fileUtils';
 import {generate} from '../generate';
@@ -18,12 +20,22 @@ beforeEach(() => {
     }
 });
 
-afterEach(() => {
-});
+// afterEach(() => {
+// });
 
 test('generate', () => {
     const tmpDir = createTempFolder();
-    console.log(tmpDir);
+    // console.log(tmpDir);
     const result = loadToc(path.resolve(__dirname, 'epub', 'toc1'));
     generate(tmpDir, meta, result.data);
+
+    expect(fs.existsSync(path.join(tmpDir, 'mimetype'))).toBeTruthy();
+    expect(fs.existsSync(path.join(tmpDir, 'META-INF/container.xml'))).toBeTruthy();
+    expect(fs.existsSync(path.join(tmpDir, 'OPS/package.opf'))).toBeTruthy();
+    expect(fs.existsSync(path.join(tmpDir, 'OPS/book/chapter-0000.xhtml'))).toBeTruthy();
+    expect(fs.existsSync(path.join(tmpDir, 'OPS/book/chapter-0009.xhtml'))).toBeTruthy();
+    expect(fs.existsSync(path.join(tmpDir, 'OPS/book/table-of-contents.ncx'))).toBeTruthy();
+    expect(fs.existsSync(path.join(tmpDir, 'OPS/book/table-of-contents.xhtml'))).toBeTruthy();
+
+    fse.removeSync(tmpDir);
 });

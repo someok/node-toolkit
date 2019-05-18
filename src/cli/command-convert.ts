@@ -5,7 +5,7 @@ import {logCustomHelp} from './utils';
 import {logError} from '../utils/logUtils';
 import {existPath, PathMode} from '../utils/fileUtils';
 
-function customHelp() {
+export function customHelp() {
     logCustomHelp('c /path/to/txt/dir');
     logCustomHelp('convert /path/to/txt/dir');
     logCustomHelp('c -b /path/to/txt/dir');
@@ -14,10 +14,11 @@ function customHelp() {
 
 interface Option {
     txt: string;
-    dest: string;
-    batch: boolean;
+    dest?: string;
+    batch?: boolean;
 }
-function customCommand(program: CommanderStatic) {
+
+export function customCommand(program: CommanderStatic) {
     // noinspection HtmlDeprecatedTag
     program
         .command('convert')
@@ -36,24 +37,25 @@ function customCommand(program: CommanderStatic) {
             // 将参数转换为数组，并提取最后一个作为 options（其实就是 Command 对象）
             const args = actionArgs.length === 1 ? [actionArgs[0]] : Array.apply(null, actionArgs);
 
-            let argsErr = true;
-            let options: {
-                txt?: string;
-            };
+            let options: Option | undefined;
             if (_.isArray(args) && !_.isEmpty(args)) {
-                options = args[args.length - 1];
-                argsErr = !options.txt;
+                const opt = args[args.length - 1] as Option;
+
+                if (opt.txt) {
+                    options = {txt: opt.txt, dest: opt.dest, batch: opt.batch};
+                }
             }
-            const {txt, dest, batch} = options || {};
 
             // 未提供 txt 参数时输出错误信息和当前命令的帮助信息
-            if (argsErr) {
+            if (!options) {
                 console.log();
                 logError('[-t, --txt] 参数不能为空');
                 console.log();
-                this.outputHelp();
+                program.outputHelp();
                 return;
             }
+
+            const {txt, dest, batch} = options;
 
             const mode = existPath(txt);
             if (mode === PathMode.NOT_EXIST) {
@@ -68,8 +70,3 @@ function customCommand(program: CommanderStatic) {
             // 读取 metadata 信息（如果存在）
         });
 }
-
-module.exports = {
-    customHelp,
-    customCommand,
-};

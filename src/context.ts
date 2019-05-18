@@ -1,3 +1,5 @@
+export const VERSION = require('../package.json').version;
+
 /**
  * metadata 文件夹名称
  *

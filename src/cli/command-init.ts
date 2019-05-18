@@ -1,16 +1,18 @@
-const {logCustomHelp} = require('./utils');
-const metadataInit = require('../metadata/init');
+import {CommanderStatic} from 'commander';
+
+import {logCustomHelp} from './utils';
+import metadataInit from '../metadata';
 
 /**
  * init 命令的自定义帮助信息
  */
-function customHelp() {
+export function customHelp() {
     logCustomHelp('i');
-    logCustomHelp('init');
+    logCustomHelp('index.ts');
     logCustomHelp('init /path/to/txt/dir');
 }
 
-function customCommand(program) {
+export function customCommand(program: CommanderStatic) {
     program
         .command('init [dir]')
         .alias('i')
@@ -26,8 +28,3 @@ function customCommand(program) {
             metadataInit(dir || process.cwd());
         });
 }
-
-module.exports = {
-    customCommand,
-    customHelp,
-};

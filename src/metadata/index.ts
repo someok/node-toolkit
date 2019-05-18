@@ -3,15 +3,12 @@ import os from 'os';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 
-import pkg from '../../package.json';
 import {existDir} from '../utils/fileUtils';
 import {log, logWarn} from '../utils/logUtils';
 import {getAuthor, getTitle} from '../utils/titleUtils';
-
-import metadataInit from './metadata';
+import {VERSION} from '../context';
+import {initMetadata} from './metadata';
 import Meta from './Meta';
-
-const pkgVersion = pkg.version;
 
 function getQuestions(txtFolder: string) {
     const folderQuestion = {
@@ -76,10 +73,10 @@ function getQuestions(txtFolder: string) {
  *
  * @param txtFolder txt 所在根目录
  */
-module.exports = function(txtFolder: string) {
+export default function(txtFolder: string) {
     const questions = getQuestions(txtFolder);
 
-    log(`\n...Txt2Eput ${pkgVersion} metadata init...\n`, {prefix: '', bold: true});
+    log(`\n...Txt2Eput ${VERSION} metadata init...\n`, {prefix: '', bold: true});
 
     inquirer.prompt(questions).then((answers: inquirer.Answers) => {
         console.log();
@@ -89,7 +86,7 @@ module.exports = function(txtFolder: string) {
         } else {
             const {folder, title, author, description} = answers;
             const meta = new Meta(title, author, description);
-            metadataInit(folder, meta);
+            initMetadata(folder, meta);
         }
 
         console.log();

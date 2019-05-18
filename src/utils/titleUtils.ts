@@ -17,7 +17,7 @@ export function getTitle(name: string): string {
  * @param name 标题
  * @return 作者信息
  */
-export function getAuthor(name: string): string | null {
+export function getAuthor(name: string): string | undefined {
     const re = /.+作者[&续写]{0,3}[:：]*(.*)[\]]?/s;
     const match = re.exec(name.trim());
     if (match) {
@@ -28,7 +28,7 @@ export function getAuthor(name: string): string | null {
             }
             return author;
         }
-        return null;
+        return undefined;
     }
-    return null;
+    return undefined;
 }

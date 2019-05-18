@@ -9,13 +9,13 @@ function demoFolder(name: string) {
 
 test('readMetadata', () => {
     const result = readMetadata(demoFolder('demo1'));
-    console.log(result);
+    // console.log(result);
     const {meta, tocNodes} = result.data;
     expect(result.success).toBeTruthy();
     expect(tocNodes.length).toBe(3);
-    console.log(meta);
-    console.log(typeof meta);
-    console.log(meta instanceof Meta);
+    // console.log(meta);
+    // console.log(typeof meta);
+    // console.log(meta instanceof Meta);
     expect(meta).toBeInstanceOf(Meta);
     expect(meta.toJson()).toEqual({
         title: 'demo1',

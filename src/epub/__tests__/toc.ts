@@ -62,7 +62,7 @@ test('load two level md toc', () => {
     const result = loadToc(folder);
 
     const {data, success} = result;
-    console.log(data);
+    // console.log(data);
 
     expect(success).toBeTruthy();
     expect(data.length).toBe(2);
