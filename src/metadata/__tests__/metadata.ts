@@ -61,5 +61,4 @@ test('initMetadataByFoldderName', () => {
     expect(json.description).toBe('');
 
     fse.removeSync(tmpDir);
-
 });

@@ -91,4 +91,4 @@ export default function(txtFolder: string) {
 
         console.log();
     });
-};
+}
