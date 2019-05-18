@@ -54,7 +54,7 @@ test('initMetadataByFoldderName', () => {
     const meta = result.data;
     // console.log(meta);
     expect(meta.title).toBe('《他改变了中国》');
-    expect(meta.author).toBe('不认识【完结');
+    expect(meta.author).toBe('不认识【完结】');
     expect(meta.description).toBe(undefined);
 
     const json = meta.toJson();

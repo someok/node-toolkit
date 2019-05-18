@@ -32,7 +32,7 @@ export default class Meta {
     }
 
     epubTitle() {
-        return `${this.title}-${this.version}.epub`;
+        return `${this.title}-v${this.version}.epub`;
     }
 
     static fromJson(json: {} | null) {

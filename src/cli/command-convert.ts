@@ -1,9 +1,12 @@
+import path from 'path';
 import _ from 'lodash';
 import {CommanderStatic} from 'commander';
 
 import {logCustomHelp} from './utils';
-import {logError} from '../utils/logUtils';
+import {log, logError} from '../utils/logUtils';
 import {existPath, PathMode} from '../utils/fileUtils';
+import {EPUB_OUTPUT_FOLDER} from '../context';
+import {genAllTxtDir2Epub, genTxtDir2Epub} from '../epub';
 
 export function customHelp() {
     logCustomHelp('c /path/to/txt/dir');
@@ -56,17 +59,39 @@ export function customCommand(program: CommanderStatic) {
             }
 
             const {txt, dest, batch} = options;
-
-            const mode = existPath(txt);
-            if (mode === PathMode.NOT_EXIST) {
-                logError(`[${txt}] 不存在`);
-                return;
-            }
-            if (mode !== PathMode.IS_DIRECTORY) {
-                logError(`[${txt}] 不是文件夹`);
+            if (existPath(txt) !== PathMode.IS_DIRECTORY) {
+                logError(`[${txt}] 不是合法目录`);
                 return;
             }
 
-            // 读取 metadata 信息（如果存在）
+            let destDir: string;
+            if (dest) {
+                if (existPath(dest) !== PathMode.IS_DIRECTORY) {
+                    logError(`[${dest}] 不是合法目录`);
+                    return;
+                }
+
+                destDir = dest;
+            } else {
+                destDir = path.resolve(txt, EPUB_OUTPUT_FOLDER);
+            }
+
+            if (batch) {
+                genAllTxtDir2Epub(txt, destDir)
+                    .then(() => {
+                        log('Done!');
+                    })
+                    .catch(err => {
+                        logError(err.message);
+                    });
+            } else {
+                genTxtDir2Epub(txt, destDir)
+                    .then(() => {
+                        log('Done!');
+                    })
+                    .catch(err => {
+                        logError(err.message);
+                    });
+            }
         });
 }

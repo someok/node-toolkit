@@ -96,7 +96,7 @@ export function zipDir(folder: string, zipFile: string): Promise<archiver.Archiv
  * @param toDir 解压目标路径
  * @return {Promise}
  */
-export function unzip(zipFile: string, toDir: string): Promise<undefined> {
+export function unzip(zipFile: string, toDir: string): Promise<void> {
     return new Promise(function(resolve, reject) {
         yauzl.open(zipFile, {lazyEntries: true}, function(err, zipfile) {
             if (err) throw err;

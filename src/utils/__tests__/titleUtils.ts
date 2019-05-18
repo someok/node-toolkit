@@ -18,16 +18,16 @@ test('getTitle', () => {
 test('getAuthor', () => {
     let name = '标题[作者：张三]';
     let author = getAuthor(name);
-    expect(author).toBe('张三');
+    expect(author).toBe('张三]');
 
     name = '标题[作者&续写：张三]';
     author = getAuthor(name);
-    expect(author).toBe('张三');
+    expect(author).toBe('张三]');
 
     name = '标题[作者&续写：张三】';
     author = getAuthor(name);
     // console.log(author);
-    expect(author).toBe('张三');
+    expect(author).toBe('张三】');
 
     name = '标题';
     author = getAuthor(name);
