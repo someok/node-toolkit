@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "convert text files to epub",
   "private": true,
-  "bin": "./src/cli/index.js",
-  "main": "./src/cli/index.js",
+  "bin": "./dist/cli/index.js",
+  "main": "./dist/cli/index.js",
   "scripts": {
     "test": "jest",
     "gitlog": "git log `git describe --tags --abbrev=0`..HEAD --no-merges --graph --decorate --pretty=format:'%h %Cblue%s%Creset %cr (%an)'",
