@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 import {formatDate, toISOString} from '../utils/dateUtils';
 import TxtNode from '../utils/TxtNode';
+import htmlEscape from '../utils/htmlEscape';
 import {toChapters, toHtmlOrderList, toNavMap} from '../utils/TxtNodeListConvert';
 import Meta from '../metadata/Meta';
 
@@ -84,9 +85,10 @@ function readTxt(txtPath: string) {
     const lines = txt.split('\n');
     const results: string[] = [];
     lines.forEach(line => {
-        const l = _.trim(line);
-        if (l) {
-            results.push(`<p>${l}</p>`);
+        let string = _.trim(line);
+        string = htmlEscape(string);
+        if (string) {
+            results.push(`<p>${string}</p>`);
         }
     });
 

@@ -6,6 +6,7 @@ import pingyin from 'pinyinlite';
 
 import mdListParser from '../utils/marked/list2JsonParser';
 import Result, {failure, success} from '../utils/Result';
+import htmlEscape from '../utils/htmlEscape';
 import {existPath, PathMode} from '../utils/fileUtils';
 import TxtNode from '../utils/TxtNode';
 import {METADATA_FOLDER, TOC_FILE} from '../context';
@@ -59,9 +60,11 @@ export function travelTxtNodeTree(nodes: TxtNode[], fn: Function, level: number 
  */
 function travelTree(folder: string, nodes: TxtNode[], notExistPath: string[]) {
     TxtNode.travelTxtNodeTree(nodes, (node: TxtNode, hasChildren: boolean) => {
-        const {rawTitle} = node;
+        const {title, rawTitle} = node;
         const nodePath = rawTitle ? path.join(folder, rawTitle) : folder;
         const mode = existPath(nodePath);
+
+        node.title = htmlEscape(title);
 
         // 非分支节点允许非物理路径存在，也就是说父节点可以只作为标题存在
         // 此时 node.path 为空
@@ -157,8 +160,8 @@ export function loadTxtNamesAsToc(folder: string, pinyinSort: boolean = false): 
         let title = path.basename(filePath, ext).trim();
         const match = re.exec(title);
         if (match) {
-            // todo: 增加 html escape 处理
             title = match[2];
+            title = htmlEscape(title);
         }
 
         return new TxtNode(title, undefined, undefined, rawTitle, ext, filePath);
