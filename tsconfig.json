@@ -56,9 +56,8 @@
     /* Module Resolution Options */
     /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "moduleResolution": "node",
-    "baseUrl": "./",
-    /* Base directory to resolve non-absolute module names. */ /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
-    "paths": {
+    "baseUrl": "./" /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,
+    /* Base directory to resolve non-absolute module names. */ "paths": {
       "*": ["node_modules/*", "types/*"]
     },
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
@@ -82,5 +81,6 @@
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["src/**/__tests__/**/*"]
 }
