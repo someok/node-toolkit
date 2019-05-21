@@ -6,7 +6,6 @@ import pingyin from 'pinyinlite';
 
 import mdListParser from '../utils/marked/list2JsonParser';
 import Result, {failure, success} from '../utils/Result';
-import htmlEscape from '../utils/htmlEscape';
 import {existPath, PathMode} from '../utils/fileUtils';
 import TxtNode from '../utils/TxtNode';
 import {METADATA_FOLDER, TOC_FILE} from '../context';
@@ -64,13 +63,13 @@ function travelTree(folder: string, nodes: TxtNode[], notExistPath: string[]) {
 
         // md 中可能会存在「\_」，需将其替换掉
         // todo: 这个替换有问题，还需要仔细测试
-        const re = /\\_/g;
-        const _title = title ? title.replace(re, '_') : title;
-        const _rawTitle = rawTitle ? rawTitle.replace(re, '_') : rawTitle;
-        const nodePath = _rawTitle ? path.join(folder, _rawTitle) : folder;
+        // const re = /\\_/g;
+        // const _title = title ? title.replace(re, '_') : title;
+        // const _rawTitle = rawTitle ? rawTitle.replace(re, '_') : rawTitle;
+        const nodePath = rawTitle ? path.join(folder, rawTitle) : folder;
         const mode = existPath(nodePath);
 
-        node.title = htmlEscape(_title);
+        node.title = title ? TxtNode.validTitle(title) : title;
 
         // 非分支节点允许非物理路径存在，也就是说父节点可以只作为标题存在
         // 此时 node.path 为空
@@ -157,18 +156,18 @@ export function loadTxtNamesAsToc(folder: string, pinyinSort: boolean = false): 
     }
 
     const fileArr = files.map(file => {
-        // 如果标题前面有数字（格式为：123__xxx），则去掉下划线及前置数字，只保留后面内容
-        const re = /^(\d*_{2})?(.+)/g;
+        // const re = /^(\d*_{2})?(.+)/g;
 
         const filePath = file.path;
         const ext = path.extname(filePath);
         const rawTitle = path.basename(filePath).trim();
-        let title = path.basename(filePath, ext).trim();
-        const match = re.exec(title);
-        if (match) {
-            title = match[2];
-            title = htmlEscape(title);
-        }
+        let title = path.basename(filePath).trim();
+        title = TxtNode.validTitle(title);
+        // const match = re.exec(title);
+        // if (match) {
+        //     title = match[2];
+        //     title = htmlEscape(title);
+        // }
 
         return new TxtNode(title, undefined, undefined, rawTitle, ext, filePath);
     });

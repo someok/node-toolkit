@@ -43,8 +43,7 @@ function lexer2Json(tokens: Tokens[] | marked.TokensList): TxtNode[] {
         }
         if (token.type === 'text') {
             const txt = token.text.trim();
-            // todo: 增加 html escape 处理
-            cNode.title = TxtNode.validTitle(path.basename(txt));
+            cNode.title = path.basename(txt);
             cNode.rawTitle = txt;
             cNode.ext = path.extname(txt);
         }

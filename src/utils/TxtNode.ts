@@ -1,3 +1,5 @@
+import htmlEscape from './htmlEscape';
+
 export default class TxtNode {
     private _title: string | undefined;
     private _rawTitle: string | undefined;
@@ -32,12 +34,16 @@ export default class TxtNode {
         }
 
         const t = title.trim();
-        const titleRe = /(.+)\.(txt|md)/i;
+
+        let ret = t;
+
+        // 如果标题前面有数字（格式为：123__xxx），则去掉下划线及前置数字，只保留后面内容
+        const titleRe = /(\d*_{2})?(.+)\.(txt|md)/i;
         const match = t.match(titleRe);
         if (match) {
-            return match[1];
+            ret = match[2];
         }
-        return t;
+        return htmlEscape(ret);
     }
 
     /**
