@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/someok/txt2epub/compare/v1.1.1...v1.1.2) (2019-05-21)
+
+### Features
+
+- 优化章节标题读取方式 ([91134f3](https://github.com/someok/txt2epub/commit/91134f3))
+- 批量生成 epub 的时候将目录层级限定为 1 层 ([b286f09](https://github.com/someok/txt2epub/commit/b286f09))
+- 父节点单纯作为标题的时候指向最近的子节点地址 ([dc6f300](https://github.com/someok/txt2epub/commit/dc6f300))
+
 ### [1.1.1](https://github.com/someok/txt2epub/compare/v1.1.0...v1.1.1) (2019-05-21)
 
 ### Features
