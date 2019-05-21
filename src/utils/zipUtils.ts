@@ -99,7 +99,7 @@ export function zipDir(folder: string, zipFile: string): Promise<archiver.Archiv
 export function unzip(zipFile: string, toDir: string): Promise<void> {
     return new Promise(function(resolve, reject) {
         yauzl.open(zipFile, {lazyEntries: true}, function(err, zipfile) {
-            if (err) throw err;
+            if (err) reject(err);
             // console.log(zipFile);
 
             if (!zipfile) return;
@@ -118,7 +118,7 @@ export function unzip(zipFile: string, toDir: string): Promise<void> {
                     fse.ensureDirSync(path.dirname(filePath));
 
                     zipfile.openReadStream(entry, function(err, readStream) {
-                        if (err) throw err;
+                        if (err) throw reject(err);
 
                         if (!readStream) return;
 
