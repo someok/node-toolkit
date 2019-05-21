@@ -3,10 +3,12 @@ export default class TxtNode {
     private _rawTitle: string | undefined;
     private _ext: string | undefined;
     private _path: string | undefined;
+    // 节点指向的 txt 的索引号
+    private _chapterId: number | undefined;
     private _desc: string | undefined;
     private _parent: TxtNode | undefined;
-    private _children: TxtNode[];
-    private _level: number;
+    private _children: TxtNode[] = [];
+    private _level: number = 0;
 
     constructor(
         title?: string,
@@ -22,8 +24,6 @@ export default class TxtNode {
         this._path = path;
         this._desc = desc;
         this._parent = parent;
-        this._level = 0;
-        this._children = [];
     }
 
     static validTitle(title: string): string {
@@ -47,7 +47,11 @@ export default class TxtNode {
      * @param {function} fn 遍历节点的时候执行的 callback 方法
      * @param level 树形层级，默认从 0 开始
      */
-    static travelTxtNodeTree(nodes: TxtNode[], fn: Function, level: number = 0) {
+    static travelTxtNodeTree(
+        nodes: TxtNode[],
+        fn: (node: TxtNode, hasChildren: boolean, level: number) => void,
+        level: number = 0
+    ) {
         for (let i = 0; i < nodes.length; i++) {
             const node = nodes[i];
             const {children} = node;
@@ -59,6 +63,27 @@ export default class TxtNode {
                 TxtNode.travelTxtNodeTree(children, fn, level + 1);
             }
         }
+    }
+
+    static setChapterIds(nodes: TxtNode[]) {
+        let index = 0;
+        // 首先遍历一次将所有存在实际路径的节点设置上 id
+        TxtNode.travelTxtNodeTree(nodes, function(node) {
+            if (node.path) node.chapterId = ++index;
+        });
+
+        // 再次遍历，将不存在 id 的节点的 id 指向最近的子节点的 id
+        TxtNode.travelTxtNodeTree(nodes, function(node, hasChildren) {
+            if (!node.chapterId && hasChildren) {
+                let childrenId: number;
+                TxtNode.travelTxtNodeTree(node.children, function(cnode) {
+                    if (!childrenId && cnode.chapterId) {
+                        childrenId = cnode.chapterId;
+                        node.chapterId = childrenId;
+                    }
+                });
+            }
+        });
     }
 
     get title() {
@@ -91,6 +116,14 @@ export default class TxtNode {
 
     set path(value) {
         this._path = value;
+    }
+
+    get chapterId(): number | undefined {
+        return this._chapterId;
+    }
+
+    set chapterId(value: number | undefined) {
+        this._chapterId = value;
     }
 
     get desc() {

@@ -48,7 +48,7 @@
     /* Report errors on unused locals. */
     //    "noUnusedLocals": true,
     /* Report errors on unused parameters. */
-    "noUnusedParameters": true,
+    //    "noUnusedParameters": true,
     /* Report error when not all code paths in function return a value. */
     "noImplicitReturns": true,
     /* Report errors for fallthrough cases in switch statement. */

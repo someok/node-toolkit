@@ -61,10 +61,16 @@ export function travelTxtNodeTree(nodes: TxtNode[], fn: Function, level: number 
 function travelTree(folder: string, nodes: TxtNode[], notExistPath: string[]) {
     TxtNode.travelTxtNodeTree(nodes, (node: TxtNode, hasChildren: boolean) => {
         const {title, rawTitle} = node;
-        const nodePath = rawTitle ? path.join(folder, rawTitle) : folder;
+
+        // md 中可能会存在「\_」，需将其替换掉
+        // todo: 这个替换有问题，还需要仔细测试
+        const re = /\\_/g;
+        const _title = title ? title.replace(re, '_') : title;
+        const _rawTitle = rawTitle ? rawTitle.replace(re, '_') : rawTitle;
+        const nodePath = _rawTitle ? path.join(folder, _rawTitle) : folder;
         const mode = existPath(nodePath);
 
-        node.title = htmlEscape(title);
+        node.title = htmlEscape(_title);
 
         // 非分支节点允许非物理路径存在，也就是说父节点可以只作为标题存在
         // 此时 node.path 为空

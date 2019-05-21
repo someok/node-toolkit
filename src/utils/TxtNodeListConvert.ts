@@ -11,9 +11,9 @@ function getHref(index: number) {
 }
 
 export function toNavMap(txtNodes: TxtNode[]) {
-    let ncx = '<navMap>\n';
+    TxtNode.setChapterIds(txtNodes);
 
-    let index = 0;
+    let ncx = '<navMap>\n';
 
     function travelNode(nodes: TxtNode[]) {
         for (let i = 0; i < nodes.length; i++) {
@@ -24,9 +24,9 @@ export function toNavMap(txtNodes: TxtNode[]) {
             const hasChildren = Array.isArray(children) && children.length > 0;
             ncx += '<navPoint>\n';
 
-            if (node.path) {
+            if (node.chapterId) {
                 ncx += `<navLabel><text>${title}</text></navLabel>\n`;
-                ncx += `<content src="${getHref(index++)}"/>\n`;
+                ncx += `<content src="${getHref(node.chapterId)}"/>\n`;
             } else {
                 ncx += `<navLabel><text>${title}</text></navLabel>\n`;
             }
@@ -46,9 +46,9 @@ export function toNavMap(txtNodes: TxtNode[]) {
 }
 
 export function toHtmlOrderList(txtNodes: TxtNode[]) {
-    let ol = '<ol>\n';
+    TxtNode.setChapterIds(txtNodes);
 
-    let index = 0;
+    let ol = '<ol>\n';
 
     function travelNode(nodes: TxtNode[]) {
         for (let i = 0; i < nodes.length; i++) {
@@ -59,8 +59,8 @@ export function toHtmlOrderList(txtNodes: TxtNode[]) {
             const hasChildren = Array.isArray(children) && children.length > 0;
             ol += '<li>\n';
 
-            if (node.path) {
-                ol += `<a href="${getHref(index++)}">${title}</a>\n`;
+            if (node.chapterId) {
+                ol += `<a href="${getHref(node.chapterId)}">${title}</a>\n`;
             } else {
                 ol += `<span>${title}</span>`;
             }
@@ -92,7 +92,7 @@ export function toChapters(txtNodes: TxtNode[]) {
     TxtNode.travelTxtNodeTree(txtNodes, (node: TxtNode) => {
         if (node.path) {
             chapterIds.push({
-                id: getChapterId(index++),
+                id: getChapterId(++index),
                 title: node.title,
                 path: node.path,
             });
