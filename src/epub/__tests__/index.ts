@@ -1,6 +1,5 @@
-import path from 'path';
 import fse from 'fs-extra';
-
+import path from 'path';
 import {genTxtDir2Epub} from '../index';
 import {createTempFolder} from '../../utils/fileUtils';
 

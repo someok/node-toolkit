@@ -66,7 +66,7 @@ export function genTxtDir2Epub(txtDir: string, epubPath: string): Promise<Meta> 
 export function genAllTxtDir2Epub(txtDir: string, epubPath: string): Promise<boolean> {
     const dirs = klawSync(txtDir, {
         nofile: true,
-        depthLimit: 1, // 只在给定目录下生成
+        depthLimit: 0, // 只在给定目录下生成
         filter: function(item) {
             const dirName = path.basename(item.path);
             return !dirName.startsWith(FOLDER_PREFIX);
