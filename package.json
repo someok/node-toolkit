@@ -1,6 +1,6 @@
 {
   "name": "@someok/txt2epub",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "convert text files to epub",
   "bin": {
     "txt2epub": "./dist/cli/index.js"
@@ -8,7 +8,7 @@
   "main": "./dist/cli/index.js",
   "scripts": {
     "test": "jest",
-    "compile": "npm run tsc",
+    "compile": "tsc",
     "gitlog": "git log `git describe --tags --abbrev=0`..HEAD --no-merges --graph --decorate --pretty=format:'%h %Cblue%s%Creset %cr (%an)'",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "format": "prettier-eslint --list-different src/**/*.js",

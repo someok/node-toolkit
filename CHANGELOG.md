@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/someok/txt2epub/compare/v1.1.0...v1.1.1) (2019-05-21)
+
+### Features
+
+- 标题、内容增加 HTML escape 处理 ([7aa9f45](https://github.com/someok/txt2epub/commit/7aa9f45)), closes [#1](https://github.com/someok/txt2epub/issues/1) [#2](https://github.com/someok/txt2epub/issues/2)
+
 ## [1.1.0](https://github.com/someok/txt2epub/compare/v1.0.0...v1.1.0) (2019-05-18)
 
 ### Features
