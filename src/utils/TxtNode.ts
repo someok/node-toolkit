@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import htmlEscape from './htmlEscape';
 
 export default class TxtNode {
@@ -74,22 +75,23 @@ export default class TxtNode {
     static setChapterIds(nodes: TxtNode[]) {
         let index = 0;
         // 首先遍历一次将所有存在实际路径的节点设置上 id
+        // 如果某节点为父节点且不指向任何实际的文件，仍然生成一个 xhtml，不过里面内容只有标题
         TxtNode.travelTxtNodeTree(nodes, function(node) {
-            if (node.path) node.chapterId = ++index;
+            node.chapterId = ++index;
         });
 
         // 再次遍历，将不存在 id 的节点的 id 指向最近的子节点的 id
-        TxtNode.travelTxtNodeTree(nodes, function(node, hasChildren) {
-            if (!node.chapterId && hasChildren) {
-                let childrenId: number;
-                TxtNode.travelTxtNodeTree(node.children, function(cnode) {
-                    if (!childrenId && cnode.chapterId) {
-                        childrenId = cnode.chapterId;
-                        node.chapterId = childrenId;
-                    }
-                });
-            }
-        });
+        // TxtNode.travelTxtNodeTree(nodes, function(node, hasChildren) {
+        //     if (!node.chapterId && hasChildren) {
+        //         let childrenId: number;
+        //         TxtNode.travelTxtNodeTree(node.children, function(cnode) {
+        //             if (!childrenId && cnode.chapterId) {
+        //                 childrenId = cnode.chapterId;
+        //                 node.chapterId = childrenId;
+        //             }
+        //         });
+        //     }
+        // });
     }
 
     get title(): string | undefined {
@@ -130,6 +132,14 @@ export default class TxtNode {
 
     set chapterId(value: number | undefined) {
         this._chapterId = value;
+    }
+
+    getPadChapterId(): string {
+        return _.padStart('' + this.chapterId, 4, '0');
+    }
+
+    getHref(): string {
+        return `chapter-${this.getPadChapterId()}.xhtml`;
     }
 
     get desc(): string | undefined {

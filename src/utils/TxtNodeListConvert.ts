@@ -1,14 +1,4 @@
-import _ from 'lodash';
-
 import TxtNode from './TxtNode';
-
-function getChapterId(index: number) {
-    return _.padStart('' + index, 4, '0');
-}
-
-function getHref(index: number) {
-    return `chapter-${getChapterId(index)}.xhtml`;
-}
 
 export function toNavMap(txtNodes: TxtNode[]) {
     let ncx = '<navMap>\n';
@@ -24,7 +14,7 @@ export function toNavMap(txtNodes: TxtNode[]) {
 
             if (node.chapterId) {
                 ncx += `<navLabel><text>${title}</text></navLabel>\n`;
-                ncx += `<content src="${getHref(node.chapterId)}"/>\n`;
+                ncx += `<content src="${node.getHref()}"/>\n`;
             } else {
                 ncx += `<navLabel><text>${title}</text></navLabel>\n`;
             }
@@ -56,7 +46,7 @@ export function toHtmlOrderList(txtNodes: TxtNode[]) {
             ol += '<li>\n';
 
             if (node.chapterId) {
-                ol += `<a href="${getHref(node.chapterId)}">${title}</a>\n`;
+                ol += `<a href="${node.getHref()}">${title}</a>\n`;
             } else {
                 ol += `<span>${title}</span>`;
             }
@@ -79,15 +69,15 @@ export function toHtmlOrderList(txtNodes: TxtNode[]) {
 interface Chapter {
     id: string;
     title?: string;
-    path: string;
+    path?: string;
 }
 
 export function toChapters(txtNodes: TxtNode[]) {
     const chapterIds: Chapter[] = [];
     TxtNode.travelTxtNodeTree(txtNodes, (node: TxtNode) => {
-        if (node.path && node.chapterId) {
+        if (node.chapterId) {
             chapterIds.push({
-                id: getChapterId(node.chapterId),
+                id: node.getPadChapterId(),
                 title: node.title,
                 path: node.path,
             });

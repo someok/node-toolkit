@@ -129,7 +129,7 @@ export function generate(toDir: string, meta: Meta, txtNodes: TxtNode[]) {
 
     // 生成 txt 对应 html
     chapters.forEach(chapter => {
-        const content = readTxt(chapter.path);
+        const content = chapter.path ? readTxt(chapter.path) : '';
         if (!chapter.title) return;
 
         write2File(
