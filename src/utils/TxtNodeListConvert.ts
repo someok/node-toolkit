@@ -11,8 +11,6 @@ function getHref(index: number) {
 }
 
 export function toNavMap(txtNodes: TxtNode[]) {
-    TxtNode.setChapterIds(txtNodes);
-
     let ncx = '<navMap>\n';
 
     function travelNode(nodes: TxtNode[]) {
@@ -46,8 +44,6 @@ export function toNavMap(txtNodes: TxtNode[]) {
 }
 
 export function toHtmlOrderList(txtNodes: TxtNode[]) {
-    TxtNode.setChapterIds(txtNodes);
-
     let ol = '<ol>\n';
 
     function travelNode(nodes: TxtNode[]) {
@@ -87,12 +83,11 @@ interface Chapter {
 }
 
 export function toChapters(txtNodes: TxtNode[]) {
-    let index = 0;
     const chapterIds: Chapter[] = [];
     TxtNode.travelTxtNodeTree(txtNodes, (node: TxtNode) => {
-        if (node.path) {
+        if (node.path && node.chapterId) {
             chapterIds.push({
-                id: getChapterId(++index),
+                id: getChapterId(node.chapterId),
                 title: node.title,
                 path: node.path,
             });

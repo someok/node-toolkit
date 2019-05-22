@@ -20,7 +20,7 @@ export default class TxtNode {
         ext?: string,
         path?: string
     ) {
-        this._title = title; // TxtNode.validTitle(title);
+        this._title = TxtNode.validTitle(title);
         this._rawTitle = rawTitle;
         this._ext = ext;
         this._path = path;
@@ -28,7 +28,7 @@ export default class TxtNode {
         this._parent = parent;
     }
 
-    static validTitle(title: string): string {
+    static validTitle(title?: string): string {
         if (!title) {
             return '';
         }
@@ -92,35 +92,35 @@ export default class TxtNode {
         });
     }
 
-    get title() {
+    get title(): string | undefined {
         return this._title;
     }
 
-    set title(value) {
-        this._title = value; // TxtNode.validTitle(value);
+    set title(value: string | undefined) {
+        this._title = TxtNode.validTitle(value);
     }
 
-    get rawTitle() {
+    get rawTitle(): string | undefined {
         return this._rawTitle;
     }
 
-    set rawTitle(value) {
+    set rawTitle(value: string | undefined) {
         this._rawTitle = value;
     }
 
-    get ext() {
+    get ext(): string | undefined {
         return this._ext;
     }
 
-    set ext(value) {
+    set ext(value: string | undefined) {
         this._ext = value;
     }
 
-    get path() {
+    get path(): string | undefined {
         return this._path;
     }
 
-    set path(value) {
+    set path(value: string | undefined) {
         this._path = value;
     }
 
@@ -132,35 +132,35 @@ export default class TxtNode {
         this._chapterId = value;
     }
 
-    get desc() {
+    get desc(): string | undefined {
         return this._desc;
     }
 
-    set desc(value) {
+    set desc(value: string | undefined) {
         this._desc = value;
     }
 
-    get parent() {
+    get parent(): TxtNode | undefined {
         return this._parent;
     }
 
-    set parent(value) {
+    set parent(value: TxtNode | undefined) {
         this._parent = value;
     }
 
-    get children() {
+    get children(): TxtNode[] {
         return this._children;
     }
 
-    set children(value) {
+    set children(value: TxtNode[]) {
         this._children = value;
     }
 
-    get level() {
+    get level(): number {
         return this._level;
     }
 
-    set level(value) {
+    set level(value: number) {
         this._level = value;
     }
 }

@@ -32,7 +32,8 @@ test('generate', () => {
     expect(fs.existsSync(path.join(tmpDir, 'mimetype'))).toBeTruthy();
     expect(fs.existsSync(path.join(tmpDir, 'META-INF/container.xml'))).toBeTruthy();
     expect(fs.existsSync(path.join(tmpDir, 'OPS/package.opf'))).toBeTruthy();
-    expect(fs.existsSync(path.join(tmpDir, 'OPS/book/chapter-0000.xhtml'))).toBeTruthy();
+    expect(fs.existsSync(path.join(tmpDir, 'OPS/book/chapter-0000.xhtml'))).toBeFalsy();
+    expect(fs.existsSync(path.join(tmpDir, 'OPS/book/chapter-0001.xhtml'))).toBeTruthy();
     expect(fs.existsSync(path.join(tmpDir, 'OPS/book/chapter-0009.xhtml'))).toBeTruthy();
     expect(fs.existsSync(path.join(tmpDir, 'OPS/book/table-of-contents.ncx'))).toBeTruthy();
     expect(fs.existsSync(path.join(tmpDir, 'OPS/book/table-of-contents.xhtml'))).toBeTruthy();

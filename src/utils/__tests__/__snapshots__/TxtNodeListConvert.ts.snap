@@ -3,34 +3,35 @@
 exports[`toHtmlOrderList 1`] = `
 "<ol>
 <li>
-<a href=\\"chapter-0000.xhtml\\">toc0</a>
+<a href=\\"chapter-0001.xhtml\\">toc0</a>
 <ol>
 <li>
-<a href=\\"chapter-0001.xhtml\\">toc01</a>
+<a href=\\"chapter-0002.xhtml\\">toc01</a>
 <ol>
 <li>
-<a href=\\"chapter-0002.xhtml\\">toc011</a>
+<a href=\\"chapter-0003.xhtml\\">toc011</a>
 </li></ol>
 </li><li>
-<a href=\\"chapter-0003.xhtml\\">toc02</a>
+<a href=\\"chapter-0004.xhtml\\">toc02</a>
 </li><li>
-<a href=\\"chapter-0004.xhtml\\">toc03</a>
+<a href=\\"chapter-0005.xhtml\\">toc03</a>
 <ol>
 <li>
-<a href=\\"chapter-0005.xhtml\\">toc031</a>
+<a href=\\"chapter-0006.xhtml\\">toc031</a>
 </li></ol>
 </li></ol>
 </li><li>
-<a href=\\"chapter-0006.xhtml\\">toc1</a>
+<a href=\\"chapter-0007.xhtml\\">toc1</a>
 </li><li>
-<span>toc2</span><ol>
-<li>
-<a href=\\"chapter-0007.xhtml\\">toc21</a>
-</li><li>
-<a href=\\"chapter-0008.xhtml\\">toc22</a>
+<a href=\\"chapter-0008.xhtml\\">toc2</a>
 <ol>
 <li>
-<a href=\\"chapter-0009.xhtml\\">toc221</a>
+<a href=\\"chapter-0008.xhtml\\">toc21</a>
+</li><li>
+<a href=\\"chapter-0009.xhtml\\">toc22</a>
+<ol>
+<li>
+<a href=\\"chapter-0010.xhtml\\">toc221</a>
 </li></ol>
 </li></ol>
 </li></ol>"
@@ -40,35 +41,36 @@ exports[`toNavMap 1`] = `
 "<navMap>
 <navPoint>
 <navLabel><text>toc0</text></navLabel>
-<content src=\\"chapter-0000.xhtml\\"/>
-<navPoint>
-<navLabel><text>toc01</text></navLabel>
 <content src=\\"chapter-0001.xhtml\\"/>
 <navPoint>
-<navLabel><text>toc011</text></navLabel>
+<navLabel><text>toc01</text></navLabel>
 <content src=\\"chapter-0002.xhtml\\"/>
+<navPoint>
+<navLabel><text>toc011</text></navLabel>
+<content src=\\"chapter-0003.xhtml\\"/>
 </navPoint></navPoint><navPoint>
 <navLabel><text>toc02</text></navLabel>
-<content src=\\"chapter-0003.xhtml\\"/>
+<content src=\\"chapter-0004.xhtml\\"/>
 </navPoint><navPoint>
 <navLabel><text>toc03</text></navLabel>
-<content src=\\"chapter-0004.xhtml\\"/>
+<content src=\\"chapter-0005.xhtml\\"/>
 <navPoint>
 <navLabel><text>toc031</text></navLabel>
-<content src=\\"chapter-0005.xhtml\\"/>
+<content src=\\"chapter-0006.xhtml\\"/>
 </navPoint></navPoint></navPoint><navPoint>
 <navLabel><text>toc1</text></navLabel>
-<content src=\\"chapter-0006.xhtml\\"/>
-</navPoint><navPoint>
-<navLabel><text>toc2</text></navLabel>
-<navPoint>
-<navLabel><text>toc21</text></navLabel>
 <content src=\\"chapter-0007.xhtml\\"/>
 </navPoint><navPoint>
-<navLabel><text>toc22</text></navLabel>
+<navLabel><text>toc2</text></navLabel>
 <content src=\\"chapter-0008.xhtml\\"/>
 <navPoint>
-<navLabel><text>toc221</text></navLabel>
+<navLabel><text>toc21</text></navLabel>
+<content src=\\"chapter-0008.xhtml\\"/>
+</navPoint><navPoint>
+<navLabel><text>toc22</text></navLabel>
 <content src=\\"chapter-0009.xhtml\\"/>
+<navPoint>
+<navLabel><text>toc221</text></navLabel>
+<content src=\\"chapter-0010.xhtml\\"/>
 </navPoint></navPoint></navPoint></navMap>"
 `;

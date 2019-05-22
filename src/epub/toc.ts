@@ -19,14 +19,21 @@ import {METADATA_FOLDER, TOC_FILE} from '../context';
  * @return {Result} 目录列表或错误信息
  */
 export function loadToc(folder: string): Result<TxtNode[]> {
-    const tocPath = path.resolve(folder, METADATA_FOLDER, TOC_FILE);
+    const tocMdFile = path.resolve(folder, METADATA_FOLDER, TOC_FILE);
 
-    if (fs.existsSync(tocPath)) {
-        return loadMdContentAsToc(folder, tocPath);
+    let result: Result<TxtNode[]>;
+    if (fs.existsSync(tocMdFile)) {
+        result = loadMdContentAsToc(folder, tocMdFile);
+    } else {
+        // 不存在 toc.md 文件，则直接读取 txt 文件名作为目录
+        result = loadTxtNamesAsToc(folder, true);
     }
 
-    // 不存在 toc.md 文件，则直接读取 txt 文件名作为目录
-    return loadTxtNamesAsToc(folder, true);
+    if (result.success) {
+        TxtNode.setChapterIds(result.data);
+    }
+
+    return result;
 }
 
 /**
@@ -59,17 +66,10 @@ export function travelTxtNodeTree(nodes: TxtNode[], fn: Function, level: number 
  */
 function travelTree(folder: string, nodes: TxtNode[], notExistPath: string[]) {
     TxtNode.travelTxtNodeTree(nodes, (node: TxtNode, hasChildren: boolean) => {
-        const {title, rawTitle} = node;
+        const {rawTitle} = node;
 
-        // md 中可能会存在「\_」，需将其替换掉
-        // todo: 这个替换有问题，还需要仔细测试
-        // const re = /\\_/g;
-        // const _title = title ? title.replace(re, '_') : title;
-        // const _rawTitle = rawTitle ? rawTitle.replace(re, '_') : rawTitle;
         const nodePath = rawTitle ? path.join(folder, rawTitle) : folder;
         const mode = existPath(nodePath);
-
-        node.title = title ? TxtNode.validTitle(title) : title;
 
         // 非分支节点允许非物理路径存在，也就是说父节点可以只作为标题存在
         // 此时 node.path 为空
@@ -156,18 +156,10 @@ export function loadTxtNamesAsToc(folder: string, pinyinSort: boolean = false): 
     }
 
     const fileArr = files.map(file => {
-        // const re = /^(\d*_{2})?(.+)/g;
-
         const filePath = file.path;
         const ext = path.extname(filePath);
         const rawTitle = path.basename(filePath).trim();
         let title = path.basename(filePath).trim();
-        title = TxtNode.validTitle(title);
-        // const match = re.exec(title);
-        // if (match) {
-        //     title = match[2];
-        //     title = htmlEscape(title);
-        // }
 
         return new TxtNode(title, undefined, undefined, rawTitle, ext, filePath);
     });
