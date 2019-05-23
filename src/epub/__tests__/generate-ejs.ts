@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 import fse from 'fs-extra';
+import {createTempFolder} from '@someok/node-utils/lib/fileUtils';
 
-import {createTempFolder} from '../../utils/fileUtils';
 import {generate} from '../generate';
 import Meta from '../../metadata/Meta';
 import TxtNode from '../../utils/TxtNode';

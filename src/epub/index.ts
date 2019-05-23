@@ -3,9 +3,9 @@ import path from 'path';
 import klawSync from 'klaw-sync';
 import _ from 'lodash';
 
-import {log} from '../utils/logUtils';
-import {createTempFolder, existDir} from '../utils/fileUtils';
-import {zipDir} from '../utils/zipUtils';
+import {logInfo} from '@someok/node-utils/lib/logUtils';
+import {createTempFolder, existDir} from '@someok/node-utils/lib/fileUtils';
+import {zipDir} from '@someok/node-utils/lib/zipUtils';
 
 import {generate} from './generate';
 import {readMetadata} from './epubMeta';
@@ -54,7 +54,7 @@ export function genTxtDir2Epub(txtDir: string, epubPath: string): Promise<Meta> 
                 // 删除临时文件夹
                 fse.removeSync(tmpDir);
 
-                log(`epub 生成生成：[${epubFile}]`);
+                logInfo(`epub 生成生成：[${epubFile}]`);
                 resolve(meta);
             })
             .catch(err => {

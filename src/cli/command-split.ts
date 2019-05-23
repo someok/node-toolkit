@@ -1,10 +1,10 @@
 import path from 'path';
 import _ from 'lodash';
 import {CommanderStatic} from 'commander';
+import {logError} from '@someok/node-utils/lib/logUtils';
+import {existPath, fileName, PathMode} from '@someok/node-utils/lib/fileUtils';
 
 import {SPLIT_OUTPUT_FOLDER} from '../context';
-import {logError} from '../utils/logUtils';
-import {existPath, fileName, PathMode} from '../utils/fileUtils';
 import {splitAllTxt2Dest, splitTxtFile2Dest} from '../split';
 import {boolArg, logCustomHelp} from './utils';
 

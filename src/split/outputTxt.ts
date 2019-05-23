@@ -2,8 +2,8 @@ import path from 'path';
 import _ from 'lodash';
 import fse from 'fs-extra';
 
-import {logWarn} from '../utils/logUtils';
-import Result, {failure, success} from '../utils/Result';
+import {logWarning} from '@someok/node-utils/lib/logUtils';
+import Result, {failure, success} from '@someok/node-utils/lib/Result';
 import Chapter from './Chapter';
 
 export function outputChapters(
@@ -17,7 +17,7 @@ export function outputChapters(
         if (overwrite) {
             // 如果目标文件夹已存在，则删除
             fse.removeSync(destFolder);
-            logWarn('此文件夹已存在，覆盖！');
+            logWarning('此文件夹已存在，覆盖！');
         } else {
             return failure(`${destFolder} 已存在，忽略`);
         }

@@ -1,4 +1,4 @@
-import Result, {success} from '../utils/Result';
+import Result, {success} from '@someok/node-utils/lib/Result';
 
 import {loadToc} from './toc';
 import {loadMetadataYaml} from '../metadata/yaml';

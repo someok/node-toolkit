@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import htmlEscape from './htmlEscape';
+import htmlEscape from '@someok/node-utils/lib/htmlEscape';
 
 export default class TxtNode {
     private _title: string | undefined;

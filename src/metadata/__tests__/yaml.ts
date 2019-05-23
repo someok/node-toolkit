@@ -1,6 +1,6 @@
 import fse from 'fs-extra';
 
-import {createTempFolder} from '../../utils/fileUtils';
+import {createTempFolder} from '@someok/node-utils/lib/fileUtils';
 import {loadMetadataYaml} from '../yaml';
 import {initMetadata} from '../metadata';
 import Meta from '../Meta';

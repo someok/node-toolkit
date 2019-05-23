@@ -1,12 +1,11 @@
 import path from 'path';
 import fs from 'fs';
-import fse from 'fs-extra';
 import yaml from 'js-yaml';
+import {existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
+import Result, {failure, success} from '@someok/node-utils/lib/Result';
+import {logError, logInfo, logWarning} from '@someok/node-utils/lib/logUtils';
 
 import {METADATA_FOLDER, METADATA_YAML} from '../context';
-import {existPath, PathMode} from '../utils/fileUtils';
-import Result, {failure, success} from '../utils/Result';
-import {log, logError, logWarn} from '../utils/logUtils';
 import {getAuthor, getTitle} from '../utils/titleUtils';
 import Meta from './Meta';
 
@@ -25,7 +24,7 @@ export function initMetadata(folder: string, meta: Meta, logMsg: boolean = true)
 
     const metadataFolder = path.resolve(folder, METADATA_FOLDER);
     if (existPath(metadataFolder) === PathMode.NOT_EXIST) {
-        log(`创建目录 [${metadataFolder}]`);
+        logInfo(`创建目录 [${metadataFolder}]`);
         try {
             fs.mkdirSync(metadataFolder);
         } catch (e) {
@@ -36,7 +35,7 @@ export function initMetadata(folder: string, meta: Meta, logMsg: boolean = true)
 
     const metadataYaml = path.resolve(metadataFolder, METADATA_YAML);
     if (!fs.existsSync(metadataYaml)) {
-        log(`初始化 [${METADATA_YAML}]`);
+        logInfo(`初始化 [${METADATA_YAML}]`);
         const json = meta.toJson();
         const metaStr = yaml.safeDump(json);
         try {
@@ -46,7 +45,7 @@ export function initMetadata(folder: string, meta: Meta, logMsg: boolean = true)
             return failure(`[${METADATA_YAML}] 创建失败`);
         }
     } else {
-        logWarn(`[${METADATA_YAML}] 已存在，忽略`);
+        logWarning(`[${METADATA_YAML}] 已存在，忽略`);
     }
 
     return success(meta);

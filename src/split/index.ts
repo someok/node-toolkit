@@ -1,10 +1,10 @@
 import klawSync from 'klaw-sync';
 import path from 'path';
 import _ from 'lodash';
+import {logInfo, logError, logWarning} from '@someok/node-utils/lib/logUtils';
+import {fileName} from '@someok/node-utils/lib/fileUtils';
 
-import {fileName, readUtf8OrGbkReadFile} from '../utils/fileUtils';
-import {log, logError, logWarn} from '../utils/logUtils';
-
+import {readUtf8OrGbkReadFile} from '../utils/fileUtils';
 import {splitAuto} from './splitTxtData';
 import {outputChapters} from './outputTxt';
 import {initMetadataByFoldderName} from '../metadata/metadata';
@@ -23,7 +23,7 @@ export function splitTxtFile2Dest(txtFile: string, destFolder: string, overwrite
         const {success, message} = outputChapters(chapters, destFolder, overwrite);
 
         if (success) {
-            log(`文本分隔完毕，目标文件位于 [${destFolder}]`);
+            logInfo(`文本分隔完毕，目标文件位于 [${destFolder}]`);
         } else {
             message && logError(message);
         }
@@ -51,7 +51,7 @@ export function splitAllTxt2Dest(txtFolder: string, destFolder: string, overwrit
 
     const files = klawSync(txtFolder, {nodir: true, filter: txtFilter});
     if (_.isEmpty(files)) {
-        logWarn(`[${txtFolder}] 中没有 txt 文件`);
+        logWarning(`[${txtFolder}] 中没有 txt 文件`);
         return;
     }
 

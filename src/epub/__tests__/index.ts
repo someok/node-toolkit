@@ -1,7 +1,7 @@
 import fse from 'fs-extra';
 import path from 'path';
 import {genTxtDir2Epub} from '../index';
-import {createTempFolder} from '../../utils/fileUtils';
+import {createTempFolder} from '@someok/node-utils/lib/fileUtils';
 
 test('genTxtDir2Epub', async () => {
     const tmpDir = createTempFolder();

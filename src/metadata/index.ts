@@ -2,9 +2,9 @@ import path from 'path';
 import os from 'os';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
+import {existDir} from '@someok/node-utils/lib/fileUtils';
+import {logWarning} from '@someok/node-utils/lib/logUtils';
 
-import {existDir} from '../utils/fileUtils';
-import {log, logWarn} from '../utils/logUtils';
 import {getAuthor, getTitle} from '../utils/titleUtils';
 import {VERSION} from '../context';
 import {initMetadata} from './metadata';
@@ -76,13 +76,13 @@ function getQuestions(txtFolder: string) {
 export default function(txtFolder: string) {
     const questions = getQuestions(txtFolder);
 
-    log(`\n...Txt2Eput ${VERSION} metadata init...\n`, {prefix: '', bold: true});
+    console.log(chalk.bold.cyan(`\n...Txt2Eput ${VERSION} metadata init...\n`));
 
     inquirer.prompt(questions).then((answers: inquirer.Answers) => {
         console.log();
         // console.log(answers);
         if (!answers.confirm) {
-            logWarn('放弃初始化!');
+            logWarning('放弃初始化!');
         } else {
             const {folder, title, author, description} = answers;
             const meta = new Meta(title, author, description);

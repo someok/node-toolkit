@@ -2,10 +2,10 @@ import path from 'path';
 import fs from 'fs';
 import fse from 'fs-extra';
 import yaml from 'js-yaml';
+import {createTempFolder, existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
 
 import {initMetadata, initMetadataByFoldderName} from '../metadata';
 import Meta from '../Meta';
-import {createTempFolder, existPath, PathMode} from '../../utils/fileUtils';
 
 const {METADATA_YAML, METADATA_FOLDER} = require('../../context');
 

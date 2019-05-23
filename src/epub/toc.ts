@@ -3,10 +3,10 @@ import fs from 'fs';
 import klawSync from 'klaw-sync';
 import _ from 'lodash';
 import pingyin from 'pinyinlite';
+import Result, {failure, success} from '@someok/node-utils/lib/Result';
+import {existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
 
 import mdListParser from '../utils/marked/list2JsonParser';
-import Result, {failure, success} from '../utils/Result';
-import {existPath, PathMode} from '../utils/fileUtils';
 import TxtNode from '../utils/TxtNode';
 import {METADATA_FOLDER, TOC_FILE} from '../context';
 

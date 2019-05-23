@@ -4,9 +4,9 @@ import fse from 'fs-extra';
 import ejs from 'ejs';
 import _ from 'lodash';
 
-import {formatDate, toISOString} from '../utils/dateUtils';
+import {formatDate, toISOString} from '@someok/node-utils/lib/dateUtils';
+import htmlEscape from '@someok/node-utils/lib/htmlEscape';
 import TxtNode from '../utils/TxtNode';
-import htmlEscape from '../utils/htmlEscape';
 import {toChapters, toHtmlOrderList, toNavMap} from '../utils/TxtNodeListConvert';
 import Meta from '../metadata/Meta';
 

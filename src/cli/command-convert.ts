@@ -1,10 +1,10 @@
 import path from 'path';
 import _ from 'lodash';
 import {CommanderStatic} from 'commander';
+import {logInfo, logError} from '@someok/node-utils/lib/logUtils';
+import {existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
 
 import {logCustomHelp} from './utils';
-import {log, logError} from '../utils/logUtils';
-import {existPath, PathMode} from '../utils/fileUtils';
 import {EPUB_OUTPUT_FOLDER} from '../context';
 import {genAllTxtDir2Epub, genTxtDir2Epub} from '../epub';
 
@@ -80,7 +80,7 @@ export function customCommand(program: CommanderStatic) {
                 genAllTxtDir2Epub(txt, destDir)
                     .then(() => {
                         console.log();
-                        log('Done!');
+                        logInfo('Done!');
                     })
                     .catch(err => {
                         logError(err.message);
@@ -89,7 +89,7 @@ export function customCommand(program: CommanderStatic) {
                 genTxtDir2Epub(txt, destDir)
                     .then(() => {
                         console.log();
-                        log('Done!');
+                        logInfo('Done!');
                     })
                     .catch(err => {
                         logError(err.message);

@@ -1,30 +1,5 @@
-import fs from 'fs';
 import path from 'path';
-import {PathMode, existPath, createTempFolder, readUtf8OrGbkReadFile} from '../fileUtils';
-
-test('existPath', () => {
-    let stat = existPath('~/abcdefg');
-    expect(stat).toEqual(PathMode.NOT_EXIST);
-
-    stat = existPath(__dirname);
-    expect(stat).toEqual(PathMode.IS_DIRECTORY);
-
-    stat = existPath(path.join(__dirname, 'txt-files/encoding/gb18030.txt'));
-    expect(stat).toEqual(PathMode.IS_FILE);
-});
-
-test('createTempFolder', () => {
-    const tmp = createTempFolder();
-    expect(existPath(tmp)).toBe(PathMode.IS_DIRECTORY);
-
-    const name = path.basename(tmp);
-    expect(name.startsWith('t2e-')).toBeTruthy();
-
-    // 删除临时文件夹
-    expect(() => {
-        fs.rmdirSync(tmp);
-    }).not.toThrow();
-});
+import {readUtf8OrGbkReadFile} from '../fileUtils';
 
 function encFile(name: string) {
     return path.join(__dirname, 'txt-files/encoding', name);
