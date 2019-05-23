@@ -19,9 +19,3 @@ end_of_line = crlf
 [{*.json,*.html}]
 indent_size = 2
 
-[*.yml]
-indent_size = 4
-
-[tab-space-mix.md]
-indent_style = tab
-end_of_line = crlf
