@@ -43,6 +43,7 @@
     "lodash": "^4.17.11",
     "marked": "^0.6.2",
     "pinyinlite": "^1.2.1",
+    "pureimage": "^0.1.6",
     "stat-mode": "^0.3.0",
     "uuid": "^3.3.2"
   },
