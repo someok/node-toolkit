@@ -54,9 +54,12 @@
 
 
     <!-- Book -->
-        <!--
+        <% if (meta.coverFile) { %>
     <item media-type='application/xhtml+xml'    id='book-cover'           href='book/cover.xhtml'/>
-        -->
+    <!-- Images -->
+    <item media-type='image/png'                id='coverimage'           href='images/<%= meta.cover %>' properties='cover-image'/>
+        <% } %>
+
     <item media-type='application/xhtml+xml'    id='book-toc'             href='book/table-of-contents.xhtml' properties='nav'/>
     <item media-type='application/x-dtbncx+xml' id='book-toc-ncx'         href='book/table-of-contents.ncx'/>
 
@@ -67,10 +70,6 @@
     <item media-type='text/css'                 id='css-fonts'            href='fonts/fonts.css'/>
     <item media-type='text/css'                 id='css-main'             href='css/main.css'/>
 
-    <!-- Images -->
-<!--
-    <item media-type='image/png'                id='coverimage'           href='images/cover.png' properties='cover-image'/>
--->
 
         <% itemIds.forEach(function(id) { %>
             <item media-type='application/xhtml+xml'
@@ -82,10 +81,9 @@
 
   </manifest>
   <spine toc='book-toc-ncx'>
-
-<!--
+      <% if (meta.coverFile) { %>
     <itemref idref='book-cover' linear='no'/>
--->
+      <% } %>
 <!--
     <itemref idref='book-toc'/>
 -->

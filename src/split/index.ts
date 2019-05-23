@@ -29,7 +29,9 @@ export function splitTxtFile2Dest(txtFile: string, destFolder: string, overwrite
         }
 
         // 生成 meta
-        initMetadataByFoldderName(destFolder);
+        initMetadataByFoldderName(destFolder, {createCover: true}).catch(err => {
+            logError(err.message);
+        });
     } catch (e) {
         // console.log(e);
         logError(`文本分隔过程中出现错误：[${txtFile}]，Err: ${e.message}`);

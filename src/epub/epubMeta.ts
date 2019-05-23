@@ -1,4 +1,4 @@
-import Result, {success} from '@someok/node-utils/lib/Result';
+import Result from '@someok/node-utils/lib/Result';
 
 import {loadToc} from './toc';
 import {loadMetadataYaml} from '../metadata/yaml';
@@ -17,22 +17,18 @@ interface MetaResult {
  * @param folder 目录
  * @return {Result} 返回 {@link Result}
  */
-export function readMetadata(folder: string): Result<MetaResult> {
+export function readMetadata(folder: string): Promise<MetaResult> {
     const tocResult = loadToc(folder);
     if (!tocResult.success) {
-        return new Result<MetaResult>(false, tocResult.message);
+        return Promise.reject(new Error(tocResult.message));
     }
 
     // 如果 metaJson 信息不存在则创建，否则忽略
-    const initResult = initMetadataByFoldderName(folder, false);
-    if (!initResult.success) {
-        return new Result<MetaResult>(false, initResult.message);
-    }
-
-    const meta = loadMetadataYaml(folder);
-
-    return success({
-        meta,
-        tocNodes: tocResult.data,
+    return initMetadataByFoldderName(folder, {createCover: true}).then(() => {
+        const meta = loadMetadataYaml(folder);
+        return {
+            meta,
+            tocNodes: tocResult.data,
+        };
     });
 }

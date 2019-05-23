@@ -68,7 +68,12 @@ function genXhtmlToc(meta: Meta, nodes: TxtNode[]) {
     });
 }
 
-function genCover(meta: Meta) {
+function genCover(toDir: string, meta: Meta) {
+    if (!meta.coverFile || !fs.existsSync(meta.coverFile)) {
+        return false;
+    }
+
+    fse.copySync(meta.coverFile, path.join(toDir, `OPS/images/${meta.cover}`));
     const ejsFile = path.resolve(__dirname, EPUB_BOILERPLATE_ROOT, 'template/book/cover.xhtml.ejs');
     return ejs.render(fs.readFileSync(ejsFile).toString(), {
         meta,
@@ -107,7 +112,11 @@ function genChapter(title: string, content: string) {
     });
 }
 
-function write2File(toFile: string, data: string) {
+function write2File(toFile: string, data: string | boolean) {
+    if (data === false) {
+        return;
+    }
+
     fs.writeFileSync(toFile, data);
 }
 
@@ -120,7 +129,7 @@ export function generate(toDir: string, meta: Meta, txtNodes: TxtNode[]) {
     const itemIds = chapters.map(item => item.id);
 
     write2File(path.resolve(toDir, 'OPS/package.opf'), genPackage(meta, itemIds));
-    write2File(path.resolve(toDir, 'OPS/book/cover.xhtml'), genCover(meta));
+    write2File(path.resolve(toDir, 'OPS/book/cover.xhtml'), genCover(toDir, meta));
     write2File(path.resolve(toDir, 'OPS/book/table-of-contents.ncx'), genNcxToc(meta, txtNodes));
     write2File(
         path.resolve(toDir, 'OPS/book/table-of-contents.xhtml'),

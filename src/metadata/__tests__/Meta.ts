@@ -9,6 +9,7 @@ test('toJson', () => {
         title: 'title',
         author: 'author',
         description: 'desc',
+        cover: 'cover.jpg',
         uuid: meta.uuid,
         version: '1.0.0',
     });

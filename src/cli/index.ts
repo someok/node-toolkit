@@ -15,6 +15,7 @@ const commands = [
     require('./command-init'),
     require('./command-split'),
     require('./command-convert'),
+    require('./command-cover'),
 ];
 
 commands.forEach(cmd => {

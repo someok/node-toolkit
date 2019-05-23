@@ -1,6 +1,9 @@
 import fs from 'fs';
 import {logError} from '@someok/node-utils/lib/logUtils';
 import {Iconv} from 'iconv';
+import klawSync from 'klaw-sync';
+import path from 'path';
+import {FOLDER_PREFIX} from '../context';
 
 const gbk2utf8 = new Iconv('gbk', 'utf-8');
 const big52utf8 = new Iconv('big5', 'utf-8');
@@ -46,4 +49,23 @@ export function readUtf8OrGbkReadFile(file: string, debug: boolean = false): str
     }
 
     return covertedBuffer.toString();
+}
+
+/**
+ * 返回给定目录的子目录，默认只返回下一级目录。
+ *
+ * todo: 转移到 node-utils
+ *
+ * @param dir 给定目录
+ * @param depthLimit 目录层级，-1 表示返回所有层级，默认只返回下一级
+ */
+export function subdirs(dir: string, depthLimit: number = 0) {
+    return klawSync(dir, {
+        nofile: true,
+        depthLimit, // 只在给定目录下生成
+        filter: function(item) {
+            const dirName = path.basename(item.path);
+            return !dirName.startsWith(FOLDER_PREFIX);
+        },
+    });
 }

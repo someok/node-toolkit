@@ -4,6 +4,10 @@ export default class Meta {
     private _title: string;
     private _author: string | undefined;
     private _description: string | undefined;
+    // 封面名称
+    private _cover: string | undefined;
+    // 封面图片路径
+    private _coverFile: string | undefined;
     private _uuid: string;
     private _version: string;
 
@@ -11,12 +15,14 @@ export default class Meta {
         title: string,
         author?: string,
         description?: string,
+        cover?: string,
         id?: string,
         version?: string
     ) {
         this._description = description;
         this._title = title;
         this._author = author;
+        this._cover = cover || 'cover.jpg';
         this._uuid = id || uuidGen();
         this._version = version || '1.0.0';
     }
@@ -26,6 +32,7 @@ export default class Meta {
             title: this.title,
             author: this.author || '',
             description: this.description || '',
+            cover: this.cover || '',
             uuid: this.uuid,
             version: this.version,
         };
@@ -37,47 +44,63 @@ export default class Meta {
 
     static fromJson(json: {} | null) {
         // @ts-ignore
-        const {title, author, description, uuid, version} = json || {};
-        return new Meta(title, author, description, uuid, version);
+        const {title, author, description, cover, uuid, version} = json || {};
+        return new Meta(title, author, description, cover, uuid, version);
     }
 
-    get title() {
+    get title(): string {
         return this._title;
     }
 
-    set title(value) {
+    set title(value: string) {
         this._title = value;
     }
 
-    get author() {
+    get author(): string | undefined {
         return this._author;
     }
 
-    set author(value) {
+    set author(value: string | undefined) {
         this._author = value;
     }
 
-    get description() {
+    get description(): string | undefined {
         return this._description;
     }
 
-    set description(value) {
+    set description(value: string | undefined) {
         this._description = value;
     }
 
-    get uuid() {
+    get cover(): string | undefined {
+        return this._cover;
+    }
+
+    set cover(value: string | undefined) {
+        this._cover = value;
+    }
+
+    get coverFile(): string | undefined {
+        return this._coverFile;
+    }
+
+    set coverFile(value: string | undefined) {
+        this._coverFile = value;
+    }
+
+    get uuid(): string {
         return this._uuid;
     }
 
-    set uuid(value) {
+    set uuid(value: string) {
         this._uuid = value;
     }
 
-    get version() {
+    get version(): string {
         return this._version;
     }
 
-    set version(value) {
+    set version(value: string) {
         this._version = value;
     }
 }

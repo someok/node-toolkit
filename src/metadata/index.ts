@@ -3,7 +3,7 @@ import os from 'os';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import {existDir} from '@someok/node-utils/lib/fileUtils';
-import {logWarning} from '@someok/node-utils/lib/logUtils';
+import {logError, logWarning} from '@someok/node-utils/lib/logUtils';
 
 import {getAuthor, getTitle} from '../utils/titleUtils';
 import {VERSION} from '../context';
@@ -85,8 +85,10 @@ export default function(txtFolder: string) {
             logWarning('放弃初始化!');
         } else {
             const {folder, title, author, description} = answers;
-            const meta = new Meta(title, author, description);
-            initMetadata(folder, meta);
+            const meta = new Meta(title, author, description, 'cover.jpg');
+            initMetadata(folder, meta, {createCover: true}).catch(err => {
+                logError(err.message);
+            });
         }
 
         console.log();

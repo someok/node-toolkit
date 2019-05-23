@@ -9,7 +9,7 @@ import Meta from '../Meta';
 
 const {METADATA_YAML, METADATA_FOLDER} = require('../../context');
 
-test('initMetadata', () => {
+test('initMetadata', async () => {
     // 临时文件夹
     const folder = createTempFolder();
     // console.log(folder);
@@ -21,7 +21,7 @@ test('initMetadata', () => {
     };
 
     const meta = Meta.fromJson(metaJson);
-    initMetadata(folder, meta);
+    await initMetadata(folder, meta);
 
     const metadataFolder = path.resolve(folder, METADATA_FOLDER);
     const metadataYaml = path.resolve(metadataFolder, METADATA_YAML);
@@ -40,7 +40,7 @@ test('initMetadata', () => {
     }).not.toThrow();
 });
 
-test('initMetadataByFoldderName', () => {
+test('initMetadataByFoldderName', done => {
     const tmpDir = createTempFolder();
     // console.log(tmpDir);
 
@@ -48,17 +48,18 @@ test('initMetadataByFoldderName', () => {
     const dir = path.join(tmpDir, name);
     fse.ensureDirSync(dir);
 
-    const result = initMetadataByFoldderName(dir);
-    expect(result.success).toBeTruthy();
+    initMetadataByFoldderName(dir)
+        .then(meta => {
+            expect(meta).not.toBeUndefined();
+            expect(meta.title).toBe('《他改变了中国》');
+            expect(meta.author).toBe('不认识【完结】');
+            expect(meta.description).toBe(undefined);
 
-    const meta = result.data;
-    // console.log(meta);
-    expect(meta.title).toBe('《他改变了中国》');
-    expect(meta.author).toBe('不认识【完结】');
-    expect(meta.description).toBe(undefined);
-
-    const json = meta.toJson();
-    expect(json.description).toBe('');
-
-    fse.removeSync(tmpDir);
+            const json = meta.toJson();
+            expect(json.description).toBe('');
+        })
+        .finally(() => {
+            fse.removeSync(tmpDir);
+            done();
+        });
 });

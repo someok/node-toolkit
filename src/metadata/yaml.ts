@@ -17,7 +17,16 @@ export function existMetadataYaml(folder: string): boolean {
  * @return {Meta} {@link Meta} 对象
  */
 export function loadMetadataYaml(folder: string): Meta {
-    const buffer: Buffer = fs.readFileSync(path.resolve(folder, METADATA_FOLDER, METADATA_YAML));
+    const buffer: Buffer = fs.readFileSync(path.join(folder, METADATA_FOLDER, METADATA_YAML));
     const metaJson = yaml.safeLoad(buffer.toString());
-    return Meta.fromJson(metaJson);
+    const meta = Meta.fromJson(metaJson);
+
+    if (meta.cover) {
+        const coverFile = path.join(folder, METADATA_FOLDER, meta.cover);
+        if (fs.existsSync(coverFile)) {
+            meta.coverFile = coverFile;
+        }
+    }
+
+    return meta;
 }

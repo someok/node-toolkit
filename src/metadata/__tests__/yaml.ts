@@ -13,13 +13,13 @@ const META = {
     description: 'description',
 };
 
-beforeEach(() => {
+beforeEach(async () => {
     // 临时文件夹
     folder = createTempFolder();
     // console.log(`tmp folder: ${folder}`);
 
     const meta = new Meta(META.title, META.author, META.description);
-    initMetadata(folder, meta);
+    await initMetadata(folder, meta);
 });
 
 afterEach(() => {
@@ -30,5 +30,5 @@ afterEach(() => {
 test('loadMetadataYaml', () => {
     const meta = loadMetadataYaml(folder);
     // console.log(meta);
-    expect(meta.toJson()).toEqual({...META, version: '1.0.0', uuid: meta.uuid});
+    expect(meta.toJson()).toEqual({...META, cover: 'cover.jpg', version: '1.0.0', uuid: meta.uuid});
 });

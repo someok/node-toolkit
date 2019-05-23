@@ -7,6 +7,7 @@ import {logInfo} from '@someok/node-utils/lib/logUtils';
 import {createTempFolder, existDir} from '@someok/node-utils/lib/fileUtils';
 import {zipDir} from '@someok/node-utils/lib/zipUtils';
 
+import {subdirs} from '../utils/fileUtils';
 import {generate} from './generate';
 import {readMetadata} from './epubMeta';
 import {FOLDER_PREFIX} from '../context';
@@ -17,7 +18,6 @@ import Meta from '../metadata/Meta';
  *
  * @param txtDir txt 文件路径
  * @param epubPath 以 .epub 为扩展名表示文件路径，否则为所在目录，如果是后者，则用 meta 中定义的名称命名
- * @return {Promise}
  */
 export function genTxtDir2Epub(txtDir: string, epubPath: string): Promise<Meta> {
     if (!txtDir) {
@@ -30,48 +30,40 @@ export function genTxtDir2Epub(txtDir: string, epubPath: string): Promise<Meta> 
         return Promise.reject(new Error('生成 epub 的路径必须明确'));
     }
 
-    const result = readMetadata(txtDir);
-    if (!result.success) {
-        return Promise.reject(new Error(result.message));
-    }
-
-    const {meta, tocNodes} = result.data;
-
     const tmpDir = createTempFolder();
-    // console.log(tmpDir);
-    generate(tmpDir, meta, tocNodes);
-
-    let epubFile: string;
-    if (epubPath.toLowerCase().endsWith('.epub')) {
-        epubFile = epubPath;
-    } else {
-        epubFile = path.join(epubPath, meta.epubTitle());
-    }
-
     return new Promise<Meta>(function(resolve, reject) {
-        zipDir(tmpDir, epubFile)
-            .then(() => {
-                // 删除临时文件夹
-                fse.removeSync(tmpDir);
+        readMetadata(txtDir)
+            .then(({meta, tocNodes}) => {
+                generate(tmpDir, meta, tocNodes);
 
-                logInfo(`epub 生成生成：[${epubFile}]`);
-                resolve(meta);
+                let epubFile: string;
+                if (epubPath.toLowerCase().endsWith('.epub')) {
+                    epubFile = epubPath;
+                } else {
+                    epubFile = path.join(epubPath, meta.epubTitle());
+                }
+
+                return zipDir(tmpDir, epubFile)
+                    .then(() => {
+                        logInfo(`epub 生成生成：[${epubFile}]`);
+                        resolve(meta);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
             })
             .catch(err => {
                 reject(err);
+            })
+            .finally(() => {
+                // 删除临时文件夹
+                fse.removeSync(tmpDir);
             });
     });
 }
 
 export function genAllTxtDir2Epub(txtDir: string, epubPath: string): Promise<boolean> {
-    const dirs = klawSync(txtDir, {
-        nofile: true,
-        depthLimit: 0, // 只在给定目录下生成
-        filter: function(item) {
-            const dirName = path.basename(item.path);
-            return !dirName.startsWith(FOLDER_PREFIX);
-        },
-    });
+    const dirs = subdirs(txtDir);
 
     if (_.isEmpty(dirs)) {
         return Promise.reject(new Error(`[${txtDir}] 中没有子文件夹`));
