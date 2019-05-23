@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/someok/txt2epub/compare/v1.1.4...v1.2.0) (2019-05-23)
+
+### Features
+
+- 使用 pureimage 实现图片上写字，不过此功能尚属于测试阶段 ([ea6f521](https://github.com/someok/txt2epub/commit/ea6f521))
+- 初始化 meta 时支持自动生成封面图片 ([65b5e4a](https://github.com/someok/txt2epub/commit/65b5e4a)), closes [#4](https://github.com/someok/txt2epub/issues/4) [#6](https://github.com/someok/txt2epub/issues/6)
+- 加入字体和背景图资源 ([a631a8b](https://github.com/someok/txt2epub/commit/a631a8b))
+
 ### [1.1.4](https://github.com/someok/txt2epub/compare/v1.1.3...v1.1.4) (2019-05-23)
 
 ### [1.1.3](https://github.com/someok/txt2epub/compare/v1.1.2...v1.1.3) (2019-05-23)
