@@ -31,13 +31,15 @@
     <dc:creator id='author'><%= meta.author %></dc:creator>
     <meta refines='#author' property='role' scheme='marc:relators'>aut</meta>
 
-    <meta name="generator" content="txt2epub" />
-    <dc:contributor id="contributor">txt2epub</dc:contributor>
+    <meta name="generator" content="@someok/txt2epub" />
+    <dc:contributor id="contributor">@someok/txt2epub</dc:contributor>
     <meta refines="#contributor" property="role" scheme="marc:relators">bkp</meta>
 
-    <dc:rights>Copyright text2epub</dc:rights>
+    <dc:rights>Copyright @someok/text2epub</dc:rights>
 
-<!--    <meta name='cover' content='coverimage'/>-->
+      <% if (meta.coverFile) { %>
+    <meta name='cover' content='coverimage'/>
+      <% } %>
 
     <meta property='ibooks:version'><%- meta.version %></meta>               <!--                          | Set book version. [major].[minor].[bugfix]  -->
     <meta property='ibooks:specified-fonts'>true</meta>        <!-- true/false               | Enable custom fonts (via @font-face).       -->
