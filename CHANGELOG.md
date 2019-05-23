@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/someok/txt2epub/compare/v1.1.2...v1.1.3) (2019-05-23)
+
+### Bug Fixes
+
+- unzip 方法中部分异常未正常 reject 出去 ([15d4d74](https://github.com/someok/txt2epub/commit/15d4d74))
+
 ### [1.1.2](https://github.com/someok/txt2epub/compare/v1.1.1...v1.1.2) (2019-05-21)
 
 ### Features
