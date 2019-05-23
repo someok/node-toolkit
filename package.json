@@ -14,7 +14,7 @@
     "format": "prettier-eslint --list-different src/**/*.js",
     "format-danger": "prettier-eslint --write src/**/*.js",
     "release": "standard-version",
-    "publish2npm": "npm publish --access public"
+    "publish2npm": "tsc && npm publish --access public"
   },
   "repository": {
     "type": "git",
