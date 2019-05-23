@@ -52,6 +52,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@commitlint/cli": "^7.6.0",
     "@commitlint/config-conventional": "^7.6.0",
+    "@types/archiver": "^3.0.0",
     "@types/ejs": "^2.6.3",
     "@types/fs-extra": "^7.0.0",
     "@types/inquirer": "^6.0.2",
