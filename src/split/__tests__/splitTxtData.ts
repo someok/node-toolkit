@@ -47,6 +47,19 @@ test('split zh num chapter txt', () => {
     expect(result[3].content.includes('四 ')).toBeTruthy();
 });
 
+test('split with max title length param', () => {
+    let txt = loadTxt('maxTitle.txt');
+    let result = splitByRegexRule(txt, 'zhChapter', 3);
+    // console.log(result);
+
+    expect(result.length).toBe(3);
+    expect(result[0].title).toBe('前言');
+    expect(result[1].title).toBe('第一章');
+    expect(result[2].title).toBe('第二章');
+    expect(result[2].content.includes('第三章 ')).toBeTruthy();
+    expect(result[2].content.includes('第四章 ')).toBeTruthy();
+});
+
 test('split auto', () => {
     let txt = loadTxt('noChapter.txt');
 
