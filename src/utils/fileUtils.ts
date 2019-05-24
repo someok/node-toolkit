@@ -54,8 +54,6 @@ export function readUtf8OrGbkReadFile(file: string, debug: boolean = false): str
 /**
  * 返回给定目录的子目录，默认只返回下一级目录。
  *
- * todo: 转移到 node-utils
- *
  * @param dir 给定目录
  * @param depthLimit 目录层级，-1 表示返回所有层级，默认只返回下一级
  */
