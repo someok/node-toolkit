@@ -27,9 +27,14 @@ export function regenerateCover(dir: string, overwrite: boolean = true): Promise
             let create = true;
             if (meta.cover) {
                 const existCover = path.join(metaDir, meta.cover);
-                if (existFile(existCover) && !overwrite) {
-                    logWarning(`[${existCover}] 封面已存在，忽略`);
-                    create = false;
+                if (existFile(existCover)) {
+                    if (!overwrite) {
+                        logWarning(`[${existCover}] 封面已存在，忽略`);
+                        create = false;
+                    } else if (!meta.autoCover) {
+                        logWarning(`[${existCover}] 封面为用户维护，忽略`);
+                        create = false;
+                    }
                 }
             }
             if (create) {

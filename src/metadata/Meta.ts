@@ -8,6 +8,9 @@ export default class Meta {
     private _cover: string | undefined;
     // 封面图片路径
     private _coverFile: string | undefined;
+    // 是否自动生成的图片，如果是不是自动生成的图片可以在 meta 文件中将此值设置为 false，
+    // 这样在重新生成的时候会忽略
+    private _autoCover: boolean;
     private _uuid: string;
     private _version: string;
 
@@ -23,6 +26,7 @@ export default class Meta {
         this._title = title;
         this._author = author;
         this._cover = cover || 'cover.jpg';
+        this._autoCover = true;
         this._uuid = id || uuidGen();
         this._version = version || '1.0.0';
     }
@@ -33,6 +37,7 @@ export default class Meta {
             author: this.author || '',
             description: this.description || '',
             cover: this.cover || '',
+            autoCover: this.autoCover,
             uuid: this.uuid,
             version: this.version,
         };
@@ -44,8 +49,10 @@ export default class Meta {
 
     static fromJson(json: {} | null) {
         // @ts-ignore
-        const {title, author, description, cover, uuid, version} = json || {};
-        return new Meta(title, author, description, cover, uuid, version);
+        const {title, author, description, cover, autoCover, uuid, version} = json || {};
+        const meta = new Meta(title, author, description, cover, uuid, version);
+        meta.autoCover = autoCover != false;
+        return meta;
     }
 
     get title(): string {
@@ -86,6 +93,14 @@ export default class Meta {
 
     set coverFile(value: string | undefined) {
         this._coverFile = value;
+    }
+
+    get autoCover(): boolean {
+        return this._autoCover;
+    }
+
+    set autoCover(value: boolean) {
+        this._autoCover = value;
     }
 
     get uuid(): string {

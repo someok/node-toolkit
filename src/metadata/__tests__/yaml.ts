@@ -17,9 +17,6 @@ beforeEach(async () => {
     // 临时文件夹
     folder = createTempFolder();
     // console.log(`tmp folder: ${folder}`);
-
-    const meta = new Meta(META.title, META.author, META.description);
-    await initMetadata(folder, meta);
 });
 
 afterEach(() => {
@@ -27,8 +24,33 @@ afterEach(() => {
     fse.removeSync(folder);
 });
 
-test('loadMetadataYaml', () => {
-    const meta = loadMetadataYaml(folder);
+test('loadMetadataYaml', async () => {
+    let meta = new Meta(META.title, META.author, META.description);
+    await initMetadata(folder, meta);
+
+    meta = loadMetadataYaml(folder);
+    console.log(meta);
+    expect(meta.toJson()).toEqual({
+        ...META,
+        cover: 'cover.jpg',
+        autoCover: true,
+        version: '1.0.0',
+        uuid: meta.uuid,
+    });
+});
+
+test('loadMetadataYaml with autoCover false', async () => {
+    let meta = new Meta(META.title, META.author, META.description);
+    meta.autoCover = false;
+    await initMetadata(folder, meta);
+
+    meta = loadMetadataYaml(folder);
     // console.log(meta);
-    expect(meta.toJson()).toEqual({...META, cover: 'cover.jpg', version: '1.0.0', uuid: meta.uuid});
+    expect(meta.toJson()).toEqual({
+        ...META,
+        cover: 'cover.jpg',
+        autoCover: false,
+        version: '1.0.0',
+        uuid: meta.uuid,
+    });
 });
