@@ -20,22 +20,26 @@ test('wrapText', done => {
 });
 
 test.skip('initCover', done => {
+    const promiseArr = [];
     for (let i = 0; i < 5; i++) {
-        createCoverImage(
+        const p = createCoverImage(
             `/Users/wjx/Desktop/demo/test${i}.jpg`,
             new Meta(
                 '这是一个很长的测试文本，this is long test text',
                 '测试员测试员测试员测试员测试员测试员'
             ),
             'center'
-        )
-            .then(() => {
-                console.log('over');
-                done();
-            })
-            .catch(err => {
-                console.log(err);
-                done();
-            });
+        );
+        promiseArr.push(p);
     }
+
+    Promise.all(promiseArr)
+        .then(() => {
+            console.log('over');
+            done();
+        })
+        .catch(err => {
+            console.log(err);
+            done();
+        });
 });

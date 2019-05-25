@@ -60,7 +60,7 @@ export function createCoverImage(
                     const ctx: PImageContext = bgImg.getContext('2d');
 
                     ctx.fillStyle = '#ffffff';
-                    ctx.font = `128pt '${FONT_FAMILY}'`;
+                    ctx.font = `100pt '${FONT_FAMILY}'`;
                     const lines = wrapText(ctx, meta.title, 100, 300, 600, 148);
 
                     lines.forEach(data => {
@@ -76,7 +76,7 @@ export function createCoverImage(
                         ctx.font = `48pt '${FONT_FAMILY}'`;
 
                         // 如果作者名称太长，则最多输出 2 行
-                        const authorLines = wrapText(ctx, meta.author, 100, 900, 600, 68);
+                        const authorLines = wrapText(ctx, meta.author, 100, 1000, 600, 68);
                         authorLines.slice(0, 2).forEach(data => {
                             const {line, x, y} = data;
 
