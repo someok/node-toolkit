@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/someok/txt2epub/compare/v1.2.0...v1.2.1) (2019-05-25)
+
+### Features
+
+- meta 信息中增加 autoCover 属性 ([917d503](https://github.com/someok/txt2epub/commit/917d503))
+- package.opf meta 中开启 cover 项 ([bb9f547](https://github.com/someok/txt2epub/commit/bb9f547))
+
 ## [1.2.0](https://github.com/someok/txt2epub/compare/v1.1.4...v1.2.0) (2019-05-23)
 
 ### Features
