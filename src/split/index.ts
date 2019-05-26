@@ -16,7 +16,11 @@ import {initMetadataByFoldderName} from '../metadata/metadata';
  * @param destFolder 目标文件夹
  * @param overwrite 如果目标文件夹已经存在是否覆盖，默认覆盖
  */
-export function splitTxtFile2Dest(txtFile: string, destFolder: string, overwrite: boolean = true) {
+export function splitTxtFile2Dest(
+    txtFile: string,
+    destFolder: string,
+    overwrite: boolean = true
+): void {
     try {
         const txt = readUtf8OrGbkReadFile(txtFile);
         const chapters = splitAuto(txt);
@@ -29,9 +33,11 @@ export function splitTxtFile2Dest(txtFile: string, destFolder: string, overwrite
         }
 
         // 生成 meta
-        initMetadataByFoldderName(destFolder, {createCover: true}).catch(err => {
-            logError(err.message);
-        });
+        initMetadataByFoldderName(destFolder, {createCover: true}).catch(
+            (err): void => {
+                logError(err.message);
+            }
+        );
     } catch (e) {
         // console.log(e);
         logError(`文本分隔过程中出现错误：[${txtFile}]，Err: ${e.message}`);
@@ -45,8 +51,12 @@ export function splitTxtFile2Dest(txtFile: string, destFolder: string, overwrite
  * @param destFolder 目标文件夹
  * @param overwrite 是否覆盖已存在文件夹
  */
-export function splitAllTxt2Dest(txtFolder: string, destFolder: string, overwrite: boolean = true) {
-    function txtFilter(item: klawSync.Item) {
+export function splitAllTxt2Dest(
+    txtFolder: string,
+    destFolder: string,
+    overwrite: boolean = true
+): void {
+    function txtFilter(item: klawSync.Item): boolean {
         const ext = path.extname(item.path);
         return ext === '.txt';
     }
@@ -57,9 +67,11 @@ export function splitAllTxt2Dest(txtFolder: string, destFolder: string, overwrit
         return;
     }
 
-    files.forEach(file => {
-        const name = fileName(file.path);
-        const dest = path.resolve(destFolder, name);
-        splitTxtFile2Dest(file.path, dest, overwrite);
-    });
+    files.forEach(
+        (file): void => {
+            const name = fileName(file.path);
+            const dest = path.resolve(destFolder, name);
+            splitTxtFile2Dest(file.path, dest, overwrite);
+        }
+    );
 }

@@ -3,7 +3,7 @@ import path from 'path';
 import {toHtmlOrderList, toNavMap} from '../TxtNodeListConvert';
 import {loadToc} from '../../epub/toc';
 
-test('toNavMap', () => {
+test('toNavMap', (): void => {
     const tocDir = path.resolve(__dirname, 'toc1');
     const result = loadToc(tocDir);
     const tocNodes = result.data;
@@ -13,7 +13,7 @@ test('toNavMap', () => {
     expect(str).toMatchSnapshot();
 });
 
-test('toHtmlOrderList', () => {
+test('toHtmlOrderList', (): void => {
     const tocDir = path.resolve(__dirname, 'toc1');
     const result = loadToc(tocDir);
     const tocNodes = result.data;

@@ -4,42 +4,42 @@ export default class Chapter {
     private _fromPos: number;
     private _toPos: number | undefined;
 
-    constructor(title: string, fromPos: number = 0, toPos?: number) {
+    public constructor(title: string, fromPos: number = 0, toPos?: number) {
         this._content = '';
         this._title = title;
         this._fromPos = fromPos;
         this._toPos = toPos || 0;
     }
 
-    get title() {
-        return this._title;
-    }
-
-    set title(value) {
-        this._title = value;
-    }
-
-    get fromPos() {
-        return this._fromPos;
-    }
-
-    set fromPos(value) {
-        this._fromPos = value;
-    }
-
-    get toPos() {
-        return this._toPos;
-    }
-
-    set toPos(value) {
-        this._toPos = value;
-    }
-
-    get content() {
+    public get content(): string {
         return this._content;
     }
 
-    set content(value) {
+    public set content(value: string) {
         this._content = value;
+    }
+
+    public get title(): string {
+        return this._title;
+    }
+
+    public set title(value: string) {
+        this._title = value;
+    }
+
+    public get fromPos(): number {
+        return this._fromPos;
+    }
+
+    public set fromPos(value: number) {
+        this._fromPos = value;
+    }
+
+    public get toPos(): number | undefined {
+        return this._toPos;
+    }
+
+    public set toPos(value: number | undefined) {
+        this._toPos = value;
     }
 }

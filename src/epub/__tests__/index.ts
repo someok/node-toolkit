@@ -3,7 +3,7 @@ import path from 'path';
 import {genTxtDir2Epub} from '../index';
 import {createTempFolder} from '@someok/node-utils/lib/fileUtils';
 
-test('genTxtDir2Epub', async () => {
+test('genTxtDir2Epub', async (): Promise<void> => {
     const tmpDir = createTempFolder();
     // console.log(tmpDir);
 

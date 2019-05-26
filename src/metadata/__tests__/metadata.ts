@@ -7,9 +7,9 @@ import {createTempFolder, existPath, PathMode} from '@someok/node-utils/lib/file
 import {initMetadata, initMetadataByFoldderName} from '../metadata';
 import Meta from '../Meta';
 
-const {METADATA_YAML, METADATA_FOLDER} = require('../../context');
+import {METADATA_FOLDER, METADATA_YAML} from '../../context';
 
-test('initMetadata', async () => {
+test('initMetadata', async (): Promise<void> => {
     // 临时文件夹
     const folder = createTempFolder();
     // console.log(folder);
@@ -35,12 +35,14 @@ test('initMetadata', async () => {
     expect(metadataJson).toEqual(meta.toJson());
 
     // 删除临时文件夹
-    expect(() => {
-        fse.removeSync(folder);
-    }).not.toThrow();
+    expect(
+        (): void => {
+            fse.removeSync(folder);
+        }
+    ).not.toThrow();
 });
 
-test('initMetadataByFoldderName', done => {
+test('initMetadataByFoldderName', (done): void => {
     const tmpDir = createTempFolder();
     // console.log(tmpDir);
 
@@ -49,17 +51,21 @@ test('initMetadataByFoldderName', done => {
     fse.ensureDirSync(dir);
 
     initMetadataByFoldderName(dir)
-        .then(meta => {
-            expect(meta).not.toBeUndefined();
-            expect(meta.title).toBe('《他改变了中国》');
-            expect(meta.author).toBe('不认识【完结】');
-            expect(meta.description).toBe(undefined);
+        .then(
+            (meta): void => {
+                expect(meta).not.toBeUndefined();
+                expect(meta.title).toBe('《他改变了中国》');
+                expect(meta.author).toBe('不认识【完结】');
+                expect(meta.description).toBe(undefined);
 
-            const json = meta.toJson();
-            expect(json.description).toBe('');
-        })
-        .finally(() => {
-            fse.removeSync(tmpDir);
-            done();
-        });
+                const json = meta.toJson();
+                expect(json.description).toBe('');
+            }
+        )
+        .finally(
+            (): void => {
+                fse.removeSync(tmpDir);
+                done();
+            }
+        );
 });

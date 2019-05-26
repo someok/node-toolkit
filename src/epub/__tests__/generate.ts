@@ -4,7 +4,7 @@ import {createTempFolder, existDir, existFile} from '@someok/node-utils/lib/file
 
 import {copyBoilerplate} from '../generate';
 
-test('copyBoilerplate', () => {
+test('copyBoilerplate', (): void => {
     const tmpDir = createTempFolder();
     // console.log(tmpDir);
     copyBoilerplate(tmpDir);

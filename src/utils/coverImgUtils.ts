@@ -21,6 +21,7 @@ interface PImageContext {
     fillText: (arg0: string, arg1: number, arg2: number) => void;
     measureText: (arg0: string) => MeasureText;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     drawImage: (txtImg: any, number: number, number2: number) => void;
 }
 
@@ -32,78 +33,6 @@ interface PImageProps {
 
 export function registerFont(): {load: (callback: Function) => void} {
     return PImage.registerFont(FONT_PATH, FONT_FAMILY);
-}
-
-type TextAlign = 'left' | 'center';
-
-/**
- * 在给定背景图上写上标题和作者。
- *
- * @param toImage 输出封面图片位置
- * @param meta {@link Meta} 信息，用于提供书名和作者
- * @param align 支持左对齐（默认）或居中
- */
-export function createCoverImage(
-    toImage: string,
-    meta: Meta,
-    align: TextAlign = 'center'
-): Promise<void> {
-    const font = PImage.registerFont(FONT_PATH, FONT_FAMILY);
-
-    return new Promise<void>(function(resolve, reject) {
-        font.load(function() {
-            const coverImgNum = _.random(1, 5);
-            const coverImg = path.join(COVER_ROOT, `image/0${coverImgNum}.jpg`);
-            PImage.decodeJPEGFromStream(fs.createReadStream(coverImg))
-                .then((bgImg: PImageProps) => {
-                    const {width} = bgImg;
-                    const ctx: PImageContext = bgImg.getContext('2d');
-
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = `100pt '${FONT_FAMILY}'`;
-                    const lines = wrapText(ctx, meta.title, 100, 300, 600, 148);
-
-                    lines.forEach(data => {
-                        const {line, x, y} = data;
-                        let xPos = x;
-                        if (align === 'center') {
-                            xPos = centerX(ctx, line, width);
-                        }
-                        ctx.fillText(line, xPos, y);
-                    });
-
-                    if (meta.author) {
-                        ctx.font = `48pt '${FONT_FAMILY}'`;
-
-                        // 如果作者名称太长，则最多输出 2 行
-                        const authorLines = wrapText(ctx, meta.author, 100, 1000, 600, 68);
-                        authorLines.slice(0, 2).forEach(data => {
-                            const {line, x, y} = data;
-
-                            let xPos = x;
-                            if (align === 'center') {
-                                xPos = centerX(ctx, line, width);
-                            }
-                            ctx.fillText(line, xPos, y);
-                        });
-                    }
-
-                    PImage.encodeJPEGToStream(bgImg, fs.createWriteStream(toImage))
-                        .then(() => {
-                            logInfo(`生成图片：[${toImage}]`);
-                            resolve();
-                        })
-                        .catch((err: Error) => {
-                            logError(`生成图片过程中出现错误: ${err.message}`);
-                            reject(err);
-                        });
-                })
-                .catch((err: Error) => {
-                    logError(`读取图片过程中出现错误: ${err.message}`);
-                    reject(err);
-                });
-        });
-    });
 }
 
 interface WrapTextLine {
@@ -175,7 +104,91 @@ export function wrapText(
  * @param text 文字
  * @param imgWidth 图片宽度
  */
-function centerX(ctx: PImageContext, text: string, imgWidth: number) {
+function centerX(ctx: PImageContext, text: string, imgWidth: number): number {
     const {width} = ctx.measureText(text);
     return (imgWidth - width) / 2;
+}
+
+type TextAlign = 'left' | 'center';
+
+/**
+ * 在给定背景图上写上标题和作者。
+ *
+ * @param toImage 输出封面图片位置
+ * @param meta {@link Meta} 信息，用于提供书名和作者
+ * @param align 支持左对齐（默认）或居中
+ */
+export function createCoverImage(
+    toImage: string,
+    meta: Meta,
+    align: TextAlign = 'center'
+): Promise<void> {
+    const font = PImage.registerFont(FONT_PATH, FONT_FAMILY);
+
+    return new Promise<void>(function(resolve, reject): void {
+        font.load(function(): void {
+            const coverImgNum = _.random(1, 5);
+            const coverImg = path.join(COVER_ROOT, `image/0${coverImgNum}.jpg`);
+            PImage.decodeJPEGFromStream(fs.createReadStream(coverImg))
+                .then(
+                    (bgImg: PImageProps): void => {
+                        const {width} = bgImg;
+                        const ctx: PImageContext = bgImg.getContext('2d');
+
+                        ctx.fillStyle = '#ffffff';
+                        ctx.font = `100pt '${FONT_FAMILY}'`;
+                        const lines = wrapText(ctx, meta.title, 100, 300, 600, 148);
+
+                        lines.forEach(
+                            (data): void => {
+                                const {line, x, y} = data;
+                                let xPos = x;
+                                if (align === 'center') {
+                                    xPos = centerX(ctx, line, width);
+                                }
+                                ctx.fillText(line, xPos, y);
+                            }
+                        );
+
+                        if (meta.author) {
+                            ctx.font = `48pt '${FONT_FAMILY}'`;
+
+                            // 如果作者名称太长，则最多输出 2 行
+                            const authorLines = wrapText(ctx, meta.author, 100, 1000, 600, 68);
+                            authorLines.slice(0, 2).forEach(
+                                (data): void => {
+                                    const {line, x, y} = data;
+
+                                    let xPos = x;
+                                    if (align === 'center') {
+                                        xPos = centerX(ctx, line, width);
+                                    }
+                                    ctx.fillText(line, xPos, y);
+                                }
+                            );
+                        }
+
+                        PImage.encodeJPEGToStream(bgImg, fs.createWriteStream(toImage))
+                            .then(
+                                (): void => {
+                                    logInfo(`生成图片：[${toImage}]`);
+                                    resolve();
+                                }
+                            )
+                            .catch(
+                                (err: Error): void => {
+                                    logError(`生成图片过程中出现错误: ${err.message}`);
+                                    reject(err);
+                                }
+                            );
+                    }
+                )
+                .catch(
+                    (err: Error): void => {
+                        logError(`读取图片过程中出现错误: ${err.message}`);
+                        reject(err);
+                    }
+                );
+        });
+    });
 }

@@ -6,7 +6,7 @@ import {existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
 import {boolArg, logCustomHelp} from './utils';
 import {regenerateAllCover, regenerateCover} from '../metadata/cover';
 
-export function customHelp() {
+export function customHelp(): void {
     logCustomHelp('cover /path/to/txt/dir');
     logCustomHelp('cover -b /path/to/txt/dir');
 }
@@ -17,7 +17,7 @@ interface Option {
     overwrite: boolean;
 }
 
-export function customCommand(program: CommanderStatic) {
+export function customCommand(program: CommanderStatic): void {
     // noinspection HtmlDeprecatedTag
     program
         .command('cover')
@@ -25,13 +25,13 @@ export function customCommand(program: CommanderStatic) {
         .option('-t, --txt <dir>', 'txt 目录')
         .option('-b, --batch', '批量生成给定目录下所有文件夹成的封面图片')
         .option('-o, --overwrite [Y/n]', '封面图片存在时是否覆盖', boolArg, true)
-        .on('--help', function() {
+        .on('--help', function(): void {
             console.log('');
             console.log('Examples:');
             console.log('');
             customHelp();
         })
-        .action(function(...actionArgs: string[]) {
+        .action(function(...actionArgs: string[]): void {
             // 将参数转换为数组，并提取最后一个作为 options（其实就是 Command 对象）
             const args = actionArgs.length === 1 ? [actionArgs[0]] : Array.apply(null, actionArgs);
 
@@ -61,22 +61,30 @@ export function customCommand(program: CommanderStatic) {
 
             if (batch) {
                 regenerateAllCover(txt, overwrite)
-                    .then(() => {
-                        console.log();
-                        logInfo('Done!');
-                    })
-                    .catch(err => {
-                        logError(err.message);
-                    });
+                    .then(
+                        (): void => {
+                            console.log();
+                            logInfo('Done!');
+                        }
+                    )
+                    .catch(
+                        (err): void => {
+                            logError(err.message);
+                        }
+                    );
             } else {
                 regenerateCover(txt, overwrite)
-                    .then(() => {
-                        console.log();
-                        logInfo('Done!');
-                    })
-                    .catch(err => {
-                        logError(err.message);
-                    });
+                    .then(
+                        (): void => {
+                            console.log();
+                            logInfo('Done!');
+                        }
+                    )
+                    .catch(
+                        (err): void => {
+                            logError(err.message);
+                        }
+                    );
             }
         });
 }

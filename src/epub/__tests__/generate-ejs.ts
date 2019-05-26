@@ -10,20 +10,22 @@ import {loadToc} from '../toc';
 
 let meta: Meta;
 let nodes: TxtNode[];
-beforeEach(() => {
-    meta = new Meta('TITLE', 'AUTHOR', 'DESCRIPTION');
+beforeEach(
+    (): void => {
+        meta = new Meta('TITLE', 'AUTHOR', 'DESCRIPTION');
 
-    nodes = [];
-    for (let i = 0; i < 3; i++) {
-        const node = new TxtNode('1', undefined, undefined, '1.txt', '.ext');
-        nodes.push(node);
+        nodes = [];
+        for (let i = 0; i < 3; i++) {
+            const node = new TxtNode('1', undefined, undefined, '1.txt', '.ext');
+            nodes.push(node);
+        }
     }
-});
+);
 
 // afterEach(() => {
 // });
 
-test('generate', () => {
+test('generate', (): void => {
     const tmpDir = createTempFolder();
     // console.log(tmpDir);
     const result = loadToc(path.resolve(__dirname, 'epub', 'toc1'));

@@ -8,7 +8,7 @@ import {logCustomHelp} from './utils';
 import {EPUB_OUTPUT_FOLDER} from '../context';
 import {genAllTxtDir2Epub, genTxtDir2Epub} from '../epub';
 
-export function customHelp() {
+export function customHelp(): void {
     logCustomHelp('c /path/to/txt/dir');
     logCustomHelp('convert /path/to/txt/dir');
     logCustomHelp('c -b /path/to/txt/dir');
@@ -21,7 +21,7 @@ interface Option {
     batch?: boolean;
 }
 
-export function customCommand(program: CommanderStatic) {
+export function customCommand(program: CommanderStatic): void {
     // noinspection HtmlDeprecatedTag
     program
         .command('convert')
@@ -30,13 +30,13 @@ export function customCommand(program: CommanderStatic) {
         .option('-t, --txt <dir>', 'txt 文件路径，如为目录，则转换下面所有 txt 文件')
         .option('-d, --dest [dir]', '分割后文件输出的目标路径，默认为 txt 所在目录')
         .option('-b, --batch', '批量转换给定目录下所有文件夹成为 epub')
-        .on('--help', function() {
+        .on('--help', function(): void {
             console.log('');
             console.log('Examples:');
             console.log('');
             customHelp();
         })
-        .action(function(...actionArgs: string[]) {
+        .action(function(...actionArgs: string[]): void {
             // 将参数转换为数组，并提取最后一个作为 options（其实就是 Command 对象）
             const args = actionArgs.length === 1 ? [actionArgs[0]] : Array.apply(null, actionArgs);
 
@@ -78,22 +78,30 @@ export function customCommand(program: CommanderStatic) {
 
             if (batch) {
                 genAllTxtDir2Epub(txt, destDir)
-                    .then(() => {
-                        console.log();
-                        logInfo('Done!');
-                    })
-                    .catch(err => {
-                        logError(err.message);
-                    });
+                    .then(
+                        (): void => {
+                            console.log();
+                            logInfo('Done!');
+                        }
+                    )
+                    .catch(
+                        (err): void => {
+                            logError(err.message);
+                        }
+                    );
             } else {
                 genTxtDir2Epub(txt, destDir)
-                    .then(() => {
-                        console.log();
-                        logInfo('Done!');
-                    })
-                    .catch(err => {
-                        logError(err.message);
-                    });
+                    .then(
+                        (): void => {
+                            console.log();
+                            logInfo('Done!');
+                        }
+                    )
+                    .catch(
+                        (err): void => {
+                            logError(err.message);
+                        }
+                    );
             }
         });
 }

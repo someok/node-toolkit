@@ -17,42 +17,44 @@ function lexer2Json(tokens: Tokens[] | marked.TokensList): TxtNode[] {
     let pNode: TxtNode | undefined;
     let cNode: TxtNode;
     let ignore = false;
-    tokens.forEach(token => {
-        const {type} = token;
-        if (type.includes('start') && !type.includes('list')) {
-            ignore = true;
-        }
-        if (type.includes('end') && !type.includes('list')) {
-            ignore = false;
-        }
-        if (ignore) {
-            return;
-        }
+    tokens.forEach(
+        (token): void => {
+            const {type} = token;
+            if (type.includes('start') && !type.includes('list')) {
+                ignore = true;
+            }
+            if (type.includes('end') && !type.includes('list')) {
+                ignore = false;
+            }
+            if (ignore) {
+                return;
+            }
 
-        if (type === 'list_start') {
-            if (!cNode) {
-                pNode = rootNode;
-            } else {
-                pNode = cNode;
+            if (type === 'list_start') {
+                if (!cNode) {
+                    pNode = rootNode;
+                } else {
+                    pNode = cNode;
+                }
+            }
+            if (type === 'list_item_start') {
+                cNode = new TxtNode();
+                cNode.parent = pNode;
+                if (pNode != null && pNode.children) pNode.children.push(cNode);
+            }
+            if (token.type === 'text') {
+                const txt = token.text.trim();
+                cNode.title = path.basename(txt);
+                cNode.rawTitle = txt;
+                cNode.ext = path.extname(txt);
+            }
+            if (type === 'list_item_end') {
+            }
+            if (type === 'list_end') {
+                if (pNode) pNode = pNode.parent;
             }
         }
-        if (type === 'list_item_start') {
-            cNode = new TxtNode();
-            cNode.parent = pNode;
-            if (pNode != null && pNode.children) pNode.children.push(cNode);
-        }
-        if (token.type === 'text') {
-            const txt = token.text.trim();
-            cNode.title = path.basename(txt);
-            cNode.rawTitle = txt;
-            cNode.ext = path.extname(txt);
-        }
-        if (type === 'list_item_end') {
-        }
-        if (type === 'list_end') {
-            if (pNode) pNode = pNode.parent;
-        }
-    });
+    );
 
     return rootNode.children;
 }

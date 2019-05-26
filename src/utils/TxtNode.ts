@@ -13,7 +13,7 @@ export default class TxtNode {
     private _children: TxtNode[] = [];
     private _level: number = 0;
 
-    constructor(
+    public constructor(
         title?: string,
         desc?: string,
         parent?: TxtNode,
@@ -29,7 +29,7 @@ export default class TxtNode {
         this._parent = parent;
     }
 
-    static validTitle(title?: string): string {
+    public static validTitle(title?: string): string {
         if (!title) {
             return '';
         }
@@ -54,11 +54,11 @@ export default class TxtNode {
      * @param {function} fn 遍历节点的时候执行的 callback 方法
      * @param level 树形层级，默认从 0 开始
      */
-    static travelTxtNodeTree(
+    public static travelTxtNodeTree(
         nodes: TxtNode[],
         fn: (node: TxtNode, hasChildren: boolean, level: number) => void,
         level: number = 0
-    ) {
+    ): void {
         for (let i = 0; i < nodes.length; i++) {
             const node = nodes[i];
             const {children} = node;
@@ -72,11 +72,11 @@ export default class TxtNode {
         }
     }
 
-    static setChapterIds(nodes: TxtNode[]) {
+    public static setChapterIds(nodes: TxtNode[]): void {
         let index = 0;
         // 首先遍历一次将所有存在实际路径的节点设置上 id
         // 如果某节点为父节点且不指向任何实际的文件，仍然生成一个 xhtml，不过里面内容只有标题
-        TxtNode.travelTxtNodeTree(nodes, function(node) {
+        TxtNode.travelTxtNodeTree(nodes, function(node): void {
             node.chapterId = ++index;
         });
 
@@ -94,83 +94,83 @@ export default class TxtNode {
         // });
     }
 
-    get title(): string | undefined {
+    public get title(): string | undefined {
         return this._title;
     }
 
-    set title(value: string | undefined) {
+    public set title(value: string | undefined) {
         this._title = TxtNode.validTitle(value);
     }
 
-    get rawTitle(): string | undefined {
+    public get rawTitle(): string | undefined {
         return this._rawTitle;
     }
 
-    set rawTitle(value: string | undefined) {
+    public set rawTitle(value: string | undefined) {
         this._rawTitle = value;
     }
 
-    get ext(): string | undefined {
+    public get ext(): string | undefined {
         return this._ext;
     }
 
-    set ext(value: string | undefined) {
+    public set ext(value: string | undefined) {
         this._ext = value;
     }
 
-    get path(): string | undefined {
+    public get path(): string | undefined {
         return this._path;
     }
 
-    set path(value: string | undefined) {
+    public set path(value: string | undefined) {
         this._path = value;
     }
 
-    get chapterId(): number | undefined {
+    public get chapterId(): number | undefined {
         return this._chapterId;
     }
 
-    set chapterId(value: number | undefined) {
+    public set chapterId(value: number | undefined) {
         this._chapterId = value;
     }
 
-    getPadChapterId(): string {
+    public getPadChapterId(): string {
         return _.padStart('' + this.chapterId, 4, '0');
     }
 
-    getHref(): string {
+    public getHref(): string {
         return `chapter-${this.getPadChapterId()}.xhtml`;
     }
 
-    get desc(): string | undefined {
+    public get desc(): string | undefined {
         return this._desc;
     }
 
-    set desc(value: string | undefined) {
+    public set desc(value: string | undefined) {
         this._desc = value;
     }
 
-    get parent(): TxtNode | undefined {
+    public get parent(): TxtNode | undefined {
         return this._parent;
     }
 
-    set parent(value: TxtNode | undefined) {
+    public set parent(value: TxtNode | undefined) {
         this._parent = value;
     }
 
-    get children(): TxtNode[] {
+    public get children(): TxtNode[] {
         return this._children;
     }
 
-    set children(value: TxtNode[]) {
+    public set children(value: TxtNode[]) {
         this._children = value;
     }
 
-    get level(): number {
+    public get level(): number {
         return this._level;
     }
 
-    set level(value: number) {
+    public set level(value: number) {
         this._level = value;
     }
 }

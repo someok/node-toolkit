@@ -13,23 +13,27 @@ const META = {
     description: 'description',
 };
 
-beforeEach(async () => {
-    // 临时文件夹
-    folder = createTempFolder();
-    // console.log(`tmp folder: ${folder}`);
-});
+beforeEach(
+    async (): Promise<void> => {
+        // 临时文件夹
+        folder = createTempFolder();
+        // console.log(`tmp folder: ${folder}`);
+    }
+);
 
-afterEach(() => {
-    // 删除临时文件夹
-    fse.removeSync(folder);
-});
+afterEach(
+    (): void => {
+        // 删除临时文件夹
+        fse.removeSync(folder);
+    }
+);
 
-test('loadMetadataYaml', async () => {
+test('loadMetadataYaml', async (): Promise<void> => {
     let meta = new Meta(META.title, META.author, META.description);
     await initMetadata(folder, meta);
 
     meta = loadMetadataYaml(folder);
-    console.log(meta);
+    // console.log(meta);
     expect(meta.toJson()).toEqual({
         ...META,
         cover: 'cover.jpg',
@@ -39,7 +43,7 @@ test('loadMetadataYaml', async () => {
     });
 });
 
-test('loadMetadataYaml with autoCover false', async () => {
+test('loadMetadataYaml with autoCover false', async (): Promise<void> => {
     let meta = new Meta(META.title, META.author, META.description);
     meta.autoCover = false;
     await initMetadata(folder, meta);

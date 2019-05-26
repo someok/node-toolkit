@@ -1,6 +1,5 @@
 import fse from 'fs-extra';
 import path from 'path';
-import klawSync from 'klaw-sync';
 import _ from 'lodash';
 
 import {logInfo} from '@someok/node-utils/lib/logUtils';
@@ -10,7 +9,6 @@ import {zipDir} from '@someok/node-utils/lib/zipUtils';
 import {subdirs} from '../utils/fileUtils';
 import {generate} from './generate';
 import {readMetadata} from './epubMeta';
-import {FOLDER_PREFIX} from '../context';
 import Meta from '../metadata/Meta';
 
 /**
@@ -31,34 +29,44 @@ export function genTxtDir2Epub(txtDir: string, epubPath: string): Promise<Meta> 
     }
 
     const tmpDir = createTempFolder();
-    return new Promise<Meta>(function(resolve, reject) {
+    return new Promise<Meta>(function(resolve, reject): void {
         readMetadata(txtDir)
-            .then(({meta, tocNodes}) => {
-                generate(tmpDir, meta, tocNodes);
+            .then(
+                ({meta, tocNodes}): Promise<void> => {
+                    generate(tmpDir, meta, tocNodes);
 
-                let epubFile: string;
-                if (epubPath.toLowerCase().endsWith('.epub')) {
-                    epubFile = epubPath;
-                } else {
-                    epubFile = path.join(epubPath, meta.epubTitle());
+                    let epubFile: string;
+                    if (epubPath.toLowerCase().endsWith('.epub')) {
+                        epubFile = epubPath;
+                    } else {
+                        epubFile = path.join(epubPath, meta.epubTitle());
+                    }
+
+                    return zipDir(tmpDir, epubFile)
+                        .then(
+                            (): void => {
+                                logInfo(`epub 生成生成：[${epubFile}]`);
+                                resolve(meta);
+                            }
+                        )
+                        .catch(
+                            (err): void => {
+                                reject(err);
+                            }
+                        );
                 }
-
-                return zipDir(tmpDir, epubFile)
-                    .then(() => {
-                        logInfo(`epub 生成生成：[${epubFile}]`);
-                        resolve(meta);
-                    })
-                    .catch(err => {
-                        reject(err);
-                    });
-            })
-            .catch(err => {
-                reject(err);
-            })
-            .finally(() => {
-                // 删除临时文件夹
-                fse.removeSync(tmpDir);
-            });
+            )
+            .catch(
+                (err): void => {
+                    reject(err);
+                }
+            )
+            .finally(
+                (): void => {
+                    // 删除临时文件夹
+                    fse.removeSync(tmpDir);
+                }
+            );
     });
 }
 
@@ -72,22 +80,26 @@ export function genAllTxtDir2Epub(txtDir: string, epubPath: string): Promise<boo
     const errMsg: string[] = [];
 
     // 顺序执行 Promise
-    const seqPromise = dirs.reduce(function(promiseChain, dir) {
-        return promiseChain.then(function() {
+    const seqPromise = dirs.reduce(function(promiseChain, dir): Promise<boolean> {
+        return promiseChain.then(function(): Promise<boolean> {
             return genTxtDir2Epub(dir.path, epubPath)
-                .then(() => true)
-                .catch(err => {
-                    errMsg.push(err.message);
-                    return false;
-                });
+                .then((): boolean => true)
+                .catch(
+                    (err): boolean => {
+                        errMsg.push(err.message);
+                        return false;
+                    }
+                );
         });
     }, Promise.resolve(true));
 
-    return seqPromise.then(() => {
-        if (!_.isEmpty(errMsg)) {
-            throw new Error(errMsg.join('\n'));
-        }
+    return seqPromise.then(
+        (): boolean => {
+            if (!_.isEmpty(errMsg)) {
+                throw new Error(errMsg.join('\n'));
+            }
 
-        return true;
-    });
+            return true;
+        }
+    );
 }

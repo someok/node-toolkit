@@ -84,9 +84,11 @@ export function splitByRegexRule(
         lastChapter.toPos = content.length;
     }
 
-    chapters.forEach(chapter => {
-        chapter.content = content.substring(chapter.fromPos, chapter.toPos).trim();
-    });
+    chapters.forEach(
+        (chapter): void => {
+            chapter.content = content.substring(chapter.fromPos, chapter.toPos).trim();
+        }
+    );
 
     return chapters;
 }

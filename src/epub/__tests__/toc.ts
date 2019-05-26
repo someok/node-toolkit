@@ -1,7 +1,7 @@
 import path from 'path';
 import {loadToc} from '../toc';
 
-test('load one level md toc', () => {
+test('load one level md toc', (): void => {
     const folder = path.resolve(__dirname, 'epub', 'demo1');
     const result = loadToc(folder);
     // console.log(result);
@@ -25,7 +25,7 @@ test('load one level md toc', () => {
     );
 });
 
-test('load one level txt toc', () => {
+test('load one level txt toc', (): void => {
     const folder = path.resolve(__dirname, 'epub', 'demo2');
     const result = loadToc(folder);
     // console.log(result);
@@ -57,7 +57,7 @@ test('load one level txt toc', () => {
     );
 });
 
-test('load two level md toc', () => {
+test('load two level md toc', (): void => {
     const folder = path.resolve(__dirname, 'epub', 'demo3');
     const result = loadToc(folder);
 
@@ -84,7 +84,7 @@ test('load two level md toc', () => {
     );
 });
 
-test('not exist txt', () => {
+test('not exist txt', (): void => {
     const folder = path.resolve(__dirname, 'epub', 'demo4');
     const result = loadToc(folder);
     // console.log(result);
@@ -92,7 +92,7 @@ test('not exist txt', () => {
     expect(result.message).toBe('未发现任何文本文件');
 });
 
-test('toc.md empty', () => {
+test('toc.md empty', (): void => {
     const folder = path.resolve(__dirname, 'epub', 'demo5');
     const result = loadToc(folder);
     // console.log(result);

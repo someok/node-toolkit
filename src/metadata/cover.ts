@@ -18,57 +18,67 @@ import {METADATA_YAML} from '../context';
  * @param overwrite 已存在封面图片，是否覆盖
  */
 export function regenerateCover(dir: string, overwrite: boolean = true): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-        const metaDir = getMetadataFolder(dir);
+    return new Promise<boolean>(
+        (resolve, reject): void => {
+            const metaDir = getMetadataFolder(dir);
 
-        if (existMetadataYaml(dir)) {
-            // 已存在则先读取
-            const meta = loadMetadataYaml(dir);
-            let create = true;
-            if (meta.cover) {
-                const existCover = path.join(metaDir, meta.cover);
-                if (existFile(existCover)) {
-                    if (!overwrite) {
-                        logWarning(`[${existCover}] 封面已存在，忽略`);
-                        create = false;
-                    } else if (!meta.autoCover) {
-                        logWarning(`[${existCover}] 封面为用户维护，忽略`);
-                        create = false;
+            if (existMetadataYaml(dir)) {
+                // 已存在则先读取
+                const meta = loadMetadataYaml(dir);
+                let create = true;
+                if (meta.cover) {
+                    const existCover = path.join(metaDir, meta.cover);
+                    if (existFile(existCover)) {
+                        if (!overwrite) {
+                            logWarning(`[${existCover}] 封面已存在，忽略`);
+                            create = false;
+                        } else if (!meta.autoCover) {
+                            logWarning(`[${existCover}] 封面为用户维护，忽略`);
+                            create = false;
+                        }
                     }
                 }
-            }
-            if (create) {
-                meta.cover = 'cover.jpg';
-                const existCover = path.join(metaDir, meta.cover);
+                if (create) {
+                    meta.cover = 'cover.jpg';
+                    const existCover = path.join(metaDir, meta.cover);
 
-                const metaFile = path.join(metaDir, METADATA_YAML);
-                logInfo(`保存 [${metaFile}]`);
-                const json = meta.toJson();
-                const metaStr = yaml.safeDump(json);
-                fs.writeFileSync(metaFile, metaStr);
+                    const metaFile = path.join(metaDir, METADATA_YAML);
+                    logInfo(`保存 [${metaFile}]`);
+                    const json = meta.toJson();
+                    const metaStr = yaml.safeDump(json);
+                    fs.writeFileSync(metaFile, metaStr);
 
-                createCoverImage(existCover, meta)
-                    .then(() => {
-                        meta.coverFile = existCover;
-                        resolve(true);
-                    })
-                    .catch(err => {
-                        reject(err);
-                    });
-            } else {
-                resolve(true);
-            }
-        } else {
-            // 不存在则使用文件夹名字创建 meta 信息
-            initMetadataByFoldderName(dir, {createCover: true})
-                .then(() => {
+                    createCoverImage(existCover, meta)
+                        .then(
+                            (): void => {
+                                meta.coverFile = existCover;
+                                resolve(true);
+                            }
+                        )
+                        .catch(
+                            (err): void => {
+                                reject(err);
+                            }
+                        );
+                } else {
                     resolve(true);
-                })
-                .catch(err => {
-                    reject(err);
-                });
+                }
+            } else {
+                // 不存在则使用文件夹名字创建 meta 信息
+                initMetadataByFoldderName(dir, {createCover: true})
+                    .then(
+                        (): void => {
+                            resolve(true);
+                        }
+                    )
+                    .catch(
+                        (err): void => {
+                            reject(err);
+                        }
+                    );
+            }
         }
-    });
+    );
 }
 
 export function regenerateAllCover(txtDir: string, overwrite: boolean = true): Promise<boolean> {
@@ -81,25 +91,31 @@ export function regenerateAllCover(txtDir: string, overwrite: boolean = true): P
     const errMsg: string[] = [];
 
     // 顺序执行 Promise
-    const seqPromise = dirs.reduce(function(promiseChain, dir) {
-        return promiseChain.then(function() {
+    const seqPromise = dirs.reduce(function(promiseChain, dir): Promise<boolean> {
+        return promiseChain.then(function(): Promise<boolean> {
             return regenerateCover(dir.path, overwrite)
-                .then(() => {
-                    console.log();
-                    return true;
-                })
-                .catch(err => {
-                    errMsg.push(err.message);
-                    return false;
-                });
+                .then(
+                    (): boolean => {
+                        console.log();
+                        return true;
+                    }
+                )
+                .catch(
+                    (err): boolean => {
+                        errMsg.push(err.message);
+                        return false;
+                    }
+                );
         });
     }, Promise.resolve(true));
 
-    return seqPromise.then(() => {
-        if (!_.isEmpty(errMsg)) {
-            throw new Error(errMsg.join('\n'));
-        }
+    return seqPromise.then(
+        (): boolean => {
+            if (!_.isEmpty(errMsg)) {
+                throw new Error(errMsg.join('\n'));
+            }
 
-        return true;
-    });
+            return true;
+        }
+    );
 }

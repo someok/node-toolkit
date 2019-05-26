@@ -1,9 +1,9 @@
 import TxtNode from './TxtNode';
 
-export function toNavMap(txtNodes: TxtNode[]) {
+export function toNavMap(txtNodes: TxtNode[]): string {
     let ncx = '<navMap>\n';
 
-    function travelNode(nodes: TxtNode[]) {
+    function travelNode(nodes: TxtNode[]): void {
         for (let i = 0; i < nodes.length; i++) {
             const node = nodes[i];
             const title = node.title;
@@ -14,6 +14,7 @@ export function toNavMap(txtNodes: TxtNode[]) {
 
             if (node.chapterId) {
                 ncx += `<navLabel><text>${title}</text></navLabel>\n`;
+                // noinspection HtmlDeprecatedTag
                 ncx += `<content src="${node.getHref()}"/>\n`;
             } else {
                 ncx += `<navLabel><text>${title}</text></navLabel>\n`;
@@ -33,10 +34,10 @@ export function toNavMap(txtNodes: TxtNode[]) {
     return ncx;
 }
 
-export function toHtmlOrderList(txtNodes: TxtNode[]) {
+export function toHtmlOrderList(txtNodes: TxtNode[]): string {
     let ol = '<ol>\n';
 
-    function travelNode(nodes: TxtNode[]) {
+    function travelNode(nodes: TxtNode[]): void {
         for (let i = 0; i < nodes.length; i++) {
             const node = nodes[i];
             const title = node.title;
@@ -72,17 +73,20 @@ interface Chapter {
     path?: string;
 }
 
-export function toChapters(txtNodes: TxtNode[]) {
+export function toChapters(txtNodes: TxtNode[]): Chapter[] {
     const chapterIds: Chapter[] = [];
-    TxtNode.travelTxtNodeTree(txtNodes, (node: TxtNode) => {
-        if (node.chapterId) {
-            chapterIds.push({
-                id: node.getPadChapterId(),
-                title: node.title,
-                path: node.path,
-            });
+    TxtNode.travelTxtNodeTree(
+        txtNodes,
+        (node: TxtNode): void => {
+            if (node.chapterId) {
+                chapterIds.push({
+                    id: node.getPadChapterId(),
+                    title: node.title,
+                    path: node.path,
+                });
+            }
         }
-    });
+    );
 
     return chapterIds;
 }

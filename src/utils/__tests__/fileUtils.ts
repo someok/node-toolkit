@@ -1,11 +1,11 @@
 import path from 'path';
 import {readUtf8OrGbkReadFile} from '../fileUtils';
 
-function encFile(name: string) {
+function encFile(name: string): string {
     return path.join(__dirname, 'txt-files/encoding', name);
 }
 
-test('readUtf8OrGbkReadFile', () => {
+test('readUtf8OrGbkReadFile', (): void => {
     let txt = readUtf8OrGbkReadFile(encFile('utf8.txt'), false);
     expect(txt.trim()).toBe('中文');
 

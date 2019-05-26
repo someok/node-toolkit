@@ -11,7 +11,7 @@ import {boolArg, logCustomHelp} from './utils';
 /**
  * split 命令的自定义帮助信息
  */
-export function customHelp() {
+export function customHelp(): void {
     logCustomHelp('s -t /path/to/txt/dir');
     logCustomHelp('split -t /path/to/txt/dir');
     logCustomHelp('split -t /path/to/txt/file.txt');
@@ -24,7 +24,7 @@ interface Option {
     overwrite?: boolean;
 }
 
-export function customCommand(program: CommanderStatic) {
+export function customCommand(program: CommanderStatic): void {
     program
         .command('split')
         .alias('s')
@@ -32,14 +32,14 @@ export function customCommand(program: CommanderStatic) {
         .option('-t, --txt <file/dir>', 'txt 文件路径，如为目录，则转换下面所有 txt 文件')
         .option('-d, --dest [dir]', '分割后文件输出的目标路径，默认为 txt 所在目录')
         .option('-o, --overwrite [Y/n]', '目标路径存在时是否覆盖', boolArg, true)
-        .on('--help', function() {
+        .on('--help', function(): void {
             // txt2epub split -h 时显示此信息
             console.log('');
             console.log('Examples:');
             console.log('');
             customHelp();
         })
-        .action(function(...actionArgs: string[]) {
+        .action(function(...actionArgs: string[]): void {
             // 将参数转换为数组，并提取最后一个作为 options（其实就是 Command 对象）
             const args = actionArgs.length === 1 ? [actionArgs[0]] : Array.apply(null, actionArgs);
 

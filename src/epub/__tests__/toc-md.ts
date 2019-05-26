@@ -2,7 +2,7 @@ import path from 'path';
 
 import {loadMdContentAsToc} from '../toc';
 
-test('load simple md toc', () => {
+test('load simple md toc', (): void => {
     const folder = path.resolve(__dirname, 'md-files', 'demo1');
     const toc = path.resolve(folder, 'toc.md');
     let result = loadMdContentAsToc(folder, toc);
@@ -27,7 +27,7 @@ test('load simple md toc', () => {
     );
 });
 
-test('load level md toc', () => {
+test('load level md toc', (): void => {
     const folder = path.resolve(__dirname, 'md-files', 'demo2');
     const toc = path.resolve(folder, 'toc.md');
     let result = loadMdContentAsToc(folder, toc);
@@ -55,7 +55,7 @@ test('load level md toc', () => {
     );
 });
 
-test('load level not exist md toc', () => {
+test('load level not exist md toc', (): void => {
     const folder = path.resolve(__dirname, 'md-files', 'demo2');
     const toc = path.resolve(folder, 'toc-not-exist.md');
     let result = loadMdContentAsToc(folder, toc);

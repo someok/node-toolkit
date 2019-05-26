@@ -2,7 +2,7 @@ import path from 'path';
 
 import {loadTxtNamesAsToc} from '../toc';
 
-test('loadTxtNamesAsToc', () => {
+test('loadTxtNamesAsToc', (): void => {
     let result = loadTxtNamesAsToc(path.join(__dirname, './txt-files/demo1'));
     let names = result.data;
     // console.log(names);

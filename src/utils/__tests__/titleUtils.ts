@@ -1,6 +1,6 @@
 import {getAuthor, getTitle} from '../titleUtils';
 
-test('getTitle', () => {
+test('getTitle', (): void => {
     let name = '这是一个标题作者：随便';
     let title = getTitle(name);
     // console.log(title);
@@ -15,7 +15,7 @@ test('getTitle', () => {
     expect(title).toBe(name);
 });
 
-test('getAuthor', () => {
+test('getAuthor', (): void => {
     let name = '标题[作者：张三]';
     let author = getAuthor(name);
     expect(author).toBe('张三]');

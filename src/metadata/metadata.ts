@@ -9,7 +9,7 @@ import {getAuthor, getTitle} from '../utils/titleUtils';
 import Meta from './Meta';
 import {createCoverImage} from '../utils/coverImgUtils';
 
-export function getMetadataFolder(folder: string) {
+export function getMetadataFolder(folder: string): string {
     return path.join(folder, METADATA_FOLDER);
 }
 
@@ -56,10 +56,12 @@ export function initMetadata(
             // 生成封面图片
             if (meta.cover && createCover) {
                 const coverFile = path.join(metadataFolder, meta.cover);
-                return createCoverImage(coverFile, meta).then(() => {
-                    meta.coverFile = coverFile;
-                    return meta;
-                });
+                return createCoverImage(coverFile, meta).then(
+                    (): Meta => {
+                        meta.coverFile = coverFile;
+                        return meta;
+                    }
+                );
             }
 
             return Promise.resolve(meta);

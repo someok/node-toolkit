@@ -1,6 +1,6 @@
 import {CLI_NAME} from './ctx';
 
-export function logCustomHelp(help: string) {
+export function logCustomHelp(help: string): void {
     console.log(`  $ ${CLI_NAME} ${help}`);
 }
 
@@ -10,6 +10,6 @@ export function logCustomHelp(help: string) {
  * @param arg 参数内容
  * @return {boolean} 是或否
  */
-export function boolArg(arg: string) {
+export function boolArg(arg: string): boolean {
     return 'yes' === arg.toLowerCase() || 'y' === arg.toLowerCase();
 }

@@ -9,54 +9,6 @@ import {existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
 import mdListParser from '../utils/marked/list2JsonParser';
 import TxtNode from '../utils/TxtNode';
 import {METADATA_FOLDER, TOC_FILE} from '../context';
-
-/**
- * 从给定文件夹中读取目录列表。
- *
- * 首先读取 toc.md 文件，如果此文件不存在，则读取 txt 文件名作为目录。
- *
- * @param folder 文件夹
- * @return {Result} 目录列表或错误信息
- */
-export function loadToc(folder: string): Result<TxtNode[]> {
-    const tocMdFile = path.resolve(folder, METADATA_FOLDER, TOC_FILE);
-
-    let result: Result<TxtNode[]>;
-    if (fs.existsSync(tocMdFile)) {
-        result = loadMdContentAsToc(folder, tocMdFile);
-    } else {
-        // 不存在 toc.md 文件，则直接读取 txt 文件名作为目录
-        result = loadTxtNamesAsToc(folder, true);
-    }
-
-    if (result.success) {
-        TxtNode.setChapterIds(result.data);
-    }
-
-    return result;
-}
-
-/**
- * 在 md 的树形列表中递归。
- *
- * @param {Array} nodes {@link TxtNode} 节点
- * @param {function} fn 遍历节点的时候执行的 callback 方法
- * @param level 树形层级，默认从 0 开始
- */
-export function travelTxtNodeTree(nodes: TxtNode[], fn: Function, level: number = 0) {
-    for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        const {children} = node;
-
-        const hasChildren = Array.isArray(children) && children.length > 0;
-        fn && fn(node, hasChildren, level);
-
-        if (hasChildren) {
-            travelTxtNodeTree(children, fn, level + 1);
-        }
-    }
-}
-
 /**
  * 在 md 的树形列表中递归，并设置每个节点的 path 属性，并判断此路径是否实际存在。
  *
@@ -64,27 +16,30 @@ export function travelTxtNodeTree(nodes: TxtNode[], fn: Function, level: number 
  * @param {Array} nodes {@link TxtNode} 节点
  * @param {Array} notExistPath 不存在的节点路径
  */
-function travelTree(folder: string, nodes: TxtNode[], notExistPath: string[]) {
-    TxtNode.travelTxtNodeTree(nodes, (node: TxtNode, hasChildren: boolean) => {
-        const {rawTitle} = node;
+function travelTree(folder: string, nodes: TxtNode[], notExistPath: string[]): void {
+    TxtNode.travelTxtNodeTree(
+        nodes,
+        (node: TxtNode, hasChildren: boolean): void => {
+            const {rawTitle} = node;
 
-        const nodePath = rawTitle ? path.join(folder, rawTitle) : folder;
-        const mode = existPath(nodePath);
+            const nodePath = rawTitle ? path.join(folder, rawTitle) : folder;
+            const mode = existPath(nodePath);
 
-        // 非分支节点允许非物理路径存在，也就是说父节点可以只作为标题存在
-        // 此时 node.path 为空
-        if (hasChildren) {
-            if (mode === PathMode.IS_FILE) {
-                node.path = nodePath;
-            }
-        } else {
-            if (mode === PathMode.IS_FILE) {
-                node.path = nodePath;
+            // 非分支节点允许非物理路径存在，也就是说父节点可以只作为标题存在
+            // 此时 node.path 为空
+            if (hasChildren) {
+                if (mode === PathMode.IS_FILE) {
+                    node.path = nodePath;
+                }
             } else {
-                rawTitle && notExistPath.push(rawTitle);
+                if (mode === PathMode.IS_FILE) {
+                    node.path = nodePath;
+                } else {
+                    rawTitle && notExistPath.push(rawTitle);
+                }
             }
         }
-    });
+    );
 }
 
 /**
@@ -115,9 +70,11 @@ export function loadMdContentAsToc(folder: string, mdFile: string): Result<TxtNo
 
     if (!_.isEmpty(notExistPath)) {
         let msg = `[${mdName}] 中如下节点并不实际存在:\n`;
-        notExistPath.forEach(dir => {
-            msg += `    - ${dir}\n`;
-        });
+        notExistPath.forEach(
+            (dir): void => {
+                msg += `    - ${dir}\n`;
+            }
+        );
         return failure(msg);
     }
 
@@ -132,7 +89,7 @@ export function loadMdContentAsToc(folder: string, mdFile: string): Result<TxtNo
  * @param item 文件路径
  * @return {boolean} 是否有效文本文件
  */
-function txtFilter(item: klawSync.Item) {
+function txtFilter(item: klawSync.Item): boolean {
     return ['.txt'].includes(path.extname(item.path).toLowerCase());
 }
 
@@ -155,22 +112,54 @@ export function loadTxtNamesAsToc(folder: string, pinyinSort: boolean = false): 
         return failure('未发现任何文本文件');
     }
 
-    const fileArr = files.map(file => {
-        const filePath = file.path;
-        const ext = path.extname(filePath);
-        const rawTitle = path.basename(filePath).trim();
-        let title = path.basename(filePath).trim();
+    const fileArr = files.map(
+        (file): TxtNode => {
+            const filePath = file.path;
+            const ext = path.extname(filePath);
+            const rawTitle = path.basename(filePath).trim();
+            let title = path.basename(filePath).trim();
 
-        return new TxtNode(title, undefined, undefined, rawTitle, ext, filePath);
-    });
+            return new TxtNode(title, undefined, undefined, rawTitle, ext, filePath);
+        }
+    );
 
+    // todo: 去掉拼音排序，其实没啥用
     if (pinyinSort) {
-        fileArr.sort((f1, f2) => {
-            const f1Pinyin = pingyin(f1.rawTitle).join('');
-            const f2Pinyin = pingyin(f2.rawTitle).join('');
-            return f1Pinyin.localeCompare(f2Pinyin);
-        });
+        fileArr.sort(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (f1, f2): any => {
+                const f1Pinyin = pingyin(f1.rawTitle).join('');
+                const f2Pinyin = pingyin(f2.rawTitle).join('');
+                return f1Pinyin.localeCompare(f2Pinyin);
+            }
+        );
     }
 
     return success(fileArr);
+}
+
+/**
+ * 从给定文件夹中读取目录列表。
+ *
+ * 首先读取 toc.md 文件，如果此文件不存在，则读取 txt 文件名作为目录。
+ *
+ * @param folder 文件夹
+ * @return {Result} 目录列表或错误信息
+ */
+export function loadToc(folder: string): Result<TxtNode[]> {
+    const tocMdFile = path.resolve(folder, METADATA_FOLDER, TOC_FILE);
+
+    let result: Result<TxtNode[]>;
+    if (fs.existsSync(tocMdFile)) {
+        result = loadMdContentAsToc(folder, tocMdFile);
+    } else {
+        // 不存在 toc.md 文件，则直接读取 txt 文件名作为目录
+        result = loadTxtNamesAsToc(folder, true);
+    }
+
+    if (result.success) {
+        TxtNode.setChapterIds(result.data);
+    }
+
+    return result;
 }

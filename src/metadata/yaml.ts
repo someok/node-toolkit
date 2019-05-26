@@ -3,8 +3,7 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 
 import Meta from './Meta';
-
-const {METADATA_YAML, METADATA_FOLDER} = require('../context');
+import {METADATA_FOLDER, METADATA_YAML} from '../context';
 
 export function existMetadataYaml(folder: string): boolean {
     return fs.existsSync(path.resolve(folder, METADATA_FOLDER, METADATA_YAML));

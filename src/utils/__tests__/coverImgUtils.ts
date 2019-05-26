@@ -3,8 +3,8 @@ import PImage from 'pureimage';
 import {createCoverImage, registerFont, wrapText} from '../coverImgUtils';
 import Meta from '../../metadata/Meta';
 
-test('wrapText', done => {
-    registerFont().load(function() {
+test('wrapText', (done): void => {
+    registerFont().load(function(): void {
         const img = PImage.make(200, 200);
         const ctx = img.getContext('2d');
         const txt = '这是一个很长的测试文本，this is long test text';
@@ -19,7 +19,7 @@ test('wrapText', done => {
     });
 });
 
-test.skip('initCover', done => {
+test.skip('initCover', (done): void => {
     const promiseArr = [];
     for (let i = 0; i < 5; i++) {
         const p = createCoverImage(
@@ -34,12 +34,16 @@ test.skip('initCover', done => {
     }
 
     Promise.all(promiseArr)
-        .then(() => {
-            console.log('over');
-            done();
-        })
-        .catch(err => {
-            console.log(err);
-            done();
-        });
+        .then(
+            (): void => {
+                console.log('over');
+                done();
+            }
+        )
+        .catch(
+            (err): void => {
+                console.log(err);
+                done();
+            }
+        );
 });

@@ -8,7 +8,7 @@ function loadTxt(fileName: string): string {
     return buf.toString();
 }
 
-test('split zh chapter txt', () => {
+test('split zh chapter txt', (): void => {
     let txt = loadTxt('zhChapter.txt');
 
     let result = splitByRegexRule(txt, 'zhChapter');
@@ -25,7 +25,7 @@ test('split zh chapter txt', () => {
     expect(result[0].title.startsWith('第一章')).toBeTruthy();
 });
 
-test('split num chapter txt', () => {
+test('split num chapter txt', (): void => {
     let txt = loadTxt('num.txt');
 
     let result = splitByRegexRule(txt, 'num');
@@ -36,7 +36,7 @@ test('split num chapter txt', () => {
     expect(result[3].content.includes('4 ')).toBeTruthy();
 });
 
-test('split zh num chapter txt', () => {
+test('split zh num chapter txt', (): void => {
     let txt = loadTxt('zhnum.txt');
 
     let result = splitByRegexRule(txt, 'zhNum');
@@ -47,7 +47,7 @@ test('split zh num chapter txt', () => {
     expect(result[3].content.includes('四 ')).toBeTruthy();
 });
 
-test('split with max title length param', () => {
+test('split with max title length param', (): void => {
     let txt = loadTxt('maxTitle.txt');
     let result = splitByRegexRule(txt, 'zhChapter', 3);
     // console.log(result);
@@ -60,12 +60,14 @@ test('split with max title length param', () => {
     expect(result[2].content.includes('第四章 ')).toBeTruthy();
 });
 
-test('split auto', () => {
+test('split auto', (): void => {
     let txt = loadTxt('noChapter.txt');
 
-    expect(() => {
-        splitAuto(txt);
-    }).toThrowError('txt 中内容不适合当前预定义的分隔规则');
+    expect(
+        (): void => {
+            splitAuto(txt);
+        }
+    ).toThrowError('txt 中内容不适合当前预定义的分隔规则');
 
     txt = loadTxt('zhChapter.txt');
     let result = splitAuto(txt);

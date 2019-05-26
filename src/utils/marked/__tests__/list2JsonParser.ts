@@ -8,7 +8,7 @@ function loadMd(path: string): string {
     return buf.toString();
 }
 
-test('parse simple md', () => {
+test('parse simple md', (): void => {
     const dir = path.resolve(__dirname, 'md-files', 'simple.md');
     // console.log(dir);
     const md = loadMd(dir);
@@ -42,7 +42,7 @@ test('parse simple md', () => {
     }
 });
 
-test('parse tab and space mix md', () => {
+test('parse tab and space mix md', (): void => {
     const dir = path.resolve(__dirname, 'md-files', 'tab-space-mix.md');
     // console.log(dir);
     const md = loadMd(dir);
@@ -65,7 +65,7 @@ test('parse tab and space mix md', () => {
     }
 });
 
-test('parse complex list to json', () => {
+test('parse complex list to json', (): void => {
     const dir = path.resolve(__dirname, 'md-files', 'complex.md');
     // console.log(dir);
     const md = loadMd(dir);
@@ -91,7 +91,7 @@ test('parse complex list to json', () => {
     }
 });
 
-test('level md file', () => {
+test('level md file', (): void => {
     const dir = path.resolve(__dirname, 'md-files', 'level.md');
     // console.log(dir);
     const md = loadMd(dir);
