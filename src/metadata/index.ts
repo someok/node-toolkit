@@ -11,7 +11,7 @@ import {initMetadata} from './metadata';
 import Meta from './Meta';
 
 function getQuestions(txtFolder: string): inquirer.Questions {
-    const folderQuestion = {
+    const folderQuestion: inquirer.Question = {
         type: 'input',
         name: 'folder',
         message: '请输入 txt 所在目录（此目录必须已经存在）：',
@@ -26,7 +26,7 @@ function getQuestions(txtFolder: string): inquirer.Questions {
         },
     };
 
-    const titleQuestion = {
+    const titleQuestion: inquirer.Question = {
         type: 'input',
         name: 'title',
         message: '请输入 epub 书名：',
