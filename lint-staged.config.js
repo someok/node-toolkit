@@ -1,9 +1,9 @@
 module.exports = {
     linters: {
-        '*.{ts,tsx}': ['prettier-eslint --write', 'git add'],
-        '*.{js,jsx}': ['prettier-eslint --write', 'git add'],
-        '*.{md,html,json}': ['prettier-eslint --write', 'git add'],
-        '*.{css,scss,less}': ['prettier-eslint --write', 'git add'],
+        '*.{ts,tsx}': ['eslint --fix', 'git add'],
+        '*.{js,jsx}': ['eslint --fix', 'git add'],
+        '*.{md,html,json}': ['prettier --write', 'git add'],
+        '*.{css,scss,less}': ['prettier --write', 'git add'],
     },
 
     ignore: ['**/*/tab-space-mix.md'],
