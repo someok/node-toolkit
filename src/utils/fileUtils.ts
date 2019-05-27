@@ -1,9 +1,15 @@
 import fs from 'fs';
-import {logError} from '@someok/node-utils/lib/logUtils';
-import {Iconv} from 'iconv';
-import klawSync from 'klaw-sync';
 import path from 'path';
+import klawSync from 'klaw-sync';
+import {Iconv} from 'iconv';
+import {logError} from '@someok/node-utils/lib/logUtils';
+import {createTempFolder as tempFolder} from '@someok/node-utils/lib/fileUtils';
+
 import {FOLDER_PREFIX} from '../context';
+
+export function createTempFolder(): string {
+    return tempFolder('t2e-');
+}
 
 const gbk2utf8 = new Iconv('gbk', 'utf-8');
 const big52utf8 = new Iconv('big5', 'utf-8');

@@ -3,9 +3,10 @@ import path from 'path';
 import _ from 'lodash';
 
 import {logInfo} from '@someok/node-utils/lib/logUtils';
-import {createTempFolder, existDir} from '@someok/node-utils/lib/fileUtils';
+import {existDir} from '@someok/node-utils/lib/fileUtils';
 import {zipDir} from '@someok/node-utils/lib/zipUtils';
 
+import {createTempFolder} from '../utils/fileUtils';
 import {subdirs} from '../utils/fileUtils';
 import {generate} from './generate';
 import {readMetadata} from './epubMeta';

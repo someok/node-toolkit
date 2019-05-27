@@ -2,8 +2,9 @@ import path from 'path';
 import fs from 'fs';
 import fse from 'fs-extra';
 import yaml from 'js-yaml';
-import {createTempFolder, existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
+import {existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
 
+import {createTempFolder} from '../../utils/fileUtils';
 import {initMetadata, initMetadataByFoldderName} from '../metadata';
 import Meta from '../Meta';
 

@@ -1,7 +1,7 @@
 import path from 'path';
 import fse from 'fs-extra';
-import {createTempFolder, existDir, existFile} from '@someok/node-utils/lib/fileUtils';
-
+import {existDir, existFile} from '@someok/node-utils/lib/fileUtils';
+import {createTempFolder} from '../../utils/fileUtils';
 import {copyBoilerplate} from '../generate';
 
 test('copyBoilerplate', (): void => {
