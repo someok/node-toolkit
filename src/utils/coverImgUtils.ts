@@ -137,7 +137,7 @@ export function createCoverImage(
 
                         ctx.fillStyle = '#ffffff';
                         ctx.font = `100pt '${FONT_FAMILY}'`;
-                        const lines = wrapText(ctx, meta.title, 100, 300, 600, 148);
+                        const lines = wrapText(ctx, meta.title, 50, 300, 700, 148);
 
                         lines.forEach(
                             (data): void => {
@@ -154,7 +154,7 @@ export function createCoverImage(
                             ctx.font = `48pt '${FONT_FAMILY}'`;
 
                             // 如果作者名称太长，则最多输出 2 行
-                            const authorLines = wrapText(ctx, meta.author, 100, 1000, 600, 68);
+                            const authorLines = wrapText(ctx, meta.author, 50, 1000, 700, 68);
                             authorLines.slice(0, 2).forEach(
                                 (data): void => {
                                     const {line, x, y} = data;
