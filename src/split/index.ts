@@ -1,10 +1,10 @@
 import klawSync from 'klaw-sync';
 import path from 'path';
 import _ from 'lodash';
-import {logInfo, logError, logWarning} from '@someok/node-utils/lib/logUtils';
+import {logError, logInfo, logWarning} from '@someok/node-utils/lib/logUtils';
 import {fileName} from '@someok/node-utils/lib/fileUtils';
 
-import {readUtf8OrGbkReadFile} from '../utils/fileUtils';
+import {readAsUtf8String} from '../utils/fileUtils';
 import {splitAuto} from './splitTxtData';
 import {outputChapters} from './outputTxt';
 import {initMetadataByFoldderName} from '../metadata/metadata';
@@ -22,8 +22,13 @@ export function splitTxtFile2Dest(
     overwrite: boolean = true
 ): void {
     try {
-        const txt = readUtf8OrGbkReadFile(txtFile);
-        const chapters = splitAuto(txt);
+        const txtResult = readAsUtf8String(txtFile);
+        if (!txtResult.success) {
+            logError(txtResult.message);
+            return;
+        }
+
+        const chapters = splitAuto(txtResult.data);
         const {success, message} = outputChapters(chapters, destFolder, overwrite);
 
         if (success) {

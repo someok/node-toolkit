@@ -1,9 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import klawSync from 'klaw-sync';
+import chardet from 'chardet';
 import {Iconv} from 'iconv';
+import encoding from 'encoding';
 import {logError} from '@someok/node-utils/lib/logUtils';
 import {createTempFolder as tempFolder} from '@someok/node-utils/lib/fileUtils';
+import Result from '@someok/node-utils/lib/Result';
 
 import {FOLDER_PREFIX} from '../context';
 
@@ -72,4 +75,36 @@ export function subdirs(dir: string, depthLimit: number = 0): readonly klawSync.
             return !dirName.startsWith(FOLDER_PREFIX);
         },
     });
+}
+
+const SUPPORTED_ENCODEING = ['UTF-8', 'GB18030', 'GB2312', 'Big5'];
+
+/**
+ * 检测给定文件是否是符合条件的编码。
+ *
+ * @param file 文件路径
+ */
+export function checkEncodeing(file: string): Result<string> {
+    // 为减少内存占用，只读取 100 个字符用于比对
+    const charset = chardet.detectFileSync(file, {sampleSize: 100});
+    let isSupport = false;
+    let data: string | undefined;
+    if (charset && typeof charset === 'string' && SUPPORTED_ENCODEING.includes(charset)) {
+        isSupport = true;
+        data = charset;
+    }
+
+    return new Result<string>(isSupport, '不是支持的编码', data);
+}
+
+export function readAsUtf8String(file: string): Result<string> {
+    const encResult = checkEncodeing(file);
+    if (!encResult.success) {
+        return encResult;
+    }
+
+    let buff = fs.readFileSync(file);
+    buff = encoding.convert(buff, 'UTF-8', encResult.data, true);
+
+    return new Result<string>(true, undefined, buff.toString());
 }
