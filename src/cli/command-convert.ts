@@ -1,12 +1,13 @@
 import path from 'path';
 import _ from 'lodash';
 import {CommanderStatic} from 'commander';
-import {logInfo, logError} from '@someok/node-utils/lib/logUtils';
+import {logError, logInfo} from '@someok/node-utils/lib/logUtils';
 import {existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
 
 import {logCustomHelp} from './utils';
 import {EPUB_OUTPUT_FOLDER} from '../context';
 import {genAllTxtDir2Epub, genTxtDir2Epub} from '../epub';
+import {readClosestEpubYaml} from '../utils/epubYaml';
 
 export function customHelp(): void {
     logCustomHelp('c /path/to/txt/dir');
@@ -73,7 +74,14 @@ export function customCommand(program: CommanderStatic): void {
 
                 destDir = dest;
             } else {
-                destDir = path.resolve(txt, EPUB_OUTPUT_FOLDER);
+                // 未定义 dest 的时候先检查是否存在 __epub.yml，且正确定义了 saveTo 属性
+                const epubYamlResult = readClosestEpubYaml(txt);
+                if (epubYamlResult.success) {
+                    destDir = epubYamlResult.data.saveTo;
+                } else {
+                    // saveTo 未正确定义则存入 txt 目录下
+                    destDir = path.resolve(txt, EPUB_OUTPUT_FOLDER);
+                }
             }
 
             if (batch) {

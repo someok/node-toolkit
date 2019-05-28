@@ -29,3 +29,8 @@ export const METADATA_YAML = 'metadata.yml';
  * 目录定义，如果此文件不存在则直接使用文件名作为目录。
  */
 export const TOC_FILE = 'toc.md';
+
+/**
+ * 用于定义 epub 存储路径，前提是未指定 epub 存储路径的时候调用
+ */
+export const EPUB_YAML = '__epub.yml';

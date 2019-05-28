@@ -46,7 +46,7 @@ export function genTxtDir2Epub(txtDir: string, epubPath: string): Promise<Meta> 
                     return zipDir(tmpDir, epubFile)
                         .then(
                             (): void => {
-                                logInfo(`epub 生成生成：[${epubFile}]`);
+                                logInfo(`epub 生成：[${epubFile}]`);
                                 resolve(meta);
                             }
                         )

@@ -1,5 +1,5 @@
 import path from 'path';
-import {checkEncodeing, readAsUtf8String} from '../fileUtils';
+import {checkEncodeing, closestFile, readAsUtf8String} from '../fileUtils';
 
 test('checkEncodeing', (): void => {
     const files = ['big5.txt', 'gb18030.txt', 'gbk.txt', 'utf8.txt', 'utf8-bom.txt', 'utf16.txt'];
@@ -71,6 +71,19 @@ test('readAsUtf8String', (): void => {
     expect(result.data).toContain('中文');
 
     result = readAsUtf8String(filePath('utf16.txt'));
+    // console.log(result);
+    expect(result.success).toBeFalsy();
+});
+
+test('closestFile', (): void => {
+    let from = path.join(__dirname, 'closest/dir0/dir01/dir011');
+    let result = closestFile(from, 'test');
+    // console.log(result);
+    expect(result.success).toBeTruthy();
+    expect(result.data).toContain('closest/dir0/test');
+
+    from = path.join(__dirname, 'closest/dir1');
+    result = closestFile(from, 'test');
     // console.log(result);
     expect(result.success).toBeFalsy();
 });

@@ -65,3 +65,23 @@ export function readAsUtf8String(file: string): Result<string> {
 
     return new Result<string>(true, undefined, buff.toString());
 }
+
+/**
+ * 从给定路径 fromPath 开始上溯（一直上溯到根路径），查找是否存在给定文件。
+ *
+ * @param fromPath 上溯起始路径
+ * @param fileName 查找的文件名
+ */
+export function closestFile(fromPath: string, fileName: string): Result<string> {
+    let from = path.resolve(fromPath);
+    let filePath: string;
+    do {
+        filePath = path.join(from, fileName);
+        if (fs.existsSync(filePath)) {
+            return new Result<string>(true, undefined, filePath);
+        }
+        from = path.dirname(from);
+    } while (from !== path.dirname(from)); // 在根路径的时候 dirname 返回值不变
+
+    return new Result<string>(false, `[${fileName}] 不存在`);
+}
