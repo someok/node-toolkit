@@ -1,7 +1,7 @@
 import path from 'path';
 import _ from 'lodash';
 import {CommanderStatic} from 'commander';
-import {logError, logInfo} from '@someok/node-utils/lib/logUtils';
+import {logError, logInfo, logWarning} from '@someok/node-utils/lib/logUtils';
 import {existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
 
 import {logCustomHelp} from './utils';
@@ -79,6 +79,8 @@ export function customCommand(program: CommanderStatic): void {
                 if (epubYamlResult.success) {
                     destDir = epubYamlResult.data.saveTo;
                 } else {
+                    logWarning(epubYamlResult.message + ', 采用默认配置');
+                    console.log();
                     // saveTo 未正确定义则存入 txt 目录下
                     destDir = path.resolve(txt, EPUB_OUTPUT_FOLDER);
                 }
