@@ -101,10 +101,9 @@ function txtFilter(item: klawSync.Item): boolean {
  * 如果文件名是 01_file_real_name.txt 格式，则会返回 file_real_name，前置的 01 用于排序。
  *
  * @param folder txt 文件夹
- * @param pinyinSort 是否按照拼音排序
  * @return {Result} txt 文件名构成的数组，条目为 {@link TxtNode}
  */
-export function loadTxtNamesAsToc(folder: string, pinyinSort: boolean = false): Result<TxtNode[]> {
+export function loadTxtNamesAsToc(folder: string): Result<TxtNode[]> {
     const files = klawSync(folder, {
         nodir: true,
         filter: txtFilter,
