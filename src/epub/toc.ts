@@ -2,13 +2,13 @@ import path from 'path';
 import fs from 'fs';
 import klawSync from 'klaw-sync';
 import _ from 'lodash';
-import pingyin from 'pinyinlite';
 import Result, {failure, success} from '@someok/node-utils/lib/Result';
 import {existPath, PathMode} from '@someok/node-utils/lib/fileUtils';
 
 import mdListParser from '../utils/marked/list2JsonParser';
 import TxtNode from '../utils/TxtNode';
 import {METADATA_FOLDER, TOC_FILE} from '../context';
+
 /**
  * 在 md 的树形列表中递归，并设置每个节点的 path 属性，并判断此路径是否实际存在。
  *
@@ -94,7 +94,9 @@ function txtFilter(item: klawSync.Item): boolean {
 }
 
 /**
- * 返回给定文件夹下所有 txt 文本文件名作为目录，并按照拼音排序。
+ * 返回给定文件夹下所有 txt 文本文件名作为目录。
+ *
+ * 不做排序处理，而是按照操作系统上文件排列顺序读取。
  *
  * 如果文件名是 01_file_real_name.txt 格式，则会返回 file_real_name，前置的 01 用于排序。
  *
@@ -117,23 +119,14 @@ export function loadTxtNamesAsToc(folder: string, pinyinSort: boolean = false): 
             const filePath = file.path;
             const ext = path.extname(filePath);
             const rawTitle = path.basename(filePath).trim();
+            // 此处并不传入 ext 以便path.basename 自动去掉扩展名
+            // 是为了防止出现不规则文件命名从而导致名称截取失误
+            // 例如 abc.efg 这样的命名
             let title = path.basename(filePath).trim();
 
             return new TxtNode(title, undefined, undefined, rawTitle, ext, filePath);
         }
     );
-
-    // todo: 去掉拼音排序，其实没啥用
-    if (pinyinSort) {
-        fileArr.sort(
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (f1, f2): any => {
-                const f1Pinyin = pingyin(f1.rawTitle).join('');
-                const f2Pinyin = pingyin(f2.rawTitle).join('');
-                return f1Pinyin.localeCompare(f2Pinyin);
-            }
-        );
-    }
 
     return success(fileArr);
 }
@@ -154,7 +147,7 @@ export function loadToc(folder: string): Result<TxtNode[]> {
         result = loadMdContentAsToc(folder, tocMdFile);
     } else {
         // 不存在 toc.md 文件，则直接读取 txt 文件名作为目录
-        result = loadTxtNamesAsToc(folder, true);
+        result = loadTxtNamesAsToc(folder);
     }
 
     if (result.success) {

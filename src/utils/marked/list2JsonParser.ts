@@ -44,9 +44,9 @@ function lexer2Json(tokens: Tokens[] | marked.TokensList): TxtNode[] {
             }
             if (token.type === 'text') {
                 const txt = token.text.trim();
+                cNode.ext = path.extname(txt);
                 cNode.title = path.basename(txt);
                 cNode.rawTitle = txt;
-                cNode.ext = path.extname(txt);
             }
             if (type === 'list_item_end') {
             }

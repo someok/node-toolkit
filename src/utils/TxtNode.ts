@@ -29,7 +29,7 @@ export default class TxtNode {
         this._parent = parent;
     }
 
-    public static validTitle(title?: string): string {
+    private static validTitle(title?: string): string {
         if (!title) {
             return '';
         }

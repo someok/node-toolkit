@@ -28,7 +28,7 @@ test('loadTxtNamesAsToc', (): void => {
         })
     );
 
-    result = loadTxtNamesAsToc(path.join(__dirname, './txt-files/demo2'), true);
+    result = loadTxtNamesAsToc(path.join(__dirname, './txt-files/demo2'));
     names = result.data;
     // console.log(names);
     expect(names[0]).toEqual(
@@ -48,19 +48,19 @@ test('loadTxtNamesAsToc', (): void => {
     expect(names[2]).toEqual(
         expect.objectContaining({
             ext: '.txt',
-            rawTitle: '李四.txt',
-            title: '李四',
+            rawTitle: '中文标题.txt',
+            title: '中文标题',
         })
     );
     expect(names[3]).toEqual(
         expect.objectContaining({
             ext: '.txt',
-            rawTitle: '中文标题.txt',
-            title: '中文标题',
+            rawTitle: '李四.txt',
+            title: '李四',
         })
     );
 
-    result = loadTxtNamesAsToc(path.join(__dirname, './txt-files/demo3'), true);
+    result = loadTxtNamesAsToc(path.join(__dirname, './txt-files/demo3'));
     names = result.data;
     // console.log(names);
     expect(names[0]).toEqual(
@@ -80,15 +80,15 @@ test('loadTxtNamesAsToc', (): void => {
     expect(names[2]).toEqual(
         expect.objectContaining({
             ext: '.txt',
-            rawTitle: '03__abcd.txt',
-            title: 'abcd',
+            rawTitle: '03__ab_cd_中文.txt',
+            title: 'ab_cd_中文',
         })
     );
     expect(names[3]).toEqual(
         expect.objectContaining({
             ext: '.txt',
-            rawTitle: '03__ab_cd_中文.txt',
-            title: 'ab_cd_中文',
+            rawTitle: '03__abcd.txt',
+            title: 'abcd',
         })
     );
     expect(names[4]).toEqual(
