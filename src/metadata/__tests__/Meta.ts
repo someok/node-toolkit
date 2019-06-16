@@ -7,6 +7,7 @@ test('toJson', (): void => {
     expect(meta.uuid).not.toBeNull();
     expect(json).toEqual({
         title: 'title',
+        titleSuffix: '',
         author: 'author',
         description: 'desc',
         cover: 'cover.jpg',
@@ -20,6 +21,7 @@ test('fromJson', (): void => {
     let meta = Meta.fromJson(null);
     // console.log(meta);
     expect(meta.title).toBe('');
+    expect(meta.titleSuffix).toBeUndefined();
     expect(meta.author).toBeUndefined();
     expect(meta.description).toBeUndefined();
     expect(meta.cover).toBe('cover.jpg');
@@ -30,9 +32,11 @@ test('fromJson', (): void => {
 
     meta = Meta.fromJson({
         title: 'test',
+        titleSuffix: 'suffix',
     });
     // console.log(meta);
     expect(meta.title).toBe('test');
+    expect(meta.titleSuffix).toBe('suffix');
     expect(meta.author).toBeUndefined();
     expect(meta.description).toBeUndefined();
     expect(meta.cover).toBe('cover.jpg');

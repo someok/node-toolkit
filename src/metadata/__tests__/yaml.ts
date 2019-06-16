@@ -37,6 +37,7 @@ test('loadMetadataYaml', async (): Promise<void> => {
     expect(meta.toJson()).toEqual({
         ...META,
         cover: 'cover.jpg',
+        titleSuffix: '',
         autoCover: true,
         version: '1.0.0',
         uuid: meta.uuid,
@@ -53,6 +54,7 @@ test('loadMetadataYaml with autoCover false', async (): Promise<void> => {
     expect(meta.toJson()).toEqual({
         ...META,
         cover: 'cover.jpg',
+        titleSuffix: '',
         autoCover: false,
         version: '1.0.0',
         uuid: meta.uuid,

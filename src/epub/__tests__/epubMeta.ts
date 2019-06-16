@@ -18,6 +18,7 @@ test('readMetadata', (done): void => {
                 expect(meta).toBeInstanceOf(Meta);
                 expect(meta.toJson()).toEqual({
                     title: 'demo1',
+                    titleSuffix: '',
                     author: 'wjx',
                     description: '',
                     cover: 'cover.jpg',

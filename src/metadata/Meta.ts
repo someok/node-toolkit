@@ -5,6 +5,7 @@ interface MetaJson {
     title: string;
     author?: string;
     description?: string;
+    titleSuffix?: string;
     cover?: string;
     autoCover?: boolean;
     uuid?: string;
@@ -13,6 +14,7 @@ interface MetaJson {
 
 export default class Meta {
     private _title: string;
+    private _titleSuffix?: string;
     private _author?: string;
     private _description?: string;
     // 封面名称
@@ -45,6 +47,7 @@ export default class Meta {
     public toJson(): MetaJson {
         return {
             title: this.title,
+            titleSuffix: this.titleSuffix || '',
             author: this.author || '',
             description: this.description || '',
             cover: this.cover || '',
@@ -55,7 +58,14 @@ export default class Meta {
     }
 
     public epubTitle(): string {
-        return `${this.title}-v${this.version}.epub`;
+        let title = '《' + this.title + '》';
+        if (this.titleSuffix) {
+            title += '（' + this.titleSuffix + '）';
+        }
+        if (this.author) {
+            title += '作者：' + this.author;
+        }
+        return `${title.trim()}.epub`;
     }
 
     public static fromJson(json: MetaJson | null | undefined): Meta {
@@ -63,8 +73,9 @@ export default class Meta {
             return new Meta('');
         }
 
-        const {title, author, description, cover, autoCover, uuid, version} = json;
+        const {title, titleSuffix, author, description, cover, autoCover, uuid, version} = json;
         const meta = new Meta(title, author, description, cover, uuid, version);
+        meta.titleSuffix = titleSuffix;
         // noinspection PointlessBooleanExpressionJS
         meta.autoCover = false !== autoCover;
         return meta;
@@ -76,6 +87,14 @@ export default class Meta {
 
     public set title(value: string) {
         this._title = value;
+    }
+
+    public get titleSuffix(): string | undefined {
+        return this._titleSuffix;
+    }
+
+    public set titleSuffix(value: string | undefined) {
+        this._titleSuffix = value;
     }
 
     public get author(): string | undefined {
