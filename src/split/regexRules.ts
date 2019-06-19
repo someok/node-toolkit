@@ -23,19 +23,19 @@ const rules: Map<RuleItemKey, RuleItem> = new Map<RuleItemKey, RuleItem>([
         },
     ],
     [
-        'num',
-        {
-            title: '数字',
-            description: '1, 2 xxx, 3...',
-            re: /^\s*(\d{1,6}.{0,30})\s*$/gm,
-        },
-    ],
-    [
         'zhNum',
         {
             title: '中文数字',
             description: '一、二 xxx、三...',
             re: /^\s*([一二三四五六七八九十百千]{1,6}.{0,30})\s*$/gm,
+        },
+    ],
+    [
+        'num',
+        {
+            title: '数字',
+            description: '1, 2 xxx, 3...',
+            re: /^\s*(\d{1,6}.{0,30})\s*$/gm,
         },
     ],
 ]);
