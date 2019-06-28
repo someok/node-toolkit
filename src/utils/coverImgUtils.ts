@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import klawSync from 'klaw-sync';
 import _ from 'lodash';
 import PImage from 'pureimage';
 import {logError, logInfo} from '@someok/node-utils/lib/logUtils';
@@ -109,6 +110,24 @@ function centerX(ctx: PImageContext, text: string, imgWidth: number): number {
     return (imgWidth - width) / 2;
 }
 
+/**
+ * 在给定目录下随机读取给定格式的图片路径。
+ *
+ * @param rootDir 根目录
+ * @param ext 图片格式，默认 jpg
+ */
+function randomImage(rootDir: string, ext: string = '.jpg'): string {
+    function filter(item: klawSync.Item): boolean {
+        const imgExt = path.extname(item.path);
+
+        return imgExt === ext;
+    }
+
+    const files = klawSync(rootDir, {nodir: true, filter});
+    const randomIndex = _.random(0, files.length - 1);
+    return files[randomIndex].path;
+}
+
 type TextAlign = 'left' | 'center';
 
 /**
@@ -127,8 +146,10 @@ export function createCoverImage(
 
     return new Promise<void>(function(resolve, reject): void {
         font.load(function(): void {
-            const coverImgNum = _.random(1, 5);
-            const coverImg = path.join(COVER_ROOT, `image/0${coverImgNum}.jpg`);
+            // 随机选取封面模板
+            const imgCoverTempPath = path.join(COVER_ROOT, 'image');
+            const coverImg = randomImage(imgCoverTempPath);
+
             PImage.decodeJPEGFromStream(fs.createReadStream(coverImg))
                 .then(
                     (bgImg: PImageProps): void => {
