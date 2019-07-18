@@ -2,7 +2,7 @@
   "name": "@someok/txt-from",
   "version": "0.0.1",
   "description": "fetch text files to local disk",
-  "private": false,
+  "private": true,
   "bin": {
     "txt-from": "./dist/index.js"
   },
