@@ -6,7 +6,7 @@ test('read closest epub yaml', (): void => {
     let result = readClosestEpubYaml(from);
     // console.log(result);
     expect(result.success).toBeTruthy();
-    expect(result.data.saveTo).toBe('/Users');
+    expect(result.data.saveTo).toBe('/opt');
 
     from = path.join(__dirname, 'closest/dir1');
     result = readClosestEpubYaml(from);

@@ -59,7 +59,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+packages/comic-spider/src/spider/__tests__/env/.env-normal
 
 # next.js build output
 .next

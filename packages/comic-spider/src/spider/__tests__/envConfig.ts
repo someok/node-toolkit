@@ -2,7 +2,7 @@ import path from 'path';
 import {existDataDir, readEnv} from '../envConfig';
 
 test('readEnv', (): void => {
-    const envPath = path.resolve(__dirname, 'env', '.env');
+    const envPath = path.resolve(__dirname, 'env', '.env-normal');
     const env = readEnv(envPath);
 
     expect(env).not.toBeUndefined();
