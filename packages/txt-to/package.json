@@ -1,10 +1,10 @@
 {
   "name": "@someok/txt-to",
-  "version": "1.2.1",
+  "version": "1.3.1",
   "description": "convert text files to epub",
   "private": false,
   "bin": {
-    "txt2epub": "./dist/cli/index.js"
+    "txt-to": "./dist/cli/index.js"
   },
   "main": "./dist/cli/index.js",
   "scripts": {
@@ -20,9 +20,26 @@
   "author": "JX Wang",
   "license": "MIT",
   "dependencies": {
-    "@someok/node-utils": "^1.0.5"
+    "@someok/node-utils": "^1.0.5",
+    "chardet": "^0.7.0",
+    "ejs": "^2.6.1",
+    "encoding": "^0.1.12",
+    "inquirer": "^6.3.1",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.11",
+    "marked": "^0.6.2",
+    "pureimage": "^0.1.6",
+    "uuid": "^3.3.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/chardet": "^0.5.0",
+    "@types/ejs": "^2.6.3",
+    "@types/inquirer": "^6.0.3",
+    "@types/js-yaml": "^3.12.1",
+    "@types/lodash": "^4.14.132",
+    "@types/marked": "^0.6.5",
+    "@types/uuid": "^3.4.4"
+  },
   "files": [
     "dist/",
     "epub-boilerplate/"
