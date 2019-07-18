@@ -1,0 +1,25 @@
+language: node_js
+cache:
+    yarn: true
+node_js:
+    # We test the latest version on circleci
+    - '11'
+    - '10'
+    - '8'
+    - '6'
+
+branches:
+    only:
+        - master
+        - develop
+
+before_install:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+    - export PATH="$HOME/.yarn/bin:$PATH"
+
+script:
+    - yarn lint
+    - yarn test
+
+notifications:
+    webhooks: https://hook.bearychat.com/=bw6u8/travis/865e3593ff855a09fd197bab9e5a37a4
