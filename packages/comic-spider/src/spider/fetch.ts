@@ -57,7 +57,6 @@ const NOT_PRE_DEFINED_STATUS_CODE = 777;
  */
 export function fetch(url: string, options?: request.RequestRetryOptions): Promise<FetchResolve> {
     const settings = Object.assign({}, REQUEST_OPTIONS, {url}, options);
-    console.log(process.env);
 
     return new Promise((resolve, reject): void => {
         request(settings, function(err, resp, body): void {

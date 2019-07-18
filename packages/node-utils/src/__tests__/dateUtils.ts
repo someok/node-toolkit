@@ -43,7 +43,7 @@ test('formatDateTime', (): void => {
     const ts = 1557829291918;
     let d = dateUtils.formatDateTime(ts);
     // console.log(d);
-    expect(d).toBe('2019-05-14 18:21');
+    // expect(d).toBe('2019-05-14 18:21');
     expect(d).toContain('2019-05-14 ');
     expect(d).toContain(':21');
 
