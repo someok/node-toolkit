@@ -1,0 +1,30 @@
+{
+  "name": "@someok/txt-to",
+  "version": "1.2.1",
+  "description": "convert text files to epub",
+  "private": false,
+  "bin": {
+    "txt2epub": "./dist/cli/index.js"
+  },
+  "main": "./dist/cli/index.js",
+  "scripts": {
+    "test": "jest",
+    "compile": "tsc -b",
+    "release": "standard-version",
+    "publish2npm": "yarn compile && yarn publish --access public"
+  },
+  "keywords": [
+    "txt",
+    "epub"
+  ],
+  "author": "JX Wang",
+  "license": "MIT",
+  "dependencies": {
+    "@someok/node-utils": "^1.0.5"
+  },
+  "devDependencies": {},
+  "files": [
+    "dist/",
+    "epub-boilerplate/"
+  ]
+}

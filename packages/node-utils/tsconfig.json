@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    /* Generates corresponding '.d.ts' file. */
+    "declaration": true,
+    "typeRoots": ["../../types", "../../node_modules/@types"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/__tests__/**/*"]
+}

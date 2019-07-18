@@ -1,38 +1,39 @@
 {
-  "name": "@someok/txt2epub",
+  "name": "txt-to",
+  "private": true,
   "version": "1.2.1",
-  "description": "convert text files to epub",
-  "bin": {
-    "txt2epub": "./dist/cli/index.js"
-  },
-  "main": "./dist/cli/index.js",
-  "scripts": {
-    "test": "jest",
-    "compile": "tsc",
-    "gitlog": "git log `git describe --tags --abbrev=0`..HEAD --no-merges --graph --decorate --pretty=format:'%h %Cblue%s%Creset %cr (%an)'",
-    "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
-    "format": "eslint --fix 'src/**/*.{js,ts,tsx}'",
-    "release": "standard-version",
-    "release-patch": "standard-version --release-as patch",
-    "publish2npm": "tsc && npm publish --access public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/someok/txt2epub.git"
-  },
-  "keywords": [
-    "txt",
-    "epub"
-  ],
+  "description": "convert txt to epub, pdf, html etc",
   "author": "JX Wang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/someok/txt2epub/issues"
+    "url": "https://github.com/someok/txt-to/issues"
   },
-  "homepage": "https://github.com/someok/txt2epub#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/someok/txt-to.git"
+  },
+  "homepage": "https://github.com/someok/txt-to#readme",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "test": "jest",
+    "test:node-utils": "yarn workspace @someok/node-utils test",
+    "test:txt-to": "yarn workspace @someok/txt-to test",
+    "compile:node-utils": "yarn workspace @someok/node-utils compile",
+    "compile:txt-to": "yarn workspace @someok/txt-to compile",
+    "publish:node-utils": "yarn workspace @someok/node-utils publish2npm",
+    "publish:txt-to": "yarn workspace @someok/txt-to publish2npm",
+    "release": "standard-version",
+    "release-patch": "standard-version --release-as patch",
+    "gitlog": "git log `git describe --tags --abbrev=0`..HEAD --no-merges --graph --decorate --pretty=format:'%h %Cblue%s%Creset %cr (%an)'",
+    "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
+    "lint": "eslint 'packages/**/src/**/*.{js,ts,tsx}'",
+    "format": "eslint --fix 'packages/**/src/**/*.{js,ts,tsx}'"
+  },
   "dependencies": {
-    "@someok/node-utils": "^1.0.5",
     "chalk": "^2.4.2",
     "chardet": "^0.7.0",
     "ejs": "^2.6.1",
@@ -82,9 +83,5 @@
     "ts-jest": "^24.0.2",
     "ts-node": "^8.2.0",
     "typescript": "^3.4.5"
-  },
-  "files": [
-    "dist/",
-    "epub-boilerplate/"
-  ]
+  }
 }

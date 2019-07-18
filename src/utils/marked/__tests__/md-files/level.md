@@ -1,6 +1,0 @@
-- level1
-  - l11.txt
-  - level1/l12.md
-- level2
-  - l21.md
-  - level2/l22.txt

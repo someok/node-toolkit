@@ -1,0 +1,10 @@
+-   f1
+    -   f1/1.txt
+    -   f1/2.txt
+-   f2
+    -   f2/1.txt
+    -   f2/2.txt
+    -   f2/not-exist.txt
+    -   f2/3.txt
+-   f3
+    -   f3/not-exist.txt
