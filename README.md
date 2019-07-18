@@ -1,39 +1,40 @@
-# txt2epub
+# node-tookit
 
-将 txt 文本转换为 epub 的命令行小工具，`TypeScript` 实现。
+个人常用工具集，通过 `yarn workspaces` 和 `lerna` 的配合使用实现的多项目管控模式。
 
-功能概述：
+## 分工
 
-- 将单个 txt 按章节分隔为多个 txt
-- 将 txt 所在文件夹作为 epub 目录，并生成 epub
-- 支持对多个 txt 操作
+### yarn
 
-## 安装方式
+`yarn` 用于管理 `root` 和 `packages` 下的依赖：
 
-```
-npm install @someok/txt2epub -g
-```
+在 root 下添加新组件示例：
 
-### 使用方式
+> yarn add -W -D @commitlint/prompt-cli
 
-```bash
-txt2epub [option] [command]
-```
+在 workspace 下添加新组件示例：
 
-命令调用方式类似 `git xxx`。
+> yarn workspace @someok/node-utils add -D xxx
 
-```
-Usage: txt2epub [options] [command]
+### lerna
 
-转换指定文件夹下的 txt 为 epub 格式
+`lerna` 用于编译、测试、变更版本号和发布到 npm
 
-Options:
-  -v, --version        output the version number
-  -h, --help           output usage information
+-   build: yarn run build
+-   test: yarn run test
+-   version: yarn run version
+-   publish: yarn run publish
 
-Commands:
-  init|i [dir]         交互式命令，初始化 yaml 格式的 metadata 文件, [dir] 未提供时采用当前目录
-  split|s [options]    按章节分隔单个 txt 文件到目标路径下
-  convert|c [options]  转换 txt 所在目录为 epub 格式
+注意：上述命令不能忽略 `run`，否则会调用 `yarn`自身的 build 或 version
 
-```
+## packages
+
+-   node-utils: 基础的工具集，其它 package 需要依赖此子项目
+-   txt-to: 文本转换为 epub
+-   comic-spider: 漫画抓取
+
+## 发布流程
+
+1. `yarn run build`: 编译 `TypeScript` 为 `JavaScript`
+1. `yarn run version`: 变更各子项目版本号
+1. `yarn run publish`: 发布到 `npmjs.org`，并在 git 上打上相应标签

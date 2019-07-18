@@ -6,6 +6,9 @@
     "publish": {
       "ignoreChanges": ["*.md", "*.txt", "__tests__/**"],
       "message": "chore: publish"
+    },
+    "version": {
+      "conventionalCommits": true
     }
   }
 }
