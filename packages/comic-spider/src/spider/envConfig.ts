@@ -6,7 +6,7 @@ import {getAbsolutePath} from '../utils/pathUtils';
 import {existDir} from '@someok/node-utils';
 
 /**
- * 在用户目录下读取 .someok-comic-spider-env 配置文件，此文件中配置了 COMIC_SPIDER_DATA_DIR 属性，
+ * 在用户目录下读取 .comic-spider-env 配置文件，此文件中配置了 COMIC_SPIDER_DATA_DIR 属性，
  * 用于定义下载图片的存储目录。
  *
  * 此方法执行之后会将 COMIC_SPIDER_DATA_DIR 置入 process.env。

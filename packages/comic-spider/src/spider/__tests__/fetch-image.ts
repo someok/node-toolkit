@@ -1,7 +1,7 @@
 import fs from 'fs';
 import fse from 'fs-extra';
 import path from 'path';
-import {createTempFolder} from '@someok/node-utils';
+import {createTempFolder} from '../../utils/fileUtils';
 import {fetchImage, fetchStream} from '../fetch';
 
 test('fetchImage', (done): void => {
@@ -15,12 +15,12 @@ test('fetchImage', (done): void => {
     fetchImage(imgUrl, tmpDir, 'test.jpg')
         .then(({remoteImgSize, localImgSize}): void => {
             expect(remoteImgSize).toBe(localImgSize);
-
-            fse.removeSync(tmpDir);
-            done();
         })
         .catch((err): void => {
             console.log(err);
+        })
+        .finally((): void => {
+            fse.removeSync(tmpDir);
             done();
         });
 });

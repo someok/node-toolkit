@@ -12,6 +12,8 @@ const REQUEST_OPTIONS = {
     // 重试前延时，单位毫秒
     retryDelay: 3000,
 
+    // proxy: 'http://127.0.0.1:6152',
+
     headers: {
         'User-Agent':
             'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.54 Safari/537.36',
@@ -55,6 +57,7 @@ const NOT_PRE_DEFINED_STATUS_CODE = 777;
  */
 export function fetch(url: string, options?: request.RequestRetryOptions): Promise<FetchResolve> {
     const settings = Object.assign({}, REQUEST_OPTIONS, {url}, options);
+    console.log(process.env);
 
     return new Promise((resolve, reject): void => {
         request(settings, function(err, resp, body): void {

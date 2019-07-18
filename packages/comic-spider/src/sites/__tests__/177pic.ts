@@ -13,10 +13,11 @@ test('fetchRemoteData', (done): Promise<void> => {
             console.log(data.images.length);
             expect(data.title).toBe('[春輝] 妄想老師 Vol.2 [85P]');
             expect(data.images.length).toBe(85);
-            done();
         })
         .catch((err): void => {
             console.log(err);
+        })
+        .finally((): void => {
             done();
         });
 });

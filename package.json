@@ -25,7 +25,7 @@
     "build:node-utils": "yarn workspace @someok/node-utils build",
     "build:txt-to": "yarn workspace @someok/txt-to build",
     "build:comic-spider": "yarn workspace @someok/comic-spider build",
-    "test": "yarn run build && yarn workspaces run test",
+    "test": "yarn run build && lerna run test",
     "test:node-utils": "yarn workspace @someok/node-utils test",
     "test:txt-to": "yarn workspace @someok/txt-to test",
     "test:comic-spider": "yarn workspace @someok/comic-spider test",
