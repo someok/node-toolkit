@@ -13,6 +13,8 @@ import {existDir} from '@someok/node-utils';
  *
  * 也就是说通过调用 process.env.COMIC_SPIDER_DATA_DIR 即可得到相应目录配置。
  *
+ * todo: 换用 toml 实现配置
+ *
  * @param dotenvPath .env 文件路径
  */
 export function readEnv(
@@ -20,6 +22,7 @@ export function readEnv(
 ): dotenv.DotenvParseOutput | null {
     const envPath = getAbsolutePath(dotenvPath);
     const result = dotenv.config({path: envPath});
+    const dataPropName = 'COMIC_SPIDER_DATA_DIR';
 
     if (result.error) {
         if (/ENOENT/.test(result.error.message)) {
@@ -27,7 +30,7 @@ export function readEnv(
                 `「${envPath}」 配置文件不存在`,
                 '',
                 '请创建此文件，并在其中设置图片存储路径：',
-                'COMIC_SPIDER_DATA_DIR = /path/to/save/images',
+                `${dataPropName} = /path/to/save/images`,
             ].join('\n');
 
             const boxenOptions: boxen.Options = {
@@ -44,7 +47,7 @@ export function readEnv(
 
     const env = result.parsed;
     if (!env || !env.COMIC_SPIDER_DATA_DIR) {
-        throw new Error('COMIC_SPIDER_DATA_DIR 属性不存在');
+        throw new Error(`${dataPropName} 属性不存在`);
     }
 
     return env;
