@@ -8,7 +8,7 @@
     "clean": "rimraf lib coverage",
     "test": "jest",
     "build": "echo 'node-utils:' && tsc -b",
-    "publish": "yarn build && yarn publish --access public"
+    "publish2npm": "yarn build && yarn publish --access public"
   },
   "keywords": [
     "node",

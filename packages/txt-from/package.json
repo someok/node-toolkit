@@ -10,8 +10,7 @@
   "scripts": {
     "clean": "rimraf dist coverage",
     "test": "jest --passWithNoTests",
-    "build": "echo 'txt-from:' && tsc -b",
-    "publish": "yarn build && yarn publish --access public"
+    "build": "echo 'txt-from:' && tsc -b"
   },
   "keywords": [
     "txt",

@@ -10,7 +10,7 @@
     "clean": "rimraf dist coverage",
     "test": "jest",
     "build": "echo 'comic-spider:' && tsc -b",
-    "publish": "yarn build && yarn publish --access public"
+    "publish2npm": "yarn build && yarn publish --access public"
   },
   "keywords": [
     "comic",

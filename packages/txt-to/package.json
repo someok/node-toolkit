@@ -11,7 +11,7 @@
     "clean": "rimraf dist coverage",
     "test": "jest",
     "build": "echo 'txt-to:' && tsc -b",
-    "publish": "yarn build && yarn publish --access public"
+    "publish2npm": "yarn build && yarn publish --access public"
   },
   "keywords": [
     "txt",
@@ -56,5 +56,6 @@
   "files": [
     "dist/",
     "epub-boilerplate/"
-  ]
+  ],
+  "gitHead": "f045d40dc62b0cb3b7d4e603d3dc930e12660e08"
 }
