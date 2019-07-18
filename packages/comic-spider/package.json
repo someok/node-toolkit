@@ -7,16 +7,32 @@
   },
   "main": "./dist/index.js",
   "scripts": {
+    "clean": "rimraf dist coverage",
     "test": "jest",
-    "compile": "tsc -b",
-    "publish2npm": "yarn compile && yarn publish --access public"
+    "build": "echo 'comic-spider:' && tsc -b",
+    "publish": "yarn build && yarn publish --access public"
   },
   "keywords": [
     "comic",
     "spider"
   ],
-  "author": "JX Wang",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "JX Wang",
+    "url": "https://github.com/someok"
+  },
   "license": "MIT",
+  "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/comic-spider#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/someok/node-toolkit.git",
+    "directory": "packages/comic-spider"
+  },
+  "engines": {
+    "node": ">= 6.9.0"
+  },
   "dependencies": {
     "@someok/node-utils": "^1.0.7",
     "boxen": "^4.1.0",

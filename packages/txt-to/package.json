@@ -8,16 +8,32 @@
   },
   "main": "./dist/cli/index.js",
   "scripts": {
+    "clean": "rimraf dist coverage",
     "test": "jest",
-    "compile": "tsc -b",
-    "publish2npm": "yarn compile && yarn publish --access public"
+    "build": "echo 'txt-to:' && tsc -b",
+    "publish": "yarn build && yarn publish --access public"
   },
   "keywords": [
     "txt",
     "epub"
   ],
-  "author": "JX Wang",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "JX Wang",
+    "url": "https://github.com/someok"
+  },
   "license": "MIT",
+  "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/txt-to#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/someok/node-toolkit.git",
+    "directory": "packages/txt-to"
+  },
+  "engines": {
+    "node": ">= 6.9.0"
+  },
   "dependencies": {
     "@someok/node-utils": "^1.0.7",
     "chardet": "^0.8.0",

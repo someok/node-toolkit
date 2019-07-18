@@ -4,25 +4,42 @@
   "description": "fetch text files to local disk",
   "private": false,
   "bin": {
-    "txt-from": "./dist/cli/index.js"
+    "txt-from": "./dist/index.js"
   },
-  "main": "./dist/cli/index.js",
+  "main": "./dist/index.js",
   "scripts": {
+    "clean": "rimraf dist coverage",
     "test": "jest",
-    "compile": "tsc -b",
-    "publish2npm": "yarn compile && yarn publish --access public"
+    "build": "echo 'txt-from:' && tsc -b",
+    "publish": "yarn build && yarn publish --access public"
   },
   "keywords": [
     "txt",
     "epub"
   ],
-  "author": "JX Wang",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "JX Wang",
+    "url": "https://github.com/someok"
+  },
   "license": "MIT",
+  "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/txt-from#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/someok/node-toolkit.git",
+    "directory": "packages/txt-from"
+  },
+  "engines": {
+    "node": ">= 6.9.0"
+  },
   "dependencies": {
     "@someok/node-utils": "^1.0.7"
   },
   "devDependencies": {},
   "files": [
-    "dist/"
+    "dist/",
+    "src/"
   ]
 }

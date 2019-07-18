@@ -5,17 +5,33 @@
   "description": "my node utils",
   "main": "./lib/index.js",
   "scripts": {
+    "clean": "rimraf lib coverage",
     "test": "jest",
-    "compile": "tsc -b",
-    "publish2npm": "yarn compile && yarn publish --access public"
+    "build": "echo 'node-utils:' && tsc -b",
+    "publish": "yarn build && yarn publish --access public"
   },
-  "author": "JX Wang",
-  "license": "MIT",
   "keywords": [
     "node",
     "typescript",
     "utils"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "JX Wang",
+    "url": "https://github.com/someok"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/node-utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/someok/node-toolkit.git",
+    "directory": "packages/node-utils"
+  },
+  "engines": {
+    "node": ">= 6.9.0"
+  },
   "dependencies": {
     "archiver": "^3.0.0",
     "chalk": "^2.4.2",
