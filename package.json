@@ -21,6 +21,7 @@
   "scripts": {
     "clean": "yarn workspaces run clean",
     "commit": "commit",
+    "version": "lerna version",
     "build": "lerna run --stream build",
     "build:node-utils": "yarn workspace @someok/node-utils build",
     "build:txt-to": "yarn workspace @someok/txt-to build",
