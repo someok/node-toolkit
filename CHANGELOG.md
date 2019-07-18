@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/someok/txt-to/compare/v1.2.1...v1.3.0) (2019-07-18)
+
+### Bug Fixes
+
+-   修正 inquirer.Questions 定义 ([a94e6f2](https://github.com/someok/txt-to/commit/a94e6f2))
+
+### Features
+
+-   meta 中增加标题后缀 ([0cf3aa9](https://github.com/someok/txt-to/commit/0cf3aa9)), closes [#11](https://github.com/someok/txt-to/issues/11)
+-   从封面模板目录随机读取一张用于生成封面 ([3a0a79e](https://github.com/someok/txt-to/commit/3a0a79e))
+-   优化 \_\_epub.yml 不存在或配置不正确时候的提示信息 ([b1671fd](https://github.com/someok/txt-to/commit/b1671fd))
+-   使用更漂亮的图片替换 01 ([2c7451d](https://github.com/someok/txt-to/commit/2c7451d))
+-   增加 \_\_epub.yml 配置用于在各个 txt 目录自定义 epub 输出路径 ([9b6404a](https://github.com/someok/txt-to/commit/9b6404a)), closes [#7](https://github.com/someok/txt-to/issues/7)
+-   增加 3 张新的封面模板 ([18129cf](https://github.com/someok/txt-to/commit/18129cf))
+-   增加一张新的封面模板图 ([653d211](https://github.com/someok/txt-to/commit/653d211))
+-   调整文件分隔规则顺序 ([abde93f](https://github.com/someok/txt-to/commit/abde93f))
+
+### refactor
+
+-   采用 yarn workspaces 重构整个项目结构 ([4118f77](https://github.com/someok/txt-to/commit/4118f77))
+
+### Tests
+
+-   启用 jest 的 coverage ([b2a3d0f](https://github.com/someok/txt-to/commit/b2a3d0f))
+
+### BREAKING CHANGES
+
+-   引入 node-utils 作为子 package
+
 ### [1.2.1](https://github.com/someok/txt-to/compare/v1.2.0...v1.2.1) (2019-05-25)
 
 ### Features
