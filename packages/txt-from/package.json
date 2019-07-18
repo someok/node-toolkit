@@ -1,0 +1,28 @@
+{
+  "name": "@someok/txt-from",
+  "version": "0.0.1",
+  "description": "fetch text files to local disk",
+  "private": false,
+  "bin": {
+    "txt-from": "./dist/cli/index.js"
+  },
+  "main": "./dist/cli/index.js",
+  "scripts": {
+    "test": "jest",
+    "compile": "tsc -b",
+    "publish2npm": "yarn compile && yarn publish --access public"
+  },
+  "keywords": [
+    "txt",
+    "epub"
+  ],
+  "author": "JX Wang",
+  "license": "MIT",
+  "dependencies": {
+    "@someok/node-utils": "^1.0.7"
+  },
+  "devDependencies": {},
+  "files": [
+    "dist/"
+  ]
+}
