@@ -25,13 +25,9 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/txt-from#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/someok/node-toolkit.git",
-    "directory": "packages/txt-from"
-  },
+  "repository": "https://github.com/someok/node-toolkit/tree/master/packages/txt-from",
   "engines": {
-    "node": ">= 6.9.0"
+    "node": ">= 8.16.0"
   },
   "dependencies": {
     "@someok/node-utils": "^1.0.9"

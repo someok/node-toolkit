@@ -24,13 +24,9 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/node-utils#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/someok/node-toolkit.git",
-    "directory": "packages/node-utils"
-  },
+  "repository": "https://github.com/someok/node-toolkit/tree/master/packages/node-utils",
   "engines": {
-    "node": ">= 6.9.0"
+    "node": ">= 8.16.0"
   },
   "dependencies": {
     "archiver": "^3.0.0",

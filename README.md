@@ -1,6 +1,8 @@
 # node-tookit
 
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg?style=flat-square)](https://lerna.js.org/)
+[![Travis Status](https://img.shields.io/travis/someok/node-toolkit.svg?style=flat-square)](https://travis-ci.org/someok/node-toolkit)
+[![Codecov](https://img.shields.io/codecov/c/github/someok/node-toolkit.svg?style=flat-square&token=9745c5e6-4074-4c5a-96fe-5b8ce0cf0ec6)](https://codecov.io/gh/someok/node-toolkit)
 
 个人常用工具集，通过 `yarn workspaces` 和 `lerna` 的配合使用实现的多项目管控模式。
 
