@@ -1,13 +1,15 @@
 # node-tookit
 
+[![yarn](https://img.shields.io/badge/maintained%20with-yarn-1476a2.svg?style=flat-square)](https://yarnpkg.com/)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg?style=flat-square)](https://lerna.js.org/)
+[![GitHub](https://img.shields.io/github/license/someok/node-toolkit.svg?style=flat-square)](https://github.com/someok/node-toolkit/blob/master/LICENSE)
+
 [![Travis Status](https://img.shields.io/travis/someok/node-toolkit.svg?style=flat-square)](https://travis-ci.org/someok/node-toolkit)
 [![Codecov](https://img.shields.io/codecov/c/github/someok/node-toolkit.svg?style=flat-square&token=49b1c58e2ff6485595b4e1fcd7d9dbc9)](https://codecov.io/gh/someok/node-toolkit)
 
-![GitHub repo size](https://img.shields.io/github/repo-size/someok/node-toolkit.svg?style=flat-square)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/someok/node-toolkit.svg?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues-raw/someok/node-toolkit.svg?style=flat-square)
-![GitHub](https://img.shields.io/github/license/someok/node-toolkit.svg?style=flat-square)
+[![GitHub repo size](https://img.shields.io/github/repo-size/someok/node-toolkit.svg?style=flat-square)](https://github.com/someok/node-toolkit)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/someok/node-toolkit.svg?style=flat-square)](https://github.com/someok/node-toolkit)
+[![GitHub issues](https://img.shields.io/github/issues-raw/someok/node-toolkit.svg?style=flat-square)](https://github.com/someok/node-toolkit/issues)
 
 个人常用工具集，通过 `yarn workspaces` 和 `lerna` 的配合使用实现的多项目管控模式。
 
