@@ -38,7 +38,7 @@
     "fs-extra": "^8.1.0",
     "inquirer": "^6.5.0",
     "klaw-sync": "^6.0.0",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "request": "^2.88.0",
     "requestretry": "^4.0.0"
   },
