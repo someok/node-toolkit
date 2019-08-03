@@ -74,7 +74,7 @@ function fetchPrompts(): void {
             value: key,
         };
     });
-    const questions: inquirer.Questions = [
+    const questions: inquirer.QuestionCollection = [
         {
             type: 'list',
             name: 'site',
@@ -84,11 +84,11 @@ function fetchPrompts(): void {
         {
             type: 'input',
             name: 'url',
-            message: function(answers): string {
+            message: function(answers: inquirer.Answers): string {
                 const {site} = answers;
                 return `请输入 ${sites[site].siteName} 完整链接：`;
             },
-            validate: function(input, answers): boolean | string {
+            validate: function(input: string, answers: inquirer.Answers): boolean | string {
                 if (!answers) {
                     return true;
                 }
