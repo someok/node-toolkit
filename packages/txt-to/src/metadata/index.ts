@@ -10,7 +10,7 @@ import {VERSION} from '../context';
 import {initMetadata} from './metadata';
 import Meta from './Meta';
 
-function getQuestions(txtFolder: string): inquirer.Questions {
+function getQuestions(txtFolder: string): inquirer.QuestionCollection {
     const folderQuestion: inquirer.Question = {
         type: 'input',
         name: 'folder',
