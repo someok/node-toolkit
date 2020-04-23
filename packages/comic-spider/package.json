@@ -1,6 +1,6 @@
 {
   "name": "@someok/comic-spider",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Comic Spider",
   "bin": {
     "comic-spider": "./dist/index.js"
@@ -30,7 +30,7 @@
     "node": ">= 8.16.0"
   },
   "dependencies": {
-    "@someok/node-utils": "^1.0.10",
+    "@someok/node-utils": "^1.0.11",
     "boxen": "^4.1.0",
     "chalk": "^2.4.2",
     "cheerio": "^1.0.0-rc.3",
