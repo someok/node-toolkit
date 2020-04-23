@@ -48,7 +48,7 @@ function fetchImagesByPage(pageUrl: string): Promise<PageImages> {
             const images = $('.entry-content')
                 .find('img')
                 .map(function(index, element): string {
-                    return $(element).attr('src');
+                    return $(element).attr('data-lazy-src');
                 })
                 .get();
 
