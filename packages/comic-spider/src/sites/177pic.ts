@@ -17,15 +17,17 @@ function fetchPages(url: string): Promise<Pages> {
             let title = $('h1.entry-title').text();
             title = title.replace('[中文]', '');
 
-            const hrefs = $('.wp-pagenavi')
+            const hrefs = $('.page-links')
                 .find('a')
                 .map(function(index, element): string {
                     return $(element).attr('href');
                 })
                 .get();
 
-            // 去掉最后一个重复页面
+            // 去掉首位两个重复页面
+            hrefs.shift();
             hrefs.pop();
+            // 将给定页添加到顶部
             hrefs.unshift(url);
 
             return {
