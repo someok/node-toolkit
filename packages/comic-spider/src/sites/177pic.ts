@@ -19,7 +19,7 @@ function fetchPages(url: string): Promise<Pages> {
 
             const hrefs = $('.page-links')
                 .find('a')
-                .map(function(index, element): string {
+                .map((index, element): string => {
                     return $(element).attr('href');
                 })
                 .get();
@@ -49,7 +49,7 @@ function fetchImagesByPage(pageUrl: string): Promise<PageImages> {
             const $ = cheerio.load(body);
             const images = $('.entry-content')
                 .find('img')
-                .map(function(index, element): string {
+                .map((index, element): string => {
                     return $(element).attr('data-lazy-src');
                 })
                 .get();

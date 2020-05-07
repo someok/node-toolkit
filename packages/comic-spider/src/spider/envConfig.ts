@@ -13,8 +13,6 @@ import {existDir} from '@someok/node-utils';
  *
  * 也就是说通过调用 process.env.COMIC_SPIDER_DATA_DIR 即可得到相应目录配置。
  *
- * todo: 换用 toml 实现配置
- *
  * @param dotenvPath .env 文件路径
  */
 export function readEnv(
@@ -67,4 +65,25 @@ export function existDataDir(): boolean {
     } else {
         throw new Error('[COMIC_SPIDER_DATA_DIR] 属性未定义');
     }
+}
+
+interface ProxyOptions {
+    host: string | undefined;
+    port: number | undefined;
+}
+
+/**
+ * ~/.comic-spider-env 中如果配置了代理属性，则读取之
+ */
+export function getProxyEnv(): ProxyOptions {
+    const host = process.env.COMIC_SPIDER_PROXY_HOST;
+    const portStr = process.env.COMIC_SPIDER_PROXY_PORT;
+
+    let port: number | undefined;
+    try {
+        if (portStr) {
+            port = parseInt(portStr, 10);
+        }
+    } catch (e) {}
+    return {host, port};
 }

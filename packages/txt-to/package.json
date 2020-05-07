@@ -28,7 +28,7 @@
   "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/txt-to#readme",
   "repository": "https://github.com/someok/node-toolkit/tree/master/packages/txt-to",
   "engines": {
-    "node": ">= 8.16.0"
+    "node": ">= 10.19.0"
   },
   "dependencies": {
     "@someok/node-utils": "^1.0.11",

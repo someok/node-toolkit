@@ -3,6 +3,7 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import path from 'path';
+import _ from 'lodash';
 
 import {existDataDir, readEnv} from './spider/envConfig';
 import {logError, logInfo, logWarning} from '@someok/node-utils';
@@ -16,6 +17,7 @@ interface Sites {
 
 const sites: Sites = {
     site177pic: require('./sites/177pic').default,
+    nyahentai: require('./sites/nyahentai').default,
     siteDemo: require('./sites/demo').default,
 };
 
@@ -44,6 +46,10 @@ async function fetchData(site: string, url: string): Promise<void> {
     try {
         const data = await fetchRemoteData(url);
         // console.log(data);
+        if (_.isEmpty(data)) {
+            logWarning('未获取任何图片数据');
+            return;
+        }
 
         // todo: 判断目标文件是否存在，如果存在则提示是否覆盖
 
@@ -51,7 +57,6 @@ async function fetchData(site: string, url: string): Promise<void> {
             const toDir = path.join(dataDir, data.title);
             logInfo(`[${data.title}] 存储于 [${dataDir}]`);
 
-            // todo: 替换成 progress 形式
             fetchAndOutputImages(toDir, data.images);
 
             writeUrl2ReadmeTxt(toDir, url);
@@ -84,11 +89,11 @@ function fetchPrompts(): void {
         {
             type: 'input',
             name: 'url',
-            message: function(answers: inquirer.Answers): string {
+            message: function (answers: inquirer.Answers): string {
                 const {site} = answers;
                 return `请输入 ${sites[site].siteName} 完整链接：`;
             },
-            validate: function(input: string, answers: inquirer.Answers): boolean | string {
+            validate: function (input: string, answers: inquirer.Answers): boolean | string {
                 if (!answers) {
                     return true;
                 }
@@ -110,7 +115,7 @@ function fetchPrompts(): void {
         },
     ];
 
-    inquirer.prompt(questions).then(function(answers: inquirer.Answers): void {
+    inquirer.prompt(questions).then(function (answers: inquirer.Answers): void {
         console.log();
 
         if (!answers.confirm) {

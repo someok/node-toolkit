@@ -1,6 +1,6 @@
 import siteData from '../177pic';
 
-test.skip('fetchRemoteData', (done): Promise<void> => {
+test.skip('177pic fetchRemoteData', (done): Promise<void> => {
     jest.setTimeout(20000);
     expect.assertions(2);
 

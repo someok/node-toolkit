@@ -91,7 +91,7 @@ module.exports = {
     // preset: null,
 
     // Run tests from one or more projects
-    projects: ['<rootDir>/packages/*'],
+    // projects: ['<rootDir>/packages/*'],
 
     // Use this configuration option to add custom reporters to Jest
     // reporters: undefined,
@@ -112,7 +112,7 @@ module.exports = {
     // rootDir: null,
 
     // A list of paths to directories that Jest should use to search for files in
-    roots: ['<rootDir>/packages'],
+    // roots: ['<rootDir>/packages'],
 
     // Allows you to use a custom runner instead of Jest's default test runner
     // runner: "jest-runner",
