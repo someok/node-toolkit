@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.2.0...@someok/comic-spider@1.3.0) (2020-05-07)
+
+### Features
+
+-   重构 http 请求为 got ([eab4d3b](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/eab4d3b))
+
 # [1.2.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.1.0...@someok/comic-spider@1.2.0) (2020-04-23)
 
 ### Features
