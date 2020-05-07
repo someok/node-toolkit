@@ -5,6 +5,7 @@ import {promisify} from 'util';
 import fs from 'fs';
 import path from 'path';
 import fse from 'fs-extra';
+import https from 'https';
 
 import {createTempFolder} from '@someok/node-utils/lib/fileUtils';
 
@@ -38,7 +39,7 @@ test('fetch by proxy', (done): void => {
                     host: '127.0.0.1',
                     port: 6152,
                 },
-            }),
+            }) as https.Agent,
         },
     })
         .then((resp: Response<string>): void => {
