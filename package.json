@@ -58,8 +58,6 @@
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.9",
     "@types/prompts": "^2.0.1",
-    "@types/request": "^2.48.2",
-    "@types/requestretry": "^1.12.5",
     "@types/stat-mode": "^0.2.0",
     "@types/tunnel": "^0.0.1",
     "@types/uuid": "^3.4.5",
