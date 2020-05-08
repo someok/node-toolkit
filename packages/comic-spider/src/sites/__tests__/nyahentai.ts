@@ -3,7 +3,7 @@ import {readEnv} from '../../spider/envConfig';
 
 const {fetchRemoteData} = siteData;
 
-test('nyahentai fetchRemoteData', (done): Promise<void> => {
+test.skip('nyahentai fetchRemoteData', (done): Promise<void> => {
     readEnv();
 
     jest.setTimeout(20000);
