@@ -1,2 +1,4 @@
+# github actions (test.yml) 执行之后发布到 codecov 后路径会出错
+# 所以这儿需要做个修正
 fixes:
     - "/home/runner/work/node-toolkit/node-toolkit/::"
