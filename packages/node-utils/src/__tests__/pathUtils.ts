@@ -3,7 +3,7 @@ import {getAbsolutePath, getUserHome} from '../pathUtils';
 test('getAbsolutePath', (): void => {
     const home = getUserHome();
     let dir = getAbsolutePath('~/a/b/c');
-    console.log(dir);
+    // console.log(dir);
 
     expect(dir).toBe(`${home}/a/b/c`);
 

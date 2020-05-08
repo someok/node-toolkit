@@ -1,5 +1,8 @@
-export function getUserHome(): string | undefined {
-    return process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
+import os from 'os';
+
+export function getUserHome(): string {
+    return os.homedir();
+    // return process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
 }
 
 /**

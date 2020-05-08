@@ -40,7 +40,11 @@
     "inquirer": "^7.1.0",
     "klaw-sync": "^6.0.0",
     "lodash": "^4.17.15",
+    "properties-reader": "^2.0.0",
     "tunnel": "^0.0.6"
+  },
+  "devDependencies": {
+    "@types/properties-reader": "^0.0.2"
   },
   "files": [
     "dist/"

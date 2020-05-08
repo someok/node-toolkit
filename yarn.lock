@@ -2395,6 +2395,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/properties-reader@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@types/properties-reader/-/properties-reader-0.0.2.tgz#7ee65104e055cdc33bf02b75612c2029aab42d30"
+  integrity sha512-8YLK7Kq3Zrj6vN4j0o+Zssu3esIRUIxY3a38Ahw8VjwML7d1nq/V6y9ov0fNtEeDv0qzoagTuxMf5veootvVpA==
+
 "@types/responselike@*", "@types/responselike@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/responselike/-/responselike-1.0.0.tgz#251f4fe7d154d2bad125abe1b429b23afd262e29"
@@ -7195,6 +7200,13 @@ mkdirp@*, mkdirp@0.x, mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+mkdirp@~0.5.1:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.5.tgz#d91cefd62d1436ca0f41620e251288d420099def"
+  integrity sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
+  dependencies:
+    minimist "^1.2.5"
+
 modify-values@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
@@ -8075,6 +8087,13 @@ promzard@^0.3.0:
   integrity sha1-JqXW7ox97kyxIggwWs+5O6OCqe4=
   dependencies:
     read "1"
+
+properties-reader@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/properties-reader/-/properties-reader-2.0.0.tgz#04ddfe3a9a5d00275f457666bc60faafa01c2273"
+  integrity sha512-wEvznelF2vGq52VA51j8ZNoUZOeCJQd2kh5CGHLOhdLKKN176ZAdYv+WH6s6tj7IOBLFRkWhMPQjq8uzyFe37Q==
+  dependencies:
+    mkdirp "~0.5.1"
 
 proto-list@~1.2.1:
   version "1.2.4"

@@ -1,9 +1,7 @@
 import dotenv from 'dotenv';
 import boxen from 'boxen';
 import chalk from 'chalk';
-
-import {getAbsolutePath} from '../utils/pathUtils';
-import {existDir} from '@someok/node-utils';
+import {existDir, getAbsolutePath} from '@someok/node-utils';
 
 /**
  * 在用户目录下读取 .comic-spider-env 配置文件，此文件中配置了 COMIC_SPIDER_DATA_DIR 属性，

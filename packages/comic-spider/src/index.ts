@@ -10,6 +10,7 @@ import {logError, logInfo, logWarning} from '@someok/node-utils';
 import {SiteData} from './sites/SiteData';
 import {fetchAndOutputImages} from './spider/output';
 import {writeUrl2ReadmeTxt} from './spider/readme';
+import {readIniFile, saveIniFile} from './utils/iniUtils';
 
 interface Sites {
     [key: string]: SiteData;
@@ -72,6 +73,9 @@ function fetchPrompts(): void {
     const pkg = require('../package.json');
     console.log(chalk.bold.cyan(`\nComic Spider v${pkg.version}\n`));
 
+    const {iniReader} = readIniFile();
+    const defaultSite = iniReader.get('site') || 0;
+
     const siteChoices = Object.keys(sites).map((key): {name: string; value: string} => {
         const site = sites[key];
         return {
@@ -84,6 +88,7 @@ function fetchPrompts(): void {
             type: 'list',
             name: 'site',
             choices: siteChoices,
+            default: defaultSite,
             message: '请选择站点',
         },
         {
@@ -122,6 +127,16 @@ function fetchPrompts(): void {
             logWarning('放弃下载!');
         } else {
             const {site, url} = answers;
+
+            // 将选择的 site 保存到配置中
+            if (site !== defaultSite) {
+                iniReader.set('site', site);
+
+                saveIniFile(iniReader).catch((e): void => {
+                    console.log(e.message);
+                });
+            }
+
             // noinspection JSIgnoredPromiseFromCall
             fetchData(site, url);
         }
