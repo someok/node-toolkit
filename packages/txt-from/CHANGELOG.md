@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/someok/node-toolkit/tree/master/packages/txt-from/compare/@someok/txt-from@0.1.0...@someok/txt-from@0.1.1) (2020-05-08)
+
+**Note:** Version bump only for package @someok/txt-from
+
 # [0.1.0](https://github.com/someok/node-toolkit/tree/master/packages/txt-from/compare/@someok/txt-from@0.0.5...@someok/txt-from@0.1.0) (2020-05-07)
 
 ### Features

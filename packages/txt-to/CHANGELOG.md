@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/compare/@someok/txt-to@1.5.0...@someok/txt-to@1.6.0) (2020-05-08)
+
+### Features
+
+-   升级依赖组件并修正 eslint 与单元测试错误 ([69d9df8](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/commit/69d9df8))
+
 # [1.5.0](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/compare/@someok/txt-to@1.4.0...@someok/txt-to@1.5.0) (2020-05-07)
 
 ### Features

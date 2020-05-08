@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.3.0...@someok/comic-spider@1.4.0) (2020-05-08)
+
+### Bug Fixes
+
+-   修复测试代码中的 agent 类型 ([add9af2](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/add9af2))
+
+### Features
+
+-   删除 request 依赖 ([3b9ee9e](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/3b9ee9e))
+-   升级依赖组件并修正 eslint 与单元测试错误 ([69d9df8](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/69d9df8))
+
 # [1.3.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.2.0...@someok/comic-spider@1.3.0) (2020-05-07)
 
 ### Features
