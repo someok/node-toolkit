@@ -71,7 +71,7 @@ function getQuestions(txtFolder: string): inquirer.QuestionCollection {
  *
  * @param txtFolder txt 所在根目录
  */
-export default function(txtFolder: string): void {
+export default function (txtFolder: string): void {
     const questions = getQuestions(txtFolder);
 
     console.log(chalk.bold.cyan(`\n...Txt2Eput ${VERSION} metadata init...\n`));

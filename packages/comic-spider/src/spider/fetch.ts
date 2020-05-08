@@ -2,14 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import stream from 'stream';
 import {promisify} from 'util';
-import got, {
-    Agents,
-    Hooks,
-    OptionsOfTextResponseBody,
-    RequestError,
-    Response,
-    StreamOptions,
-} from 'got';
+import got, {Agents, OptionsOfTextResponseBody, Response, StreamOptions} from 'got';
 import https from 'https';
 import tunnel from 'tunnel';
 import {getProxyEnv} from './envConfig';
@@ -40,21 +33,6 @@ function getAgent(useAgent?: boolean): Agents | false | undefined {
     return false;
 }
 
-function getHooks(): Hooks {
-    return {
-        beforeError: [
-            (error: RequestError): RequestError => {
-                const {response} = error;
-                if (response) {
-                    error.code = '' + response.statusCode;
-                }
-                console.log(error);
-                return error;
-            },
-        ],
-    };
-}
-
 interface FetchResolve {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     body: any;
@@ -81,7 +59,6 @@ export function fetch(url: string, fetchOptions: FetchOptions = {}): Promise<Fet
     const {useAgent = true, options} = fetchOptions;
     const settings = {
         agent: getAgent(useAgent),
-        // hooks: getHooks(),
         ...options,
     };
     // console.log(settings);

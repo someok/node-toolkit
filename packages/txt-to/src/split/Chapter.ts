@@ -4,7 +4,7 @@ export default class Chapter {
     private _fromPos: number;
     private _toPos: number | undefined;
 
-    public constructor(title: string, fromPos: number = 0, toPos?: number) {
+    public constructor(title: string, fromPos = 0, toPos?: number) {
         this._content = '';
         this._title = title;
         this._fromPos = fromPos;

@@ -15,9 +15,7 @@ import {existDir} from '@someok/node-utils';
  *
  * @param dotenvPath .env 文件路径
  */
-export function readEnv(
-    dotenvPath: string = '~/.comic-spider-env'
-): dotenv.DotenvParseOutput | null {
+export function readEnv(dotenvPath = '~/.comic-spider-env'): dotenv.DotenvParseOutput | null {
     const envPath = getAbsolutePath(dotenvPath);
     const result = dotenv.config({path: envPath});
     const dataPropName = 'COMIC_SPIDER_DATA_DIR';

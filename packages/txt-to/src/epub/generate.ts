@@ -20,7 +20,7 @@ const EPUB_BOILERPLATE_ROOT = '../../epub-boilerplate';
 export function copyBoilerplate(toDir: string): void {
     const fromDir = path.resolve(__dirname, EPUB_BOILERPLATE_ROOT, 'boilerplate');
     fse.copySync(fromDir, toDir, {
-        filter: function(a): boolean {
+        filter: function (a): boolean {
             // 过滤掉以「.」开头的文件或文件夹
             return !path.basename(a).startsWith('.');
         },

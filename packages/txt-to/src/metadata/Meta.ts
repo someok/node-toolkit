@@ -1,4 +1,4 @@
-import uuidGen from 'uuid';
+import {v4 as uuidGen} from 'uuid';
 import _ from 'lodash';
 
 interface MetaJson {

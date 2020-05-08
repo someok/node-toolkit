@@ -32,23 +32,23 @@
   },
   "dependencies": {
     "@someok/node-utils": "^1.0.11",
-    "chardet": "^0.8.0",
-    "commander": "^2.20.0",
-    "ejs": "^2.6.2",
+    "chardet": "^1.1.0",
+    "commander": "^5.1.0",
+    "ejs": "^3.1.2",
     "encoding": "^0.1.12",
-    "inquirer": "^6.5.0",
+    "inquirer": "^7.1.0",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
-    "marked": "^0.7.0",
-    "prompts": "^2.1.0",
-    "pureimage": "^0.1.6",
-    "uuid": "^3.3.2"
+    "marked": "0.7.0",
+    "prompts": "^2.3.2",
+    "pureimage": "^0.2.1",
+    "uuid": "^8.0.0"
   },
   "devDependencies": {
-    "@types/chardet": "^0.5.0",
-    "@types/ejs": "^2.6.3",
-    "@types/js-yaml": "^3.12.1",
-    "@types/marked": "^0.6.5"
+    "@types/chardet": "^0.8.0",
+    "@types/ejs": "^3.0.3",
+    "@types/js-yaml": "^3.12.3",
+    "@types/marked": "^0.7.4"
   },
   "files": [
     "dist/",

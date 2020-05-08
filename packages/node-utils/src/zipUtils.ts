@@ -13,7 +13,7 @@ import yauzl from 'yauzl';
  * @return {Promise}
  */
 export function zipDir(folder: string, zipFile: string): Promise<archiver.Archiver> {
-    return new Promise(function(resolve, reject): void {
+    return new Promise(function (resolve, reject): void {
         // 目录不存在则创建
         fse.ensureDirSync(path.dirname(zipFile));
 
@@ -27,7 +27,7 @@ export function zipDir(folder: string, zipFile: string): Promise<archiver.Archiv
 
         // listen for all archive data to be written
         // 'close' event is fired only when a file descriptor is involved
-        output.on('close', function(): void {
+        output.on('close', function (): void {
             // console.log(archive.pointer() + ' total bytes');
             // console.log('archiver has been finalized and the output file descriptor has closed.');
 
@@ -37,7 +37,7 @@ export function zipDir(folder: string, zipFile: string): Promise<archiver.Archiv
         // This event is fired when the data source is drained no matter what was the data source.
         // It is not part of this library but rather from the NodeJS Stream API.
         // @see: https://nodejs.org/api/stream.html#stream_event_end
-        output.on('end', function(): void {
+        output.on('end', function (): void {
             console.log('Data has been drained');
         });
 
@@ -46,7 +46,7 @@ export function zipDir(folder: string, zipFile: string): Promise<archiver.Archiv
         // });
 
         // good practice to catch warnings (ie stat failures and other non-blocking errors)
-        archive.on('warning', function(err): void {
+        archive.on('warning', function (err): void {
             if (err.code === 'ENOENT') {
                 // log warning
                 console.log(err);
@@ -58,7 +58,7 @@ export function zipDir(folder: string, zipFile: string): Promise<archiver.Archiv
         });
 
         // good practice to catch this error explicitly
-        archive.on('error', function(err): void {
+        archive.on('error', function (err): void {
             // console.log(err);
             // throw err;
             reject(err);
@@ -98,15 +98,15 @@ export function zipDir(folder: string, zipFile: string): Promise<archiver.Archiv
  * @return {Promise}
  */
 export function unzip(zipFile: string, toDir: string): Promise<void> {
-    return new Promise(function(resolve, reject): void {
-        yauzl.open(zipFile, {lazyEntries: true}, function(err, zipfile): void {
+    return new Promise(function (resolve, reject): void {
+        yauzl.open(zipFile, {lazyEntries: true}, function (err, zipfile): void {
             if (err) reject(err);
             // console.log(zipFile);
 
             if (!zipfile) return;
 
             zipfile.readEntry();
-            zipfile.on('entry', function(entry): void {
+            zipfile.on('entry', function (entry): void {
                 // console.log(entry);
                 // console.log(entry.fileName);
 
@@ -118,7 +118,7 @@ export function unzip(zipFile: string, toDir: string): Promise<void> {
                     // console.log('file', path.dirname(filePath));
                     fse.ensureDirSync(path.dirname(filePath));
 
-                    zipfile.openReadStream(entry, function(err, readStream): void {
+                    zipfile.openReadStream(entry, function (err, readStream): void {
                         if (err) throw reject(err);
 
                         if (!readStream) return;
@@ -134,10 +134,10 @@ export function unzip(zipFile: string, toDir: string): Promise<void> {
                 }
             });
 
-            zipfile.on('close', function(): void {
+            zipfile.on('close', function (): void {
                 resolve();
             });
-            zipfile.on('error', function(err): void {
+            zipfile.on('error', function (err): void {
                 reject(err);
             });
         });

@@ -1,7 +1,7 @@
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
-import Mode from 'stat-mode';
+import createMode from 'stat-mode';
 
 export enum PathMode {
     // 文件夹且可写
@@ -25,7 +25,7 @@ export enum PathMode {
 export function existPath(forPath: string): PathMode {
     try {
         const stat = fs.statSync(forPath);
-        const mode = new Mode(stat);
+        const mode = createMode(stat);
 
         if (!mode.owner.write) {
             return PathMode.NOT_WRITE;
@@ -69,7 +69,7 @@ export function existFile(forPath: string): boolean {
  * @param includeExt 是否包含扩展名，默认不包含
  * @return {string} 文件名
  */
-export function fileName(file: string, includeExt: boolean = false): string {
+export function fileName(file: string, includeExt = false): string {
     if (includeExt) {
         return path.basename(file);
     }

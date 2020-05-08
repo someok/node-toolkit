@@ -63,6 +63,7 @@ export default function parser(mdContent: string): TxtNode[] | null {
     const content = mdContent.trim();
     if (!content) return null;
 
+    // 由于 marked v1.0.0 之后 lexer 解析格式变化太大，所以暂时不要升级
     const tokens: marked.TokensList = marked.lexer(content);
     if (_.isEmpty(tokens)) return null;
 

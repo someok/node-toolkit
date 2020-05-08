@@ -8,7 +8,7 @@ test('now', (): void => {
 });
 
 test('toISOString', (): void => {
-    let ts = dateUtils.now();
+    const ts = dateUtils.now();
     let str = dateUtils.toISOString(ts);
 
     expect(str.includes(dayjs(ts).format('YYYY-MM-DD'))).toBeTruthy();

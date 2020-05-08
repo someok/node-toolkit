@@ -20,6 +20,9 @@ async function fetchRemoteData(url: string): Promise<RemoteData> {
         const list = $('#thumbnail-container img')
             .map((index, element): string => {
                 let url = $(element).attr('data-src');
+
+                if (!url) throw new Error('[data-src] not exist');
+
                 url = url.replace('t.nyahentai.net', 'i.nyahentai.net');
                 url = url.replace('t.jpg', '.jpg');
                 url = url.replace('t.png', '.png');
@@ -34,7 +37,7 @@ async function fetchRemoteData(url: string): Promise<RemoteData> {
         return new RemoteData(title, images);
     } catch (e) {
         console.log(e);
-        throw new Error('图片数据载入失败');
+        throw e;
     }
 }
 

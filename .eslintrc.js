@@ -21,7 +21,12 @@ module.exports = {
         ecmaVersion: 2018,
         sourceType: 'module',
     },
+    ignorePatterns: ['node_modules/'],
     rules: {
-        // '@typescript-eslint/explicit-member-accessibility': 0,
+        // 'space-before-function-paren': ['error', {
+        //     'anonymous': 'never',
+        //     'named': 'never',
+        //     'asyncArrow': 'always',
+        // }],
     },
 };

@@ -4,7 +4,7 @@ import {createCoverImage, registerFont, wrapText} from '../coverImgUtils';
 import Meta from '../../metadata/Meta';
 
 test('wrapText', (done): void => {
-    registerFont().load(function(): void {
+    registerFont().load(function (): void {
         const img = PImage.make(200, 200);
         const ctx = img.getContext('2d');
         const txt = '这是一个很长的测试文本，this is long test text';

@@ -17,7 +17,7 @@ import {METADATA_YAML} from '../context';
  * @param dir txt 目录
  * @param overwrite 已存在封面图片，是否覆盖
  */
-export function regenerateCover(dir: string, overwrite: boolean = true): Promise<boolean> {
+export function regenerateCover(dir: string, overwrite = true): Promise<boolean> {
     return new Promise<boolean>((resolve, reject): void => {
         const metaDir = getMetadataFolder(dir);
 
@@ -71,7 +71,7 @@ export function regenerateCover(dir: string, overwrite: boolean = true): Promise
     });
 }
 
-export function regenerateAllCover(txtDir: string, overwrite: boolean = true): Promise<boolean> {
+export function regenerateAllCover(txtDir: string, overwrite = true): Promise<boolean> {
     const dirs = subdirs(txtDir);
 
     if (_.isEmpty(dirs)) {
@@ -81,8 +81,8 @@ export function regenerateAllCover(txtDir: string, overwrite: boolean = true): P
     const errMsg: string[] = [];
 
     // 顺序执行 Promise
-    const seqPromise = dirs.reduce(function(promiseChain, dir): Promise<boolean> {
-        return promiseChain.then(function(): Promise<boolean> {
+    const seqPromise = dirs.reduce(function (promiseChain, dir): Promise<boolean> {
+        return promiseChain.then(function (): Promise<boolean> {
             return regenerateCover(dir.path, overwrite)
                 .then((): boolean => {
                     console.log();

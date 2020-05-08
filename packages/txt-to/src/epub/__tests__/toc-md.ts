@@ -5,9 +5,9 @@ import {loadMdContentAsToc} from '../toc';
 test('load simple md toc', (): void => {
     const folder = path.resolve(__dirname, 'md-files', 'demo1');
     const toc = path.resolve(folder, 'toc.md');
-    let result = loadMdContentAsToc(folder, toc);
+    const {data} = loadMdContentAsToc(folder, toc);
     // console.log(result);
-    const {data} = result;
+
     expect(data.length).toBe(3);
     expect(data[0]).toEqual(
         expect.objectContaining({
@@ -30,7 +30,7 @@ test('load simple md toc', (): void => {
 test('load level md toc', (): void => {
     const folder = path.resolve(__dirname, 'md-files', 'demo2');
     const toc = path.resolve(folder, 'toc.md');
-    let result = loadMdContentAsToc(folder, toc);
+    const result = loadMdContentAsToc(folder, toc);
     // console.log(result);
     expect(result.success).toBeTruthy();
 
@@ -58,7 +58,7 @@ test('load level md toc', (): void => {
 test('load level not exist md toc', (): void => {
     const folder = path.resolve(__dirname, 'md-files', 'demo2');
     const toc = path.resolve(folder, 'toc-not-exist.md');
-    let result = loadMdContentAsToc(folder, toc);
+    const result = loadMdContentAsToc(folder, toc);
     // console.log(result);
     expect(result.success).toBeFalsy();
     expect(result.message).toContain('f2/not-exist.txt');

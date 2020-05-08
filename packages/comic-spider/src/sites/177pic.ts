@@ -20,7 +20,11 @@ function fetchPages(url: string): Promise<Pages> {
             const hrefs = $('.page-links')
                 .find('a')
                 .map((index, element): string => {
-                    return $(element).attr('href');
+                    const url = $(element).attr('href');
+
+                    if (!url) throw new Error('[href] not exist');
+
+                    return url;
                 })
                 .get();
 
@@ -50,7 +54,11 @@ function fetchImagesByPage(pageUrl: string): Promise<PageImages> {
             const images = $('.entry-content')
                 .find('img')
                 .map((index, element): string => {
-                    return $(element).attr('data-lazy-src');
+                    const url = $(element).attr('data-lazy-src');
+
+                    if (!url) throw new Error('[data-lazy-src] not exist');
+
+                    return url;
                 })
                 .get();
 

@@ -26,9 +26,9 @@ test('split zh chapter txt', (): void => {
 });
 
 test('split num chapter txt', (): void => {
-    let txt = loadTxt('num.txt');
+    const txt = loadTxt('num.txt');
 
-    let result = splitByRegexRule(txt, 'num');
+    const result = splitByRegexRule(txt, 'num');
     // console.log(result);
     expect(result.length).toBe(4);
     expect(result[0].title).toBe('前言');
@@ -37,9 +37,9 @@ test('split num chapter txt', (): void => {
 });
 
 test('split zh num chapter txt', (): void => {
-    let txt = loadTxt('zhnum.txt');
+    const txt = loadTxt('zhnum.txt');
 
-    let result = splitByRegexRule(txt, 'zhNum');
+    const result = splitByRegexRule(txt, 'zhNum');
     // console.log(result);
     expect(result.length).toBe(4);
     expect(result[0].title).toBe('前言');
@@ -48,8 +48,8 @@ test('split zh num chapter txt', (): void => {
 });
 
 test('split with max title length param', (): void => {
-    let txt = loadTxt('maxTitle.txt');
-    let result = splitByRegexRule(txt, 'zhChapter', 3);
+    const txt = loadTxt('maxTitle.txt');
+    const result = splitByRegexRule(txt, 'zhChapter', 3);
     // console.log(result);
 
     expect(result.length).toBe(3);

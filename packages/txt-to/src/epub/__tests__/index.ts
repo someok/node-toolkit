@@ -8,7 +8,7 @@ test('genTxtDir2Epub', async (): Promise<void> => {
     // console.log(tmpDir);
 
     const txtDir = path.resolve(__dirname, 'epub/toc1');
-    let meta = await genTxtDir2Epub(txtDir, tmpDir);
+    const meta = await genTxtDir2Epub(txtDir, tmpDir);
     // 生成的 epub 使用默认名字
     let epubFile = path.join(tmpDir, meta.epubTitle());
     expect(fse.existsSync(epubFile)).toBeTruthy();

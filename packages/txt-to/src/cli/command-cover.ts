@@ -25,19 +25,19 @@ export function customCommand(program: CommanderStatic): void {
         .option('-t, --txt <dir>', 'txt 目录')
         .option('-b, --batch', '批量生成给定目录下所有文件夹成的封面图片')
         .option('-o, --overwrite [Y/n]', '封面图片存在时是否覆盖', boolArg, true)
-        .on('--help', function(): void {
+        .on('--help', function (): void {
             console.log('');
             console.log('Examples:');
             console.log('');
             customHelp();
         })
-        .action(function(...actionArgs: string[]): void {
+        .action(function (...args: Option[]): void {
             // 将参数转换为数组，并提取最后一个作为 options（其实就是 Command 对象）
-            const args = actionArgs.length === 1 ? [actionArgs[0]] : Array.apply(null, actionArgs);
+            // const args = actionArgs.length === 1 ? [actionArgs[0]] : Array.apply(null, actionArgs);
 
             let options: Option | undefined;
             if (_.isArray(args) && !_.isEmpty(args)) {
-                const opt = args[args.length - 1] as Option;
+                const opt = args[args.length - 1];
 
                 if (opt.txt) {
                     options = {txt: opt.txt, batch: opt.batch, overwrite: opt.overwrite};

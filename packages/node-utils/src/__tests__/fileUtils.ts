@@ -26,7 +26,7 @@ test('exist dir or file', (): void => {
 });
 
 test('fileName', (): void => {
-    let name = 'a/b/c.txt';
+    const name = 'a/b/c.txt';
     expect(fileName(name, true)).toBe('c.txt');
     expect(fileName(name)).toBe('c');
 });

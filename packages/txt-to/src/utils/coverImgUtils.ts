@@ -63,7 +63,7 @@ export function wrapText(
     lineHeight?: number
 ): WrapTextLine[] {
     const textMetrics = context.measureText(text);
-    let testHeight = lineHeight || textMetrics.emHeightAscent;
+    const testHeight = lineHeight || textMetrics.emHeightAscent;
 
     // 字符分隔为数组
     const txtArrs = text.split('');
@@ -73,7 +73,7 @@ export function wrapText(
 
     for (let i = 0; i < txtArrs.length; i++) {
         const letter = txtArrs[i];
-        let testLine = line + letter;
+        const testLine = line + letter;
         const metrics: MeasureText = context.measureText(testLine);
         const {width} = metrics;
         if (i > 0 && width >= maxWidth) {
@@ -116,7 +116,7 @@ function centerX(ctx: PImageContext, text: string, imgWidth: number): number {
  * @param rootDir 根目录
  * @param ext 图片格式，默认 jpg
  */
-function randomImage(rootDir: string, ext: string = '.jpg'): string {
+function randomImage(rootDir: string, ext = '.jpg'): string {
     function filter(item: klawSync.Item): boolean {
         const imgExt = path.extname(item.path);
 
@@ -144,8 +144,8 @@ export function createCoverImage(
 ): Promise<void> {
     const font = PImage.registerFont(FONT_PATH, FONT_FAMILY);
 
-    return new Promise<void>(function(resolve, reject): void {
-        font.load(function(): void {
+    return new Promise<void>(function (resolve, reject): void {
+        font.load(function (): void {
             // 随机选取封面模板
             const imgCoverTempPath = path.join(COVER_ROOT, 'image');
             const coverImg = randomImage(imgCoverTempPath);

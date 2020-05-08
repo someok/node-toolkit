@@ -21,7 +21,7 @@ export function getAuthor(name: string): string | undefined {
     const re = /.+作者[&续写]{0,3}[:：]*(.*)/s;
     const match = re.exec(name.trim());
     if (match) {
-        let author = match[1].trim();
+        const author = match[1].trim();
         if (author) {
             return author;
         }

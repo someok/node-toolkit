@@ -27,11 +27,7 @@ function checkTitle(title: string): string {
  * @param maxTitleLength 标题最大长度，超过则忽略，小于等于 0 表示本方法不控制，只靠正则限制
  * @return {Array} 分隔后的 {@link Chapter} 数组
  */
-export function splitByRegexRule(
-    txt: string,
-    ruleKey: RuleItemKey,
-    maxTitleLength: number = 0
-): Chapter[] {
+export function splitByRegexRule(txt: string, ruleKey: RuleItemKey, maxTitleLength = 0): Chapter[] {
     if (!txt) throw new Error('txt 参数必须为字符串, 且内容不能为空');
 
     const content = txt.trim();
@@ -97,8 +93,8 @@ export function splitByRegexRule(
  * @param txt 文本内容
  * @param maxTitleLength 标题最大长度，超过则忽略，小于等于 0 表示本方法不控制，只靠正则限制
  */
-export function splitAuto(txt: string, maxTitleLength: number = 0): Chapter[] {
-    for (let [key, rule] of regexRules) {
+export function splitAuto(txt: string, maxTitleLength = 0): Chapter[] {
+    for (const [key, rule] of regexRules) {
         const {re} = rule;
         const match = txt.match(re);
         if (!match) continue;

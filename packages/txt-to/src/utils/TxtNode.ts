@@ -11,7 +11,7 @@ export default class TxtNode {
     private _desc: string | undefined;
     private _parent: TxtNode | undefined;
     private _children: TxtNode[] = [];
-    private _level: number = 0;
+    private _level = 0;
 
     public constructor(
         title?: string,
@@ -57,7 +57,7 @@ export default class TxtNode {
     public static travelTxtNodeTree(
         nodes: TxtNode[],
         fn: (node: TxtNode, hasChildren: boolean, level: number) => void,
-        level: number = 0
+        level = 0
     ): void {
         for (let i = 0; i < nodes.length; i++) {
             const node = nodes[i];
@@ -76,7 +76,7 @@ export default class TxtNode {
         let index = 0;
         // 首先遍历一次将所有存在实际路径的节点设置上 id
         // 如果某节点为父节点且不指向任何实际的文件，仍然生成一个 xhtml，不过里面内容只有标题
-        TxtNode.travelTxtNodeTree(nodes, function(node): void {
+        TxtNode.travelTxtNodeTree(nodes, function (node): void {
             node.chapterId = ++index;
         });
 

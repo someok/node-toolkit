@@ -16,11 +16,7 @@ import {initMetadataByFoldderName} from '../metadata/metadata';
  * @param destFolder 目标文件夹
  * @param overwrite 如果目标文件夹已经存在是否覆盖，默认覆盖
  */
-export function splitTxtFile2Dest(
-    txtFile: string,
-    destFolder: string,
-    overwrite: boolean = true
-): void {
+export function splitTxtFile2Dest(txtFile: string, destFolder: string, overwrite = true): void {
     try {
         const txtResult = readAsUtf8String(txtFile);
         if (!txtResult.success) {
@@ -54,11 +50,7 @@ export function splitTxtFile2Dest(
  * @param destFolder 目标文件夹
  * @param overwrite 是否覆盖已存在文件夹
  */
-export function splitAllTxt2Dest(
-    txtFolder: string,
-    destFolder: string,
-    overwrite: boolean = true
-): void {
+export function splitAllTxt2Dest(txtFolder: string, destFolder: string, overwrite = true): void {
     function txtFilter(item: klawSync.Item): boolean {
         const ext = path.extname(item.path);
         return ext === '.txt';

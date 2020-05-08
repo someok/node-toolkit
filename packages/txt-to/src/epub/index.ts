@@ -30,7 +30,7 @@ export function genTxtDir2Epub(txtDir: string, epubPath: string): Promise<Meta> 
     }
 
     const tmpDir = createTempFolder();
-    return new Promise<Meta>(function(resolve, reject): void {
+    return new Promise<Meta>(function (resolve, reject): void {
         readMetadata(txtDir)
             .then(
                 ({meta, tocNodes}): Promise<void> => {
@@ -73,8 +73,8 @@ export function genAllTxtDir2Epub(txtDir: string, epubPath: string): Promise<boo
     const errMsg: string[] = [];
 
     // 顺序执行 Promise
-    const seqPromise = dirs.reduce(function(promiseChain, dir): Promise<boolean> {
-        return promiseChain.then(function(): Promise<boolean> {
+    const seqPromise = dirs.reduce(function (promiseChain, dir): Promise<boolean> {
+        return promiseChain.then(function (): Promise<boolean> {
             return genTxtDir2Epub(dir.path, epubPath)
                 .then((): boolean => true)
                 .catch((err): boolean => {

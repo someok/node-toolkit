@@ -18,11 +18,11 @@ export function createTempFolder(): string {
  * @param dir 给定目录
  * @param depthLimit 目录层级，-1 表示返回所有层级，默认只返回下一级
  */
-export function subdirs(dir: string, depthLimit: number = 0): readonly klawSync.Item[] {
+export function subdirs(dir: string, depthLimit = 0): readonly klawSync.Item[] {
     return klawSync(dir, {
         nofile: true,
         depthLimit, // 只在给定目录下生成
-        filter: function(item): boolean {
+        filter: function (item): boolean {
             const dirName = path.basename(item.path);
             return !dirName.startsWith(FOLDER_PREFIX);
         },

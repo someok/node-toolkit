@@ -9,7 +9,7 @@ import Chapter from './Chapter';
 export function outputChapters(
     chapters: Chapter[],
     destFolder: string,
-    overwrite: boolean = true
+    overwrite = true
 ): Result<undefined> {
     if (_.isEmpty(chapters)) return failure('章节内容为空');
 

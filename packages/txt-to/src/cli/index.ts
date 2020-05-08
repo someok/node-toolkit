@@ -25,7 +25,7 @@ commands.forEach((cmd): void => {
 // txt2epub -h 时候输出扩展帮助信息
 // 在明确的命令下的帮助有所不同
 // 例如 txt2epub split -h 时候不触发此事件，而是触发对应命令自己的事件
-program.on('--help', function(): void {
+program.on('--help', function (): void {
     console.log('');
     console.log('Examples:');
 
@@ -39,7 +39,7 @@ program.on('--help', function(): void {
 });
 
 // 命令错误时输出此提示
-program.on('command:*', function(): void {
+program.on('command:*', function (): void {
     console.error(
         'Invalid command: %s\nSee --help for a list of available commands.',
         program.args.join(' ')

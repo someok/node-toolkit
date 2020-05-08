@@ -116,7 +116,7 @@ export function loadTxtNamesAsToc(folder: string): Result<TxtNode[]> {
             // 此处并不传入 ext 以便path.basename 自动去掉扩展名
             // 是为了防止出现不规则文件命名从而导致名称截取失误
             // 例如 abc.efg 这样的命名
-            let title = path.basename(filePath).trim();
+            const title = path.basename(filePath).trim();
 
             return new TxtNode(title, undefined, undefined, rawTitle, ext, filePath);
         }

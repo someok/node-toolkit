@@ -14,8 +14,8 @@ const pipeline = promisify(stream.pipeline);
 test('fetch by got', (done): void => {
     got.get('https://www.anytech.cn/static-files/apk/output.json')
         .then((resp: Response<string>): void => {
-            console.log(resp.statusCode);
-            console.log(resp.body);
+            // console.log(resp.statusCode);
+            // console.log(resp.body);
             expect(resp.statusCode).toBe(200);
             expect(resp.body).toContain('APK');
         })
@@ -25,7 +25,6 @@ test('fetch by got', (done): void => {
 });
 
 test('fetch by proxy', (done): void => {
-    // @ts-ignore
     got('https://zh.nyahentai.com/g/269243/list2/', {
         agent: {
             http: tunnel.httpOverHttp({
@@ -43,7 +42,7 @@ test('fetch by proxy', (done): void => {
         },
     })
         .then((resp: Response<string>): void => {
-            console.log(resp.body);
+            // console.log(resp.body);
             expect(resp.statusCode).toBe(200);
         })
         .catch((e: Error): void => {

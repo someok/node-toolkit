@@ -17,14 +17,14 @@ export function customCommand(program: CommanderStatic): void {
         .command('init [dir]')
         .alias('i')
         .description('交互式命令，初始化 yaml 格式的 metadata 文件, [dir] 未提供时采用当前目录')
-        .on('--help', function(): void {
+        .on('--help', function (): void {
             // txt2epub init -h 时显示此信息
             console.log('');
             console.log('Examples:');
             console.log('');
             customHelp();
         })
-        .action(function(dir): void {
+        .action(function (dir): void {
             metadataInit(dir || process.cwd());
         });
 }
