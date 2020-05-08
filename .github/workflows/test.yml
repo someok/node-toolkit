@@ -29,4 +29,5 @@ jobs:
               with:
                   file: coverage/*.json # optional
                   flags: unittests # optional
+                  name: github action
                   fail_ci_if_error: true # optional (default = false)
