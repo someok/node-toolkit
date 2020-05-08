@@ -20,7 +20,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node }}
             - run: npm install -g yarn
-            - name: yarn install, test
+            - name: Run yarn install, test
               run: |
                   yarn install
                   yarn test
