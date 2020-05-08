@@ -23,4 +23,12 @@ jobs:
             - name: Run yarn install, test
               run: |
                   yarn install
+                  yarn lint
                   yarn test
+            - uses: codecov/codecov-action@v1
+              with:
+                  # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+                  file: coverage/*.json # optional
+                  flags: unittests # optional
+                  name: codecov-toolkit # optional
+                  fail_ci_if_error: true # optional (default = false)
