@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.4.0...@someok/comic-spider@1.5.0) (2020-05-08)
+
+### Features
+
+-   comic spider 选择站点后会将选择项缓存到配置中，以便下次使用方便 ([fae84c6](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/fae84c6))
+-   转移 env 配置文件到 .comic-spider 下 ([6bbc10f](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/6bbc10f))
+
 # [1.4.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.3.0...@someok/comic-spider@1.4.0) (2020-05-08)
 
 ### Bug Fixes

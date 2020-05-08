@@ -1,6 +1,6 @@
 {
   "name": "@someok/txt-to",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "convert txt to epub, pdf, html etc",
   "private": false,
   "bin": {
@@ -31,7 +31,7 @@
     "node": ">= 10.19.0"
   },
   "dependencies": {
-    "@someok/node-utils": "^1.1.0",
+    "@someok/node-utils": "^1.2.0",
     "chardet": "^1.1.0",
     "commander": "^5.1.0",
     "ejs": "^3.1.2",
