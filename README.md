@@ -5,7 +5,6 @@
 [![GitHub](https://img.shields.io/github/license/someok/node-toolkit.svg?style=flat-square)](https://github.com/someok/node-toolkit/blob/master/LICENSE)
 
 [![CI](https://github.com/someok/node-toolkit/workflows/CI/badge.svg)](https://github.com/someok/node-toolkit/actions)
-[![Travis Status](https://img.shields.io/travis/someok/node-toolkit.svg?style=flat-square)](https://travis-ci.org/someok/node-toolkit)
 [![Codecov](https://img.shields.io/codecov/c/github/someok/node-toolkit.svg?style=flat-square&token=49b1c58e2ff6485595b4e1fcd7d9dbc9)](https://codecov.io/gh/someok/node-toolkit)
 
 [![GitHub repo size](https://img.shields.io/github/repo-size/someok/node-toolkit.svg?style=flat-square)](https://github.com/someok/node-toolkit)
