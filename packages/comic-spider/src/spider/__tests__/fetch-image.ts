@@ -12,7 +12,7 @@ test('fetchImage', (done): void => {
 
     fetchImage(imgUrl, tmpDir, 'test.jpg')
         .then((resp): void => {
-            console.log(resp);
+            // console.log(resp);
             expect(resp.remoteImgSize).toBe(resp.localImgSize);
         })
         .catch((err): void => {

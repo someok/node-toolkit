@@ -76,7 +76,7 @@ test('download image', (done): void => {
 
             const stats = fs.statSync(dest);
             expect(stats.size).toBe(contentLength);
-            console.log('response', contentLength);
+            // console.log('response', contentLength);
             fse.removeSync(tmp);
         })
         .finally((): void => {
