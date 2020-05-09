@@ -11,7 +11,7 @@ import {createTempFolder} from '@someok/node-utils/lib/fileUtils';
 
 const pipeline = promisify(stream.pipeline);
 
-test('fetch by got', (done): void => {
+test.skip('fetch by got', (done): void => {
     got.get('https://www.anytech.cn/static-files/apk/output.json')
         .then((resp: Response<string>): void => {
             // console.log(resp.statusCode);
@@ -24,7 +24,7 @@ test('fetch by got', (done): void => {
         });
 });
 
-test('fetch by proxy', (done): void => {
+test.skip('fetch by proxy', (done): void => {
     got('https://zh.nyahentai.com/g/269243/list2/', {
         agent: {
             http: tunnel.httpOverHttp({
@@ -53,7 +53,7 @@ test('fetch by proxy', (done): void => {
         });
 });
 
-test('download image', (done): void => {
+test.skip('download image', (done): void => {
     const tmp = createTempFolder('comic-');
     // console.log(tmp);
 
