@@ -34,8 +34,6 @@
     "publish:node-utils": "yarn workspace @someok/node-utils run publish2npm",
     "publish:txt-to": "yarn workspace @someok/txt-to run publish2npm",
     "publish:comic-spider": "yarn workspace @someok/comic-spider run publish2npm",
-    "release": "standard-version",
-    "release-patch": "standard-version --release-as patch",
     "gitlog": "git log `git describe --tags --abbrev=0`..HEAD --no-merges --graph --decorate --pretty=format:'%h %Cblue%s%Creset %cr (%an)'",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "lint": "eslint 'packages/**/src/**/*.{js,ts,tsx}'",
@@ -75,7 +73,6 @@
     "lint-staged": "^10.2.2",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
-    "standard-version": "^8.0.0",
     "ts-jest": "25.5.1",
     "ts-node": "8.10.1",
     "typescript": "3.8.3"
