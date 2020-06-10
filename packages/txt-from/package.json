@@ -1,6 +1,6 @@
 {
   "name": "@someok/txt-from",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "fetch text files to local disk",
   "private": true,
   "bin": {
@@ -30,7 +30,7 @@
     "node": ">= 10.19.0"
   },
   "dependencies": {
-    "@someok/node-utils": "^1.2.0"
+    "@someok/node-utils": "^1.2.1"
   },
   "files": [
     "dist/",
