@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.5.1...@someok/comic-spider@1.6.0) (2020-06-10)
+
+### Features
+
+-   下载图片时增加 timeout 默认超时时间 ([9513d10](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/9513d10))
+
 ## [1.5.1](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.5.0...@someok/comic-spider@1.5.1) (2020-06-10)
 
 **Note:** Version bump only for package @someok/comic-spider
