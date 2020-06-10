@@ -1,13 +1,8 @@
 import cheerio from 'cheerio';
 import {fetch} from '../spider/fetch';
-import RemoteImage from '../spider/RemoteImage';
 import RemoteData from '../spider/RemoteData';
 import {SiteData} from './SiteData';
-
-interface Pages {
-    title: string;
-    hrefs: string[];
-}
+import {commonFetchRemoteData, PageImages, Pages} from './multiPageFetch';
 
 function fetchPages(url: string): Promise<Pages> {
     return fetch(url).then(
@@ -42,11 +37,6 @@ function fetchPages(url: string): Promise<Pages> {
     );
 }
 
-interface PageImages {
-    pageUrl: string;
-    images: string[];
-}
-
 function fetchImagesByPage(pageUrl: string): Promise<PageImages> {
     return fetch(pageUrl).then(
         ({body}): PageImages => {
@@ -70,51 +60,8 @@ function fetchImagesByPage(pageUrl: string): Promise<PageImages> {
     );
 }
 
-interface PageImagesPair {
-    [key: string]: string[];
-}
-
 function fetchRemoteData(url: string): Promise<RemoteData> {
-    return fetchPages(url)
-        .then(
-            (pages): Promise<RemoteData> => {
-                const {title, hrefs} = pages;
-
-                const promises = hrefs.map((href): Promise<PageImages> => fetchImagesByPage(href));
-                return Promise.all(promises)
-                    .then(
-                        (allPageImages): PageImagesPair => {
-                            const ret: PageImagesPair = {};
-                            allPageImages.forEach((pageImages): void => {
-                                ret[pageImages.pageUrl] = pageImages.images;
-                            });
-
-                            return ret;
-                        }
-                    )
-                    .then(
-                        (pageImagesObj): RemoteData => {
-                            let ret: RemoteImage[] = [];
-                            hrefs.forEach((href): void => {
-                                const images = pageImagesObj[href];
-                                const imgObjArr = images.map(
-                                    (img): RemoteImage => {
-                                        return new RemoteImage(img);
-                                    }
-                                );
-                                ret = ret.concat(imgObjArr);
-                            });
-                            return new RemoteData(title.trim(), ret);
-                        }
-                    )
-                    .catch((err): never => {
-                        throw err;
-                    });
-            }
-        )
-        .catch((err): never => {
-            throw err;
-        });
+    return commonFetchRemoteData(url, fetchPages, fetchImagesByPage);
 }
 
 const siteData: SiteData = {

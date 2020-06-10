@@ -6,6 +6,9 @@ import got, {Agents, OptionsOfTextResponseBody, Response, StreamOptions} from 'g
 import https from 'https';
 import tunnel from 'tunnel';
 import {getProxyEnv} from './envConfig';
+import RemoteData from './RemoteData';
+import {PageImages, PageImagesPair} from '../sites/multiPageFetch';
+import RemoteImage from './RemoteImage';
 
 const pipeline = promisify(stream.pipeline);
 
@@ -113,7 +116,7 @@ export function fetchImage(
             got
                 .stream(url, {
                     agent: getAgent(useAgent),
-                    timeout: 10 * 1000, // 在下载图片的时候如果不设置此属性，可能导致下载线程迟迟无法结束
+                    timeout: 20 * 1000, // 在下载图片的时候如果不设置此属性，可能导致下载线程迟迟无法结束
                     ...options,
                 })
                 .on('response', (response: Response): void => {
