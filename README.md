@@ -13,6 +13,10 @@
 
 个人常用工具集，通过 `yarn workspaces` 和 `lerna` 的配合使用实现的多项目管控模式。
 
+## 环境要求
+
+-   node: `8.16.0+`, 由于使用了 [got](https://github.com/sindresorhus/got) ，此组件对环境有要求
+
 ## 分工
 
 ### yarn
