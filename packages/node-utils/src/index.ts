@@ -4,3 +4,4 @@ export * from './pathUtils';
 export * from './htmlEscape';
 export * from './zipUtils';
 export * from './logUtils';
+export * from './promiseUtils';
