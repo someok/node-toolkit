@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.6.0...@someok/comic-spider@1.7.0) (2020-06-10)
+
+### Bug Fixes
+
+-   去除无用调用 ([3c4f604](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/3c4f604))
+
+### Features
+
+-   增加一个新的漫画站点 ([4805e37](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/4805e37))
+-   将读取目录页和图片列表的方法转移为通用功能 ([1732c91](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/1732c91))
+
 # [1.6.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.5.1...@someok/comic-spider@1.6.0) (2020-06-10)
 
 ### Features

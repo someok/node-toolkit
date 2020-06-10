@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/someok/node-toolkit/tree/master/packages/node-utils/compare/@someok/node-utils@1.2.1...@someok/node-utils@1.3.0) (2020-06-10)
+
+### Features
+
+-   增加截取长字符串中间部分的方法 ([4a11610](https://github.com/someok/node-toolkit/tree/master/packages/node-utils/commit/4a11610))
+
 ## [1.2.1](https://github.com/someok/node-toolkit/tree/master/packages/node-utils/compare/@someok/node-utils@1.2.0...@someok/node-utils@1.2.1) (2020-06-10)
 
 **Note:** Version bump only for package @someok/node-utils
