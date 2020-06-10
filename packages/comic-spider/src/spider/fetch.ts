@@ -6,9 +6,6 @@ import got, {Agents, OptionsOfTextResponseBody, Response, StreamOptions} from 'g
 import https from 'https';
 import tunnel from 'tunnel';
 import {getProxyEnv} from './envConfig';
-import RemoteData from './RemoteData';
-import {PageImages, PageImagesPair} from '../sites/multiPageFetch';
-import RemoteImage from './RemoteImage';
 
 const pipeline = promisify(stream.pipeline);
 

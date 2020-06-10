@@ -1,5 +1,4 @@
 import cheerio from 'cheerio';
-import _ from 'lodash';
 
 test('remove html element', () => {
     const html = `
