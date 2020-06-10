@@ -113,6 +113,7 @@ export function fetchImage(
             got
                 .stream(url, {
                     agent: getAgent(useAgent),
+                    timeout: 10 * 1000, // 在下载图片的时候如果不设置此属性，可能导致下载线程迟迟无法结束
                     ...options,
                 })
                 .on('response', (response: Response): void => {
