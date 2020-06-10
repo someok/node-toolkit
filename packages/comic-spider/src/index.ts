@@ -19,6 +19,7 @@ interface Sites {
 const sites: Sites = {
     site177pic: require('./sites/177pic').default,
     nyahentai: require('./sites/nyahentai').default,
+    allporncomic: require('./sites/allporncomic').default,
     siteDemo: require('./sites/demo').default,
 };
 
