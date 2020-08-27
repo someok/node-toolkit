@@ -95,14 +95,14 @@ export function fetchImage(
 ): Promise<FetchImageResolve> {
     const {useAgent = true, options} = fetchOptions;
 
-    const ext = path.extname(url);
-    let newTitle: string;
-    if (title.toLowerCase().endsWith(ext)) {
-        newTitle = title;
-    } else {
-        newTitle = title + ext;
-    }
-    const imgFile = path.join(toDir, newTitle);
+    // const ext = path.extname(url);
+    // let newTitle: string;
+    // if (title.toLowerCase().endsWith(ext)) {
+    //     newTitle = title;
+    // } else {
+    //     newTitle = title + ext;
+    // }
+    const imgFile = path.join(toDir, title);
 
     // 用于比较本地图片和远程图片大小是否一致
     let remoteImgSize = 0;
@@ -127,7 +127,7 @@ export function fetchImage(
                 fs.stat(imgFile, (err, stats): void => {
                     localImgSize = stats.size;
 
-                    resolve({url, imgFile, filename: newTitle, localImgSize, remoteImgSize});
+                    resolve({url, imgFile, filename: title, localImgSize, remoteImgSize});
                 });
             })
             .catch((err): void => {

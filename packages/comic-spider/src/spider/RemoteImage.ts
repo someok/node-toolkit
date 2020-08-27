@@ -1,4 +1,6 @@
 import path from 'path';
+import url from 'url';
+
 import _ from 'lodash';
 
 export default class RemoteImage {
@@ -14,8 +16,13 @@ export default class RemoteImage {
      * @param index 在数组中的顺序
      */
     public localName(index: number): string {
-        const ext = path.extname(this._url);
-        return _.padStart('' + index, 4, '0') + ext;
+        const _url = url.parse(this._url, false);
+        if (_url.pathname) {
+            const ext = path.extname(_url.pathname);
+            return _.padStart('' + index, 4, '0') + ext;
+        } else {
+            throw new Error('image url pathname has problem');
+        }
     }
 
     public get url(): string {
