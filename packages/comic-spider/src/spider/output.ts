@@ -3,14 +3,7 @@ import fse from 'fs-extra';
 
 import RemoteImage from './RemoteImage';
 import {fetchImage} from './fetch';
-import {
-    logError,
-    logInfo,
-    logSuccess,
-    logWarning,
-    waitting,
-    truncateMiddle,
-} from '@someok/node-utils';
+import {logError, logSuccess, logWarning, truncateMiddle, waitting} from '@someok/node-utils';
 
 interface FetchImageResult {
     success: boolean;
@@ -25,7 +18,7 @@ function fetchImagePromise(
 ): Promise<FetchImageResult> {
     return new Promise(resolve => {
         const trunUrl = truncateMiddle(image.url);
-        logInfo(`fetch img: ${trunUrl} => ${name}`);
+        // logInfo(`fetch img: ${trunUrl} => ${name}`);
 
         return fetchImage(image.url, toDir, name)
             .then(({localImgSize, remoteImgSize}): void => {
