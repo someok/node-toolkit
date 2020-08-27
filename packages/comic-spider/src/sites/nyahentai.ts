@@ -24,6 +24,7 @@ async function fetchRemoteData(url: string): Promise<RemoteData> {
                 if (!url) throw new Error('[data-src] not exist');
 
                 url = url.replace('t.nyahentai.net', 'i.nyahentai.net');
+                url = url.replace('mt.404cdn.com', 'mi.404cdn.com');
                 url = url.replace('t.jpg', '.jpg');
                 url = url.replace('t.png', '.png');
                 return url;

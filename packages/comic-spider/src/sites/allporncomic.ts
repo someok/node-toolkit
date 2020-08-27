@@ -44,7 +44,7 @@ function fetchImagesByPage(pageUrl: string): Promise<PageImages> {
             const images = $('.reading-content')
                 .find('img')
                 .map((index, element): string => {
-                    let url = $(element).attr('data-src')?.trim();
+                    let url = $(element).attr('src')?.trim();
 
                     if (!url) throw new Error('[data-lazy-src] not exist');
 

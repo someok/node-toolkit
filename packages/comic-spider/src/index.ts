@@ -18,9 +18,10 @@ interface Sites {
 
 const sites: Sites = {
     site177pic: require('./sites/177pic').default,
+    _18comic: require('./sites/18comic').default,
     nyahentai: require('./sites/nyahentai').default,
     allporncomic: require('./sites/allporncomic').default,
-    siteDemo: require('./sites/demo').default,
+    // siteDemo: require('./sites/demo').default,
 };
 
 function initEnv(): boolean {
