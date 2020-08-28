@@ -12,7 +12,7 @@ interface EpubYaml {
 }
 
 /**
- * 从给定路径开始上溯查找 epub.yaml 文件，并返回其中的 saveTo 属性
+ * 从给定路径开始上溯查找 __epub.yaml 文件，并返回其中的 saveTo 属性
  */
 export function readClosestEpubYaml(fromPath: string): Result<EpubYaml> {
     const closestResult = closestFile(fromPath, EPUB_YAML);
@@ -24,8 +24,16 @@ export function readClosestEpubYaml(fromPath: string): Result<EpubYaml> {
 
     try {
         const buff = fs.readFileSync(yamlFile);
-        const json = yaml.safeLoad(buff.toString());
-        if (json.saveTo && !existDir(json.saveTo)) {
+        const json = yaml.safeLoad(buff.toString()) as Record<string, string>;
+        if (!json) {
+            return failure(`[${yamlFile}] 不是合法的 YAML 格式`);
+        }
+
+        if (!json.saveTo) {
+            return failure(`[${yamlFile}] 存在，但未定义正确的 [saveTo] 属性`);
+        }
+
+        if (!existDir(json.saveTo)) {
             fse.ensureDirSync(json.saveTo);
         }
         return success({saveTo: json.saveTo});

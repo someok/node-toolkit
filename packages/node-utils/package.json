@@ -29,10 +29,10 @@
     "node": ">= 8.16.0"
   },
   "dependencies": {
-    "archiver": "^4.0.1",
-    "chalk": "^4.0.0",
-    "dayjs": "^1.8.26",
-    "fs-extra": "^9.0.0",
+    "archiver": "^5.0.0",
+    "chalk": "^4.1.0",
+    "dayjs": "^1.8.34",
+    "fs-extra": "^9.0.1",
     "klaw-sync": "^6.0.0",
     "log-symbols": "^4.0.0",
     "stat-mode": "^1.0.0",

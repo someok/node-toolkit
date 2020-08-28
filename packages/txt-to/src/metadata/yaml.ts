@@ -17,7 +17,7 @@ export function existMetadataYaml(folder: string): boolean {
  */
 export function loadMetadataYaml(folder: string): Meta {
     const buffer: Buffer = fs.readFileSync(path.join(folder, METADATA_FOLDER, METADATA_YAML));
-    const metaJson = yaml.safeLoad(buffer.toString());
+    const metaJson = yaml.safeLoad(buffer.toString()) as Meta | null | undefined;
     const meta = Meta.fromJson(metaJson);
 
     if (meta.cover) {
