@@ -5,7 +5,7 @@ import boxen from 'boxen';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 
-import {readEnv} from '@someok/comic-spider/src/spider/envConfig';
+import {readEnv} from '@someok/comic-spider';
 import {logError, logInfo, logWarning} from '@someok/node-utils';
 import {fetchAlbum, fetchGroup} from './mn5-spider';
 
