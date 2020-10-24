@@ -6,6 +6,7 @@ import got, {Agents, OptionsOfTextResponseBody, Response, StreamOptions} from 'g
 import https from 'https';
 import tunnel from 'tunnel';
 import {getProxyEnv} from './envConfig';
+import {waitting} from '@someok/node-utils';
 
 const pipeline = promisify(stream.pipeline);
 
@@ -44,8 +45,27 @@ interface FetchOptions {
     options?: OptionsOfTextResponseBody;
 }
 
-interface FetchStreamOptions {
+export interface FetchStreamOptions {
     useAgent?: boolean;
+    /**
+     * 返回图片如果小于此值，可以认为是失败，需要重试
+     */
+    minSize?: number;
+
+    /**
+     * 请求失败后最大重试次数，不提供则默认值为 3
+     */
+    maxRetryTimes?: number;
+
+    /**
+     * 读取间隔，单位毫秒，默认为 0，表示无间隔
+     */
+    fetchGap?: number;
+    /**
+     * 用于在调用时定义 gap 值，例如返回个随机数，此参数的优先级高于 fetchGap
+     */
+    fetchGapFun?: () => number;
+    fetchGapCallback?: (sec: number) => void;
     options?: StreamOptions;
 }
 
@@ -93,15 +113,29 @@ export function fetchImage(
     title: string,
     fetchOptions: FetchStreamOptions = {}
 ): Promise<FetchImageResolve> {
+    const {fetchGap = 0, fetchGapFun, fetchGapCallback} = fetchOptions;
+
+    let gap = fetchGap;
+
+    if (fetchGapFun) {
+        gap = fetchGapFun();
+    }
+    if (gap > 0) {
+        return waitting(gap, fetchGapCallback).then(() =>
+            fetchImageInner(url, toDir, title, fetchOptions)
+        );
+    }
+    return fetchImageInner(url, toDir, title, fetchOptions);
+}
+
+function fetchImageInner(
+    url: string,
+    toDir: string,
+    title: string,
+    fetchOptions: FetchStreamOptions = {}
+): Promise<FetchImageResolve> {
     const {useAgent = true, options} = fetchOptions;
 
-    // const ext = path.extname(url);
-    // let newTitle: string;
-    // if (title.toLowerCase().endsWith(ext)) {
-    //     newTitle = title;
-    // } else {
-    //     newTitle = title + ext;
-    // }
     const imgFile = path.join(toDir, title);
 
     // 用于比较本地图片和远程图片大小是否一致
