@@ -2,6 +2,8 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import createMode from 'stat-mode';
+import klawSync from 'klaw-sync';
+import _ from 'lodash';
 
 export enum PathMode {
     // 文件夹且可写
@@ -84,4 +86,27 @@ export function fileName(file: string, includeExt = false): string {
  */
 export function createTempFolder(prefix: string): string {
     return fs.mkdtempSync(path.join(os.tmpdir(), prefix));
+}
+
+/**
+ * 返回给定文件夹下的所有文件（只返回一层，且不包括子文件夹）
+ *
+ * @param dir 目标文件夹
+ * @param ignoreExt 忽略的文件格式，扩展名列表，内容需要小写
+ */
+export function childFiles(dir: string, ignoreExt: string[] = []): ReadonlyArray<klawSync.Item> {
+    if (!existDir(dir)) {
+        return [];
+    }
+
+    function filter(item: klawSync.Item): boolean {
+        const ext = path.extname(item.path);
+
+        if (_.isEmpty(ignoreExt)) {
+            return true;
+        }
+        return !ignoreExt.includes(ext.toLowerCase());
+    }
+
+    return klawSync(dir, {nodir: true, filter});
 }
