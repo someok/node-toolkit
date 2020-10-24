@@ -1,6 +1,6 @@
 {
   "name": "@someok/comic-spider",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Comic Spider",
   "bin": {
     "comic-spider": "./dist/index.js"
