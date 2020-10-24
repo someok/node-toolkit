@@ -152,6 +152,11 @@ function fetchAlbumPages(url: string): Promise<AlbumPages> {
             })
             .get();
 
+        // 如果是单页，则没有分页行
+        if (_.isEmpty(urls)) {
+            urls.push(url);
+        }
+
         return {title, urls};
     });
 }

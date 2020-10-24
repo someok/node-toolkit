@@ -50,11 +50,11 @@ function fetchPrompts() {
     const choiceDefine: Choice = {
         album: {
             title: '个人写真集',
-            re: /^https:\/\/www.mn5.cc\/[\w-_]+\/[\w-_]+.html$/,
+            re: /^https:\/\/www.mn5.cc\/[\w\d-_]+\/[\w\d-_]+.html$/,
         },
         group: {
             title: '写真集大类',
-            re: /^https:\/\/www.mn5.cc\/[\w-_]+\/?$/,
+            re: /^https:\/\/www.mn5.cc\/[\w\d-_]+\/?$/,
         },
     };
 
@@ -91,6 +91,12 @@ function fetchPrompts() {
         },
         {
             type: 'confirm',
+            name: 'overwrite',
+            message: '是否覆盖下载?',
+            default: false,
+        },
+        {
+            type: 'confirm',
             name: 'confirm',
             message: '确定下载?',
             default: true,
@@ -103,7 +109,7 @@ function fetchPrompts() {
         if (!answers.confirm) {
             logWarning('放弃下载!');
         } else {
-            const {url, type} = answers;
+            const {url, type, overwrite} = answers;
             const rootDir = process.env.MN5_SPIDER_DATA_DIR;
 
             if (!rootDir) {
@@ -113,9 +119,9 @@ function fetchPrompts() {
 
             let promise;
             if (type === 'album') {
-                promise = fetchAlbum(rootDir, url);
+                promise = fetchAlbum(rootDir, url, overwrite);
             } else {
-                promise = fetchGroup(rootDir, url);
+                promise = fetchGroup(rootDir, url, overwrite);
             }
             promise
                 .catch(e => {
