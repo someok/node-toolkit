@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.7.0...@someok/comic-spider@1.8.0) (2020-10-24)
+
+### Features
+
+-   优化图片文件命名，支持过滤掉图片 url 后的多余参数 ([e7c012c](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/e7c012c))
+-   升级所有依赖组件 ([614cc08](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/614cc08))
+-   去掉抓取时多余的输出 ([4c753e5](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/4c753e5))
+-   增加 18comic 网站抓取 ([03ec96e](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/03ec96e))
+-   增加标题按照中括号分隔方法 ([9cdca9d](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/9cdca9d))
+-   **comic-spider:** 优化抓取功能的重试处理 ([3349004](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/3349004))
+
 # [1.7.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.6.0...@someok/comic-spider@1.7.0) (2020-06-10)
 
 ### Bug Fixes

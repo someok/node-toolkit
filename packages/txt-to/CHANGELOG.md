@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/compare/@someok/txt-to@1.6.3...@someok/txt-to@1.7.0) (2020-10-24)
+
+### Features
+
+-   升级所有依赖组件 ([614cc08](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/commit/614cc08))
+
 ## [1.6.3](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/compare/@someok/txt-to@1.6.2...@someok/txt-to@1.6.3) (2020-06-10)
 
 **Note:** Version bump only for package @someok/txt-to
