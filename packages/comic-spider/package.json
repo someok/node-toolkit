@@ -5,7 +5,7 @@
   "bin": {
     "comic-spider": "./dist/index.js"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/main.js",
   "scripts": {
     "clean": "rimraf dist coverage",
     "test": "jest",

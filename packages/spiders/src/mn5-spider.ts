@@ -9,15 +9,15 @@ import {promisify} from 'util';
 import _ from 'lodash';
 import path from 'path';
 import fse from 'fs-extra';
-import RemoteImage from '@someok/comic-spider/src/spider/RemoteImage';
-import {fetchAndOutputImages} from '@someok/comic-spider/src/spider/output';
-import {writeUrl2ReadmeTxt} from '@someok/comic-spider/src/spider/readme';
+import {fetchAndOutputImages, RemoteImage, writeUrl2ReadmeTxt} from '@someok/comic-spider';
+
 import {childFiles, logError, logInfo} from '@someok/node-utils';
 
 const pipeline = promisify(stream.pipeline);
 
 const URL_ROOT = 'https://www.mn5.cc';
 const PAGE_SIZE = 20;
+
 /**
  * 读取网页并将其从 GB2312 转换成 utf8
  *
