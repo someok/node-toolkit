@@ -32,7 +32,7 @@ interface PImageProps {
     getContext: (arg: string) => PImageContext;
 }
 
-export function registerFont(): {load: (callback: Function) => void} {
+export function registerFont(): {load: (callback: () => void) => void} {
     return PImage.registerFont(FONT_PATH, FONT_FAMILY);
 }
 

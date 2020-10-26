@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import fse from 'fs-extra';
 
 import RemoteImage from './RemoteImage';
 import {fetchImage, FetchStreamOptions} from './fetch';
