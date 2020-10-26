@@ -1,6 +1,6 @@
 {
   "name": "@someok/txt-to",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "convert txt to epub, pdf, html etc",
   "private": false,
   "bin": {

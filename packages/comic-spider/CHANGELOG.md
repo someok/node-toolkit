@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.8.1...@someok/comic-spider@1.9.0) (2020-10-26)
+
+### Bug Fixes
+
+-   修正 @someok/comic-spider 导入方法 ([39f8596](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/39f8596))
+-   修正一些语法错误 ([9f3aaa5](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/9f3aaa5))
+-   删除无用的 export ([92e38ae](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/92e38ae))
+
+### Features
+
+-   将 spiders 删除，mn5 抓取部分转移到 comic-spider 中 ([53a0875](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/53a0875))
+
 ## [1.8.2](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.8.1...@someok/comic-spider@1.8.2) (2020-10-26)
 
 ### Bug Fixes
