@@ -110,3 +110,15 @@ export function childFiles(dir: string, ignoreExt: string[] = []): ReadonlyArray
 
     return klawSync(dir, {nodir: true, filter});
 }
+
+/**
+ * 返回给定文件夹下的子目录（只返回一层，且不包括子文件夹）
+ * @param dir
+ */
+export function childDirs(dir: string): ReadonlyArray<klawSync.Item> {
+    if (!existDir(dir)) {
+        return [];
+    }
+
+    return klawSync(dir, {nofile: true, depthLimit: 1});
+}

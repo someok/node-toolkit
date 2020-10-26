@@ -22,6 +22,14 @@ export interface SiteData {
     fetchAlong?: (rootDir: string, url: string, overwrite: boolean) => Promise<boolean>;
 
     /**
+     * 按照 readme.txt 中的地址更新
+     *
+     * @param rootDir 存储的根路径
+     * @param urls 从 readme.txt 中读取的 url 列表
+     */
+    updateAction?: (rootDir: string, urls: string[]) => Promise<boolean>;
+
+    /**
      * 站点名称
      */
     siteName: string;

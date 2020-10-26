@@ -3,7 +3,8 @@
   "version": "1.9.0",
   "description": "Comic Spider",
   "bin": {
-    "comic-spider": "./dist/index.js"
+    "comic-spider": "./dist/index.js",
+    "comic-spider-update": "./dist/updateChecker.js"
   },
   "main": "./dist/index.js",
   "scripts": {
