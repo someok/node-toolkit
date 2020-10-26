@@ -1,6 +1,7 @@
 //
 // 抓取 https://www.mn5.cc/ 美图
 //
+
 import iconv from 'iconv-lite';
 import got from 'got';
 import cheerio from 'cheerio';
@@ -9,9 +10,15 @@ import {promisify} from 'util';
 import _ from 'lodash';
 import path from 'path';
 import fse from 'fs-extra';
-import {fetchAndOutputImages, RemoteImage, writeUrl2ReadmeTxt} from '@someok/comic-spider';
 
-import {childFiles, logError, logInfo} from '@someok/node-utils';
+import {SiteData} from './SiteData';
+import RemoteData from '../spider/RemoteData';
+import RemoteImage from '../spider/RemoteImage';
+import {fetchAndOutputImages} from '../spider/output';
+import {writeUrl2ReadmeTxt} from '../spider/readme';
+import {isAlbumExist} from '../utils/fileUtils';
+
+import {logError, logInfo} from '@someok/node-utils';
 
 const pipeline = promisify(stream.pipeline);
 
@@ -222,27 +229,13 @@ async function fetchAlbumMeta(url: string): Promise<Album> {
 }
 
 /**
- * 给定文件夹是否已经下载过了
- *
- * @param toDir 目标路径
- * @param images 待下载图片列表
- */
-function isAlbumExist(toDir: string, images: RemoteImage[]) {
-    const files = childFiles(toDir, ['.txt']);
-    if (_.isEmpty(files)) return false;
-    if (_.isEmpty(images)) return true;
-
-    return files.length === images.length;
-}
-
-/**
  * 下载单个写真集中的所有图片。
  *
  * @param rootDir 目标路径
  * @param url 写真集地址
  * @param overwrite 是否覆盖
  */
-export async function fetchAlbum(rootDir: string, url: string, overwrite = true): Promise<boolean> {
+async function fetchAlbum(rootDir: string, url: string, overwrite = true): Promise<boolean> {
     try {
         return fetchAlbumInner(rootDir, url, overwrite);
     } catch (e) {
@@ -287,7 +280,7 @@ async function fetchAlbumInner(rootDir: string, url: string, overwrite = true): 
  * @param url
  * @param overwrite
  */
-export async function fetchGroup(rootDir: string, url: string, overwrite = true): Promise<boolean> {
+async function fetchGroup(rootDir: string, url: string, overwrite = true): Promise<boolean> {
     const {urls} = await fetchAlbumGroupPages(url);
     const albumPages = await fetchGroupAlbums(urls);
 
@@ -312,14 +305,27 @@ export async function fetchGroup(rootDir: string, url: string, overwrite = true)
     return p;
 }
 
-// fetchGroup('/Users/Shared/.ohmygod/已整理/mn5.cc', 'https://www.mn5.cc/tuigirl/', false).catch(e => {
-//     console.log(e);
-// });
+/**
+ * 此方法无用，只是个占位符
+ *
+ * @param url
+ */
+function fetchRemoteData(url: string): Promise<RemoteData> {
+    console.log(url);
+    const images: RemoteImage[] = [];
+    return Promise.resolve(new RemoteData('demo', images));
+}
 
-// fetchAlbum(
-//     '/Users/Shared/.ohmygod/已整理/mn5.cc',
-//     'https://www.mn5.cc/Aiyouwu/Aiyouwu15495.html',
-//     true
-// ).catch(e => {
-//     console.log(e);
-// });
+export const mn5AlbumSiteData: SiteData = {
+    fetchRemoteData,
+    fetchAlong: fetchAlbum,
+    siteName: '美女网写真集',
+    urlCheckRegex: /^https:\/\/www.mn5.cc\/[\w\d-_]+\/[\w\d-_]+.html$/,
+};
+
+export const mn5GroupSiteData: SiteData = {
+    fetchRemoteData,
+    fetchAlong: fetchGroup,
+    siteName: '美女网写真大类',
+    urlCheckRegex: /^https:\/\/www.mn5.cc\/[\w\d-_]+\/?$/,
+};

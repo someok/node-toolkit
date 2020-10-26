@@ -118,8 +118,6 @@ export function fetchAndOutputImages(
         return Promise.reject('未能读取到任何图片文件');
     }
 
-    fse.ensureDirSync(toDir);
-
     const imagePromises = images.map(
         (image, index): Promise<FetchImageResult> => {
             const name = image.localName(index + 1);
