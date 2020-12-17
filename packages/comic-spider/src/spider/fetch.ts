@@ -7,6 +7,7 @@ import https from 'https';
 import tunnel from 'tunnel';
 import {getProxyEnv} from './envConfig';
 import {waitting} from '@someok/node-utils';
+import RemoteImage from './RemoteImage';
 
 const pipeline = promisify(stream.pipeline);
 
@@ -45,12 +46,34 @@ interface FetchOptions {
     options?: OptionsOfTextResponseBody;
 }
 
+export interface FetchImageResult {
+    success: boolean;
+    image: RemoteImage;
+    name: string;
+    // 重试次数
+    retryTimes?: number | 0;
+    // 当重试超过最大次数后，放弃重试
+    abandonRetry?: boolean;
+}
+
 export interface FetchStreamOptions {
     useAgent?: boolean;
     /**
      * 返回图片如果小于此值，可以认为是失败，需要重试
      */
     minSize?: number;
+
+    /**
+     * 读取并存储图片之后的处理方法，默认是比较本地大小和远程大小
+     */
+    thenFetchImage?: (
+        data: FetchImageResolve,
+        image: RemoteImage,
+        name: string,
+        retryTimes: number,
+        trunUrl: string,
+        fetchOptions: FetchStreamOptions
+    ) => (resolve: (value: FetchImageResult | PromiseLike<FetchImageResult>) => void) => void;
 
     /**
      * 请求失败后最大重试次数，不提供则默认值为 3
@@ -91,7 +114,7 @@ export function fetch(url: string, fetchOptions: FetchOptions = {}): Promise<Fet
     );
 }
 
-interface FetchImageResolve {
+export interface FetchImageResolve {
     url: string;
     imgFile: string;
     filename: string;

@@ -67,6 +67,6 @@ function fetchRemoteData(url: string): Promise<RemoteData> {
 const siteData: SiteData = {
     fetchRemoteData,
     siteName: '177pic.info',
-    urlCheckRegex: /http:\/\/www.177pic.info\/html\/\d{4}\/\d{2}\/\d+\.html/i,
+    urlCheckRegex: /http:\/\/www.177pic.info\/html\/\d{4}\/\d{2}\/\d+\.html$/i,
 };
 export default siteData;

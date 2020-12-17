@@ -2,7 +2,7 @@ import nock from 'nock';
 import fse from 'fs-extra';
 import path from 'path';
 
-import {fetchImagesByPage, fetchPages} from '../18comic';
+import {fetchImagesByPage, fetchPages, adjustImage} from '../18comic';
 
 beforeEach(() => {
     nock.cleanAll();
@@ -62,5 +62,14 @@ test('18comic fetch images url', async () => {
     const data = await fetchImagesByPage(url);
     // console.log(data);
     expect(data.pageUrl).toBe(url);
-    expect(data.images.length).toBe(25);
+    expect(data.images.length).toBe(27);
+});
+
+test.skip('18comic rearrage', async () => {
+    jest.setTimeout(10000);
+
+    await adjustImage(
+        '/Users/wjx/temp/comic-spider/test/0003.jpg',
+        '/Users/wjx/temp/comic-spider/test/dest.jpg'
+    );
 });

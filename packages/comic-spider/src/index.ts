@@ -38,8 +38,12 @@ async function fetchData(site: string, url: string, overwrite: boolean): Promise
     const dataDir = getDataDir(site);
 
     if (fetchAlong) {
-        await fetchAlong(dataDir, url, overwrite);
-        return;
+        try {
+            await fetchAlong(dataDir, url, overwrite);
+            return;
+        } catch (e) {
+            logError(e.message);
+        }
     }
 
     try {

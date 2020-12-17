@@ -1,17 +1,39 @@
 import _ from 'lodash';
 
 import RemoteImage from './RemoteImage';
-import {fetchImage, FetchStreamOptions} from './fetch';
+import {fetchImage, FetchStreamOptions, FetchImageResolve, FetchImageResult} from './fetch';
 import {logError, logSuccess, logWarning, truncateMiddle, waitting} from '@someok/node-utils';
 
-interface FetchImageResult {
-    success: boolean;
-    image: RemoteImage;
-    name: string;
-    // 重试次数
-    retryTimes?: number | 0;
-    // 当重试超过最大次数后，放弃重试
-    abandonRetry?: boolean;
+function defaultThenFetchImage(
+    data: FetchImageResolve,
+    image: RemoteImage,
+    name: string,
+    retryTimes = 0,
+    trunUrl: string,
+    fetchOptions: FetchStreamOptions = {}
+) {
+    return (resolve: (value: FetchImageResult) => void): void => {
+        const {localImgSize, remoteImgSize} = data;
+
+        if (localImgSize === remoteImgSize) {
+            const {minSize = 0} = fetchOptions;
+
+            if (localImgSize < minSize) {
+                logWarning(
+                    `failure: [${name}: ${image.url}] size too small, local: ${localImgSize} < ${minSize}`
+                );
+                return resolve({success: false, image, name, retryTimes});
+            }
+
+            logSuccess(`save [${trunUrl}] => [${name}]`);
+            return resolve({success: true, image, name, retryTimes});
+        } else {
+            logWarning(
+                `failure: [${name}: ${image.url}] size not match, local: ${localImgSize}, remote: ${remoteImgSize}`
+            );
+            return resolve({success: false, image, name, retryTimes});
+        }
+    };
 }
 
 function fetchImagePromise(
@@ -24,14 +46,25 @@ function fetchImagePromise(
     return new Promise(resolve => {
         const trunUrl = truncateMiddle(image.url);
         // logInfo(`fetch img: ${trunUrl} => ${name}`);
-        const {maxRetryTimes = 3} = fetchOptions;
+        const {maxRetryTimes = 3, thenFetchImage = defaultThenFetchImage} = fetchOptions;
         if (retryTimes >= maxRetryTimes) {
             logWarning(`failure: [${name}: ${image.url}] 读取失败，放弃重试！`);
             return resolve({success: true, image, name, retryTimes, abandonRetry: true});
         }
 
-        return fetchImage(image.url, toDir, name, fetchOptions)
-            .then(({localImgSize, remoteImgSize}): void => {
+        return (
+            fetchImage(image.url, toDir, name, fetchOptions)
+                .then(imageResolve => {
+                    return thenFetchImage(
+                        imageResolve,
+                        image,
+                        name,
+                        retryTimes,
+                        trunUrl,
+                        fetchOptions
+                    )(resolve);
+                })
+                /*.then(({localImgSize, remoteImgSize}): void => {
                 if (localImgSize === remoteImgSize) {
                     const {minSize = 0} = fetchOptions;
 
@@ -50,11 +83,12 @@ function fetchImagePromise(
                     );
                     return resolve({success: false, image, name, retryTimes});
                 }
-            })
-            .catch((err): void => {
-                logError(`err: [${image.url}]: ${err.message}`);
-                return resolve({success: false, image, name, retryTimes});
-            });
+            })*/
+                .catch((err): void => {
+                    logError(`err: [${image.url}]: ${err.message}`);
+                    return resolve({success: false, image, name, retryTimes});
+                })
+        );
     });
 }
 
