@@ -117,7 +117,9 @@ function write2File(toFile: string, data: string | boolean): void {
         return;
     }
 
-    fs.writeFileSync(toFile, data);
+    if (typeof data === 'string') {
+        fs.writeFileSync(toFile, data);
+    }
 }
 
 export function generate(toDir: string, meta: Meta, txtNodes: TxtNode[]): void {
