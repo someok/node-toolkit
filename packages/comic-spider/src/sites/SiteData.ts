@@ -30,6 +30,13 @@ export interface SiteData {
     updateAction?: (rootDir: string, urls: string[]) => Promise<boolean>;
 
     /**
+     * 根据 readme 中读取的内容判断是否符合更新要求
+     *
+     * @param data readme 中的字符串
+     */
+    updateFilter?: (data: string) => boolean;
+
+    /**
      * 站点名称
      */
     siteName: string;

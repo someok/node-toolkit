@@ -4,7 +4,7 @@
 
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import {logWarning} from '@someok/node-utils';
+import {logInfo, logWarning} from '@someok/node-utils';
 import {SiteData} from './sites/SiteData';
 import {getDataDir, initEnv} from './common';
 import {getAllReadmeContent} from './spider/readme';
@@ -53,12 +53,11 @@ function updatePrompts(): void {
             logWarning('放弃!');
         } else {
             const dataDir = getDataDir(site);
+            logInfo(`data dir: ${dataDir}`);
 
-            const urls = getAllReadmeContent('/Users/Shared/.ohmygod/已整理/Comic/西漫', data =>
-                data.includes('allporncomic.com')
-            );
+            const {updateAction, updateFilter = () => true} = sites[site];
+            const urls = getAllReadmeContent(dataDir, updateFilter);
 
-            const {updateAction} = sites[site];
             if (typeof updateAction === 'function') {
                 updateAction(dataDir, urls);
             } else {

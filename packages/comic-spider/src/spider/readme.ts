@@ -1,8 +1,7 @@
 import path from 'path';
 import fs from 'fs';
-import fse from 'fs-extra';
 import klawSync from 'klaw-sync';
-import {logWarning, existDir} from '@someok/node-utils';
+import {existDir, logWarning} from '@someok/node-utils';
 import _ from 'lodash';
 
 /**

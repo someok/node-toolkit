@@ -87,8 +87,16 @@ async function fetchPageImages(
         .map(
             (index, element): RemoteImage => {
                 let url = $(element).attr('src')?.trim();
+                if (!url) {
+                    url = $(element).attr('data-src')?.trim();
+                }
+                if (!url) {
+                    url = $(element).attr('data-lazy-src')?.trim();
+                }
 
-                if (!url) throw new Error('[data-lazy-src] not exist');
+                if (!url) {
+                    throw new Error('[src, data-src, data-lazy-src] not exist');
+                }
 
                 const pos = url.indexOf('?');
                 if (pos !== -1) {
@@ -151,6 +159,10 @@ async function updateAction(rootDir: string, urls: string[]): Promise<boolean> {
     return p;
 }
 
+function updateFilter(data: string): boolean {
+    return data.includes('allporncomic.com');
+}
+
 /**
  * 此方法无用，只是个占位符
  *
@@ -165,6 +177,7 @@ const siteData: SiteData = {
     fetchRemoteData,
     fetchAlong: fetchAlbum,
     updateAction,
+    updateFilter,
     siteName: 'AllPornComic',
     urlCheckRegex: /^https:\/\/allporncomic\.com\/porncomic\/[\w\-]+\/?$/i,
 };
