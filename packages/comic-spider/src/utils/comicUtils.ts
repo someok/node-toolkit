@@ -1,8 +1,9 @@
-import {splitByBracket} from './stringUtils';
+import {splitByBracket, escapeWindowsFilename} from './stringUtils';
 
 const IGNORE_BRACKET = [
     '汉化',
     '漢化',
+    '掃圖',
     '製作',
     '出品',
     '翻訳',
@@ -40,5 +41,8 @@ export function parseTitle(title: string): string {
         }
     }
 
-    return ret.trim();
+    // Windows 文件名长度限制
+    ret = ret.trim().substr(0, 255);
+
+    return escapeWindowsFilename(ret);
 }

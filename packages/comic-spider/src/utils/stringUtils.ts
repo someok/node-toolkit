@@ -55,3 +55,14 @@ export function splitByBracket(str: string): BracketString[] {
 
     return newArr;
 }
+
+/**
+ * 去除文件名中 Windows 不支持的字符。
+ *
+ * @param filename 文件名
+ */
+export function escapeWindowsFilename(filename: string): string {
+    if (!filename) return '';
+
+    return filename.replace(/[\\\/:*?"<>|!]/g, '');
+}
