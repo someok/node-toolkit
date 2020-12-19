@@ -171,13 +171,7 @@ async function fetchAlong(dataDir: string, url: string, overwrite: boolean): Pro
         const minSize = 10240;
 
         await fetchAndOutputImages(toDir, data.images, {
-            thenFetchImage: (
-                {localImgSize, imgFile, filename},
-                image,
-                name,
-                retryTimes,
-                trunUrl
-            ) => {
+            thenFetchImage: ({localImgSize, imgFile}, image, name, retryTimes, trunUrl) => {
                 return resolve => {
                     if (localImgSize < minSize) {
                         logWarning(
