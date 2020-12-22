@@ -1,13 +1,13 @@
 import cheerio from 'cheerio';
+import path from 'path';
+import _ from 'lodash';
+import {logInfo, logSuccess, logWarning} from '@someok/node-utils';
 
 import {SiteData} from './SiteData';
 import {fetch} from '../spider/fetch';
 import RemoteData from '../spider/RemoteData';
 import {parseTitle} from '../utils/comicUtils';
 import {commonFetchRemoteData, PageImages, Pages} from './multiPageFetch';
-import path from 'path';
-import _ from 'lodash';
-import {logInfo, logSuccess, logWarning} from '@someok/node-utils';
 import {isAlbumExist} from '../utils/fileUtils';
 import fse from 'fs-extra';
 import {writeUrl2ReadmeTxt} from '../spider/readme';

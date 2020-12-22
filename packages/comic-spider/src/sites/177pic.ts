@@ -3,6 +3,7 @@ import {fetch} from '../spider/fetch';
 import RemoteData from '../spider/RemoteData';
 import {SiteData} from './SiteData';
 import {commonFetchRemoteData, PageImages, Pages} from './multiPageFetch';
+import {parseTitle} from '../utils/comicUtils';
 
 function fetchPages(url: string): Promise<Pages> {
     return fetch(url).then(
@@ -10,7 +11,8 @@ function fetchPages(url: string): Promise<Pages> {
             const $ = cheerio.load(body);
 
             let title = $('h1.entry-title').text();
-            title = title.replace('[中文]', '');
+            // title = title.replace('[中文]', '');
+            title = parseTitle(title);
 
             const hrefs = $('.page-links')
                 .find('a')
