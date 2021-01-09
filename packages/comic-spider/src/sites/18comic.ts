@@ -56,19 +56,24 @@ export function fetchImagesByPage(pageUrl: string): Promise<PageImages> {
     return fetch(pageUrl).then(
         ({body}): PageImages => {
             const $ = cheerio.load(body);
-            let images = $('.panel-body')
+            const images = $('.panel-body')
                 .find('img')
                 .map((index, element): string => {
                     const url = $(element).attr('data-original');
-                    if (url) return url;
+
+                    if (url && url.startsWith('/')) {
+                        return '';
+                    }
+                    if (url) {
+                        return url;
+                    }
 
                     // url = $(element).attr('src');
                     // throw new Error('[src] not exist');
                     return '';
                 })
-                .get();
-
-            images = images.filter(url => url !== '');
+                .get()
+                .filter(Boolean);
 
             return {
                 pageUrl,
