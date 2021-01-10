@@ -22,7 +22,7 @@ import {logError, logInfo} from '@someok/node-utils';
 
 const pipeline = promisify(stream.pipeline);
 
-const URL_ROOT = 'https://www.mn5.cc';
+const URL_ROOT = 'https://www.jpxgmn.com';
 const PAGE_SIZE = 20;
 
 /**
@@ -320,12 +320,12 @@ export const mn5AlbumSiteData: SiteData = {
     fetchRemoteData,
     fetchAlong: fetchAlbum,
     siteName: '美女网写真集',
-    urlCheckRegex: /^https:\/\/www.mn5.cc\/[\w\d-_]+\/[\w\d-_]+.html$/,
+    urlCheckRegex: /^https:\/\/www.jpxgmn.com\/[\w\d-_]+\/[\w\d-_]+.html$/,
 };
 
 export const mn5GroupSiteData: SiteData = {
     fetchRemoteData,
     fetchAlong: fetchGroup,
     siteName: '美女网写真大类',
-    urlCheckRegex: /^https:\/\/www.mn5.cc\/[\w\d-_]+\/?$/,
+    urlCheckRegex: /^https:\/\/www.jpxgmn.com\/[\w\d-_]+\/?$/,
 };
