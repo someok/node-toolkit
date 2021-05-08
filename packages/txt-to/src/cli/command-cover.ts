@@ -31,21 +31,12 @@ export function customCommand(program: CommanderStatic): void {
             console.log('');
             customHelp();
         })
-        .action(function (...args: Option[]): void {
+        .action(function (options: Option): void {
             // 将参数转换为数组，并提取最后一个作为 options（其实就是 Command 对象）
             // const args = actionArgs.length === 1 ? [actionArgs[0]] : Array.apply(null, actionArgs);
 
-            let options: Option | undefined;
-            if (_.isArray(args) && !_.isEmpty(args)) {
-                const opt = args[args.length - 1];
-
-                if (opt.txt) {
-                    options = {txt: opt.txt, batch: opt.batch, overwrite: opt.overwrite};
-                }
-            }
-
             // 未提供 txt 参数时输出错误信息和当前命令的帮助信息
-            if (!options) {
+            if (_.isEmpty(options) || !options.txt) {
                 console.log();
                 logError('[-t, --txt] 参数不能为空');
                 console.log();
