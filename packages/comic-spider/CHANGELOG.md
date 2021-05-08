@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.9.0...@someok/comic-spider@1.10.0) (2021-05-08)
+
+### Bug Fixes
+
+-   修正 18comic 使其忽略不合规的网址 ([79c8064](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/79c80647897c0754cc486e35720df02a6e7a8006))
+-   修正 18comic 抓取 bug ([da047e7](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/da047e70dbf85a9cfc67168514ad3f223420ad37))
+-   修正 mn5 抓取地址 ([00afe98](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/00afe98d644867f6675c82b884882335d0b6f551))
+
+### Features
+
+-   优化字符串中括号解析，支持中括号、小括号，并支持不完整匹配的括号 ([012b820](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/012b82016ac87e6350833f23a31bcad3398aeeba))
+-   优化更新命令 ([8fc605d](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/8fc605de60afcdc0ea4e603225627f3efa39d45c))
+-   使用新的文件名解析 ([0fe555a](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/0fe555a1d2856afb8ad73bc307c4746ab9e942ff))
+-   升级所有依赖组件到最新版，并修正因升级出错的代码 ([4874875](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/487487507aebd662309d1fefc47e8a78f26b1857))
+-   升级所有组件到最新版 ([29be72a](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/29be72a210e96925557bb3e8d1dacfd2d511ce47))
+-   增加 comic-spider-update 用来批量更新部分支持的网站 ([614d16c](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/614d16c5390c0bc820010d6a796383f0d7e06d50))
+-   文件名增加 Windows 非法字符过滤 ([3ce6549](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/3ce65497fe4b82e4c036f6439eda8133314d9ab3))
+-   根据 eslint 提示去除无效代码 ([8d555b6](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/commit/8d555b6f69cdf347590a801a702e6faab463b160))
+
 # [1.9.0](https://github.com/someok/node-toolkit/tree/master/packages/comic-spider/compare/@someok/comic-spider@1.8.1...@someok/comic-spider@1.9.0) (2020-10-26)
 
 ### Bug Fixes

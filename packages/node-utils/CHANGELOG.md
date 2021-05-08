@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/someok/node-toolkit/tree/master/packages/node-utils/compare/@someok/node-utils@1.4.0...@someok/node-utils@1.5.0) (2021-05-08)
+
+### Features
+
+-   升级所有依赖组件到最新版，并修正因升级出错的代码 ([4874875](https://github.com/someok/node-toolkit/tree/master/packages/node-utils/commit/487487507aebd662309d1fefc47e8a78f26b1857))
+-   升级所有组件到最新版 ([29be72a](https://github.com/someok/node-toolkit/tree/master/packages/node-utils/commit/29be72a210e96925557bb3e8d1dacfd2d511ce47))
+-   增加 comic-spider-update 用来批量更新部分支持的网站 ([614d16c](https://github.com/someok/node-toolkit/tree/master/packages/node-utils/commit/614d16c5390c0bc820010d6a796383f0d7e06d50))
+
 # [1.4.0](https://github.com/someok/node-toolkit/tree/master/packages/node-utils/compare/@someok/node-utils@1.3.0...@someok/node-utils@1.4.0) (2020-10-24)
 
 ### Features

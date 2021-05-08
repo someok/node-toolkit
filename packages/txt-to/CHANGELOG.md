@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/compare/@someok/txt-to@1.7.2...@someok/txt-to@1.8.0) (2021-05-08)
+
+### Features
+
+-   升级所有依赖组件到最新版，并修正因升级出错的代码 ([4874875](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/commit/487487507aebd662309d1fefc47e8a78f26b1857))
+-   升级所有组件到最新版 ([29be72a](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/commit/29be72a210e96925557bb3e8d1dacfd2d511ce47))
+
 ## [1.7.2](https://github.com/someok/node-toolkit/tree/master/packages/txt-to/compare/@someok/txt-to@1.7.0...@someok/txt-to@1.7.2) (2020-10-26)
 
 ### Bug Fixes
