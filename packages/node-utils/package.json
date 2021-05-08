@@ -26,15 +26,15 @@
   "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/node-utils#readme",
   "repository": "https://github.com/someok/node-toolkit/tree/master/packages/node-utils",
   "engines": {
-    "node": ">= 8.16.0"
+    "node": ">= 12"
   },
   "dependencies": {
-    "archiver": "5.1.0",
-    "chalk": "4.1.0",
-    "dayjs": "^1.9.7",
-    "fs-extra": "9.0.1",
+    "archiver": "5.3.0",
+    "chalk": "4.1.1",
+    "dayjs": "1.10.4",
+    "fs-extra": "10.0.0",
     "klaw-sync": "6.0.0",
-    "log-symbols": "4.0.0",
+    "log-symbols": "5.0.0",
     "stat-mode": "1.0.0",
     "yauzl": "2.10.0"
   },

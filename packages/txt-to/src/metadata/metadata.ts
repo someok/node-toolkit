@@ -49,7 +49,7 @@ export function initMetadata(
     if (!fs.existsSync(metadataYaml)) {
         logMsg && logInfo(`初始化 [${METADATA_YAML}]`);
         const json = meta.toJson();
-        const metaStr = yaml.safeDump(json);
+        const metaStr = yaml.dump(json);
         try {
             fs.writeFileSync(metadataYaml, metaStr);
 

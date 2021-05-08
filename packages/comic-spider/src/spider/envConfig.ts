@@ -29,7 +29,7 @@ export function readEnv(dotenvPath = '~/.comic-spider/env'): dotenv.DotenvParseO
 
             const boxenOptions: boxen.Options = {
                 padding: {left: 6, right: 6, top: 1, bottom: 1},
-                borderStyle: boxen.BorderStyle.DoubleSingle,
+                borderStyle: 'doubleSingle',
                 borderColor: 'redBright',
             };
             console.log(boxen(chalk.red(msg), boxenOptions));

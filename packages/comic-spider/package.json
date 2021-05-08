@@ -28,26 +28,26 @@
   "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/comic-spider#readme",
   "repository": "https://github.com/someok/node-toolkit/tree/master/packages/comic-spider",
   "engines": {
-    "node": ">= 10.19.0"
+    "node": ">= 12"
   },
   "dependencies": {
     "@someok/node-utils": "^1.4.0",
-    "boxen": "^4.2.0",
-    "chalk": "^4.1.0",
-    "cheerio": "^1.0.0-rc.3",
-    "dotenv": "^8.2.0",
-    "fs-extra": "^9.0.1",
-    "got": "11.8.1",
+    "boxen": "^5.0.1",
+    "chalk": "^4.1.1",
+    "cheerio": "^1.0.0-rc.9",
+    "dotenv": "^9.0.0",
+    "fs-extra": "^10.0.0",
+    "got": "11.8.2",
     "iconv-lite": "0.6.2",
-    "inquirer": "7.3.3",
+    "inquirer": "8.0.0",
     "jimp": "^0.16.1",
     "klaw-sync": "6.0.0",
-    "lodash": "4.17.20",
-    "properties-reader": "^2.1.1",
+    "lodash": "4.17.21",
+    "properties-reader": "^2.2.0",
     "tunnel": "^0.0.6"
   },
   "devDependencies": {
-    "@types/properties-reader": "^0.0.2"
+    "@types/properties-reader": "^2.1.0"
   },
   "files": [
     "dist/"

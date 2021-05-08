@@ -31,7 +31,7 @@ test('initMetadata', async (): Promise<void> => {
     expect(fs.existsSync(metadataYaml)).toBeTruthy();
 
     // 读取 yaml 文件
-    const metadataJson = yaml.safeLoad(fs.readFileSync(metadataYaml).toString());
+    const metadataJson = yaml.load(fs.readFileSync(metadataYaml).toString());
     // console.log(metadataJson);
     expect(metadataJson).toEqual(meta.toJson());
 

@@ -1,4 +1,4 @@
-import PImage from 'pureimage';
+import * as PImage from 'pureimage';
 
 import {createCoverImage, registerFont, wrapText} from '../coverImgUtils';
 import Meta from '../../metadata/Meta';

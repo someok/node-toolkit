@@ -44,7 +44,7 @@ export function regenerateCover(dir: string, overwrite = true): Promise<boolean>
                 const metaFile = path.join(metaDir, METADATA_YAML);
                 logInfo(`保存 [${metaFile}]`);
                 const json = meta.toJson();
-                const metaStr = yaml.safeDump(json);
+                const metaStr = yaml.dump(json);
                 fs.writeFileSync(metaFile, metaStr);
 
                 createCoverImage(existCover, meta)

@@ -24,7 +24,7 @@ export function readClosestEpubYaml(fromPath: string): Result<EpubYaml> {
 
     try {
         const buff = fs.readFileSync(yamlFile);
-        const json = yaml.safeLoad(buff.toString()) as Record<string, string>;
+        const json = yaml.load(buff.toString()) as Record<string, string>;
         if (!json) {
             return failure(`[${yamlFile}] 不是合法的 YAML 格式`);
         }

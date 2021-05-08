@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import klawSync from 'klaw-sync';
 import _ from 'lodash';
-import PImage from 'pureimage';
+import * as PImage from 'pureimage';
 import {logError, logInfo} from '@someok/node-utils/lib/logUtils';
 import Meta from '../metadata/Meta';
 

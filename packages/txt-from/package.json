@@ -27,7 +27,7 @@
   "homepage": "https://github.com/someok/node-toolkit/tree/master/packages/txt-from#readme",
   "repository": "https://github.com/someok/node-toolkit/tree/master/packages/txt-from",
   "engines": {
-    "node": ">= 10.19.0"
+    "node": ">= 12"
   },
   "dependencies": {
     "@someok/node-utils": "^1.4.0"
